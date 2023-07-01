@@ -1,25 +1,18 @@
 // REACT
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useToast } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 
 // FUNCTIONS
 import { createProduct } from '../../../functions/product'
+import { getCategories, getCategorySubs } from '../../../functions/category'
 
 // COMPONENTS
 import AdminNav from '../../../components/nav/AdminNav'
 
 // STYLE
-import {
-  Flex,
-  Box,
-  Button,
-  Heading,
-  FormLabel,
-  Input,
-  Text,
-  Select,
-} from '@chakra-ui/react'
+import { Flex, Box, Heading } from '@chakra-ui/react'
+import ProductCreateForm from '../../../components/forms/ProductCreateForm'
 
 const initialState = {
   title: '',
@@ -39,40 +32,29 @@ const initialState = {
 const ProductCreate = () => {
   const toast = useToast()
   const [values, setValues] = useState(initialState)
+  const [subOptions, setSubOptions] = useState([])
+  const [showSub, setShowSub] = useState(false)
 
   // LOGGED IN USER
   const user = useSelector((state) => state.user.loggedInUser)
 
-  const {
-    title,
-    description,
-    price,
-    categories,
-    category,
-    subs,
-    shipping,
-    quantity,
-    images,
-    colors,
-    brands,
-    color,
-    brand,
-  } = values
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await createProduct(values, user.token)
+      await createProduct(values, user.token)
       toast({
         title: 'Product created!',
         status: 'success',
-        duration: 3000,
+        duration: 1000,
         isClosable: true,
       })
+      setTimeout(() => {
+        window.location.reload() // Reload the page after 1 second
+      }, 1000)
     } catch (err) {
       console.log(err)
       toast({
-        title: err.message,
+        title: err.response.data.err,
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -84,118 +66,63 @@ const ProductCreate = () => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
 
+  const handleCatagoryChange = (e) => {
+    e.preventDefault()
+    console.log('CLICKED CATEGORY', e.target.value)
+    setValues({ ...values, subs: [], category: e.target.value })
+    getCategorySubs(e.target.value).then((res) => {
+      console.log('SUB OPTIONS ON CATGORY CLICK', res)
+      setSubOptions(res.data)
+    })
+  }
+
+  const loadCategories = () => {
+    getCategories().then((c) => setValues({ ...values, categories: c.data }))
+  }
+  useEffect(() => {
+    loadCategories()
+  }, [])
+
+  // PRICE & QUANTITY STEPPERS
+  const incrementPrice = () => {
+    const newPrice = Number(values.price) + 0.1
+    setValues({ ...values, price: newPrice.toFixed(1) })
+  }
+  const decrementPrice = () => {
+    if (Number(values.price && Number(values.price) > 0)) {
+      const newPrice = Number(values.price) - 0.1
+      setValues({ ...values, price: newPrice.toFixed(1) })
+    }
+  }
+  const incrementQuantity = () => {
+    const newQuantity = Number(values.quantity) + 1
+    setValues({ ...values, quantity: newQuantity.toFixed(0) })
+  }
+  const decrementQuantity = () => {
+    if (Number(values.quantity && Number(values.quantity) > 1)) {
+      const newQuantity = Number(values.quantity) - 1
+      setValues({ ...values, quantity: newQuantity.toFixed(0) })
+    }
+  }
   return (
     <Box h="90vh" w="100%">
       <Flex>
         <AdminNav />
         <Flex w="70%" direction="column" my={5} mx={10}>
           <Heading color="blue">Create a product</Heading>
-          <Flex as="form" direction="column" onSubmit={handleSubmit}>
-            <Flex
-              direction={{ lg: 'row', base: 'column' }}
-              justifyContent="space-between"
-              my={4}
-            >
-              <Box w={{ lg: '45%', base: '90%' }}>
-                <FormLabel mt={2} color="gray">
-                  Title
-                </FormLabel>
-                <Input
-                  name="title"
-                  value={title}
-                  onChange={handleChange}
-                  placeholder="title"
-                />
-                <FormLabel mt={2} color="gray">
-                  Description
-                </FormLabel>
-                <Input
-                  name="description"
-                  value={description}
-                  onChange={handleChange}
-                  placeholder="description"
-                />
-                <FormLabel color="gray" mt={2}>
-                  Price
-                </FormLabel>
-                <Input
-                  type="number"
-                  name="price"
-                  value={price}
-                  onChange={handleChange}
-                  placeholder="price"
-                />
-                <Text color="gray" fontSize="md" fontWeight="600" mt={2}>
-                  Shipping
-                </Text>
-                <Select
-                  name="shipping"
-                  variant="flushed"
-                  placeholder="Please select"
-                  onChange={handleChange}
-                >
-                  <option value="Yes">YES</option>
-                  <option value="No">NO</option>
-                </Select>
-              </Box>
-
-              <Box w={{ lg: '45%', base: '90%' }}>
-                <FormLabel color="gray" mt={2}>
-                  Quantity
-                </FormLabel>
-                <Input
-                  type="number"
-                  name="quantity"
-                  value={quantity}
-                  onChange={handleChange}
-                  placeholder="quantity"
-                />
-                <Text color="gray" fontSize="md" fontWeight="600" mt={2}>
-                  Color
-                </Text>
-                <Select
-                  name="color"
-                  variant="flushed"
-                  placeholder="Please select"
-                  onChange={handleChange}
-                >
-                  {colors.map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </Select>
-
-                <Flex direction="column">
-                  <Text color="gray" fontSize="md" fontWeight="600" mt={2}>
-                    Brand
-                  </Text>
-                  <Select
-                    name="brand"
-                    variant="flushed"
-                    placeholder="Please select"
-                    onChange={handleChange}
-                  >
-                    {brands.map((b) => (
-                      <option key={b} value={b}>
-                        {b}
-                      </option>
-                    ))}
-                  </Select>
-                </Flex>
-              </Box>
-            </Flex>
-            <Button
-              type="submit"
-              w="30%"
-              // isDisabled={!name}
-              // isLoading={loading}
-              variant="outline"
-              colorScheme="blue"
-            >
-              Save
-            </Button>
-          </Flex>
+          <ProductCreateForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            values={values}
+            handleCatagoryChange={handleCatagoryChange}
+            subOptions={subOptions}
+            showSub={showSub}
+            setValues={setValues}
+            incrementPrice={incrementPrice}
+            decrementPrice={decrementPrice}
+            incrementQuantity={incrementQuantity}
+            decrementQuantity={decrementQuantity}
+          />
         </Flex>
       </Flex>
     </Box>

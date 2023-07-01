@@ -37,28 +37,7 @@ const UserNav = () => {
   const navigate = useNavigate()
 
   return (
-    // <Box>
-    //   <VStack align="start" spacing={2}>
-    //     <Button variant="link" colorScheme="blue">
-    //       <Link as={RouterLink} to="/user/history">
-    //         History
-    //       </Link>
-    //     </Button>
-
-    //     <Button variant="link" colorScheme="blue">
-    //       <Link as={RouterLink} to="/user/password">
-    //         Password
-    //       </Link>
-    //     </Button>
-
-    //     <Button variant="link" colorScheme="blue">
-    //       <Link as={RouterLink} to="/user/wishlist">
-    //         Wishlist
-    //       </Link>
-    //     </Button>
-    //   </VStack>
-    // </Box>
-    <Box w="200px" h="100vh" bg="gray.100" p={4}>
+    <Box w="200px" h="calc(100vh - 41px)" bg="gray.100" p={4}>
       <Flex
         direction="column"
         justifyContent="center"

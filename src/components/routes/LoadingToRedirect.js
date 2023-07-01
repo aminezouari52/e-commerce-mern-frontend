@@ -17,7 +17,7 @@ const LoadingToRedirect = () => {
     count === 0 && navigate('/')
     // cleanup
     return () => clearInterval(interval)
-  }, [count])
+  }, [count, navigate])
 
   return (
     <Flex justifyContent="center">
