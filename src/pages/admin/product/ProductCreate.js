@@ -13,6 +13,7 @@ import AdminNav from '../../../components/nav/AdminNav'
 // STYLE
 import { Flex, Box, Heading } from '@chakra-ui/react'
 import ProductCreateForm from '../../../components/forms/ProductCreateForm'
+import FileUpload from '../../../components/forms/FileUpload'
 
 const initialState = {
   title: '',
@@ -33,7 +34,7 @@ const ProductCreate = () => {
   const toast = useToast()
   const [values, setValues] = useState(initialState)
   const [subOptions, setSubOptions] = useState([])
-  const [showSub, setShowSub] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   // LOGGED IN USER
   const user = useSelector((state) => state.user.loggedInUser)
@@ -110,13 +111,19 @@ const ProductCreate = () => {
         <AdminNav />
         <Flex w="70%" direction="column" my={5} mx={10}>
           <Heading color="blue">Create a product</Heading>
+          {JSON.stringify(values.images)}
+          <FileUpload
+            values={values}
+            setValues={setValues}
+            setLoading={setLoading}
+            loading={loading}
+          />
           <ProductCreateForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             values={values}
             handleCatagoryChange={handleCatagoryChange}
             subOptions={subOptions}
-            showSub={showSub}
             setValues={setValues}
             incrementPrice={incrementPrice}
             decrementPrice={decrementPrice}

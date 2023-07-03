@@ -1,3 +1,6 @@
+// COMPONENTS
+import FileUpload from './FileUpload'
+
 // STYLE
 import {
   Flex,
@@ -25,13 +28,11 @@ const ProductCreateForm = ({
   handleSubmit,
   handleChange,
   handleCatagoryChange,
-  valueQuantity,
   incrementPrice,
   decrementPrice,
   incrementQuantity,
   decrementQuantity,
   subOptions,
-  showSub,
   setValues,
 
   values,
@@ -59,18 +60,15 @@ const ProductCreateForm = ({
       alignItems={{ lg: 'end', base: 'start' }}
       onSubmit={handleSubmit}
     >
-      <Button onClick={() => console.log(values)}>click</Button>
       <Flex
         w="100%"
         direction={{ lg: 'row', base: 'column' }}
         justifyContent="space-between"
-        my={4}
+        mb={4}
       >
         <Box w={{ lg: '45%', base: '90%' }}>
           <FormControl isRequired>
-            <FormLabel mt={2} color="gray">
-              Title
-            </FormLabel>
+            <FormLabel color="gray">Title</FormLabel>
             <Input
               name="title"
               value={title}
@@ -229,10 +227,10 @@ const ProductCreateForm = ({
       </Flex>
       <Button
         type="submit"
-        w="15%"
+        // w="15%"
         // isDisabled={!name}
         // isLoading={loading}
-        variant="outline"
+        // variant="outline"
         colorScheme="blue"
       >
         Save
