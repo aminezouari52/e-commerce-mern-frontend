@@ -105,34 +105,36 @@ const ProductCreate = () => {
       setValues({ ...values, quantity: newQuantity.toFixed(0) })
     }
   }
+
   return (
-    <Box h="90vh" w="100%">
-      <Flex>
-        <AdminNav />
-        <Flex w="70%" direction="column" my={5} mx={10}>
-          <Heading color="blue">Create a product</Heading>
-          {JSON.stringify(values.images)}
-          <FileUpload
-            values={values}
-            setValues={setValues}
-            setLoading={setLoading}
-            loading={loading}
-          />
-          <ProductCreateForm
-            handleSubmit={handleSubmit}
-            handleChange={handleChange}
-            values={values}
-            handleCatagoryChange={handleCatagoryChange}
-            subOptions={subOptions}
-            setValues={setValues}
-            incrementPrice={incrementPrice}
-            decrementPrice={decrementPrice}
-            incrementQuantity={incrementQuantity}
-            decrementQuantity={decrementQuantity}
-          />
-        </Flex>
-      </Flex>
-    </Box>
+    <Flex
+      w="70%"
+      direction="column"
+      h={{ lg: 'calc(100vh - 49px)', base: 'calc(100% - 49px)' }}
+      mx={10}
+    >
+      <Heading color="blue" mt={5}>
+        Create a product
+      </Heading>
+      <FileUpload
+        values={values}
+        setValues={setValues}
+        setLoading={setLoading}
+        loading={loading}
+      />
+      <ProductCreateForm
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        values={values}
+        handleCatagoryChange={handleCatagoryChange}
+        subOptions={subOptions}
+        setValues={setValues}
+        incrementPrice={incrementPrice}
+        decrementPrice={decrementPrice}
+        incrementQuantity={incrementQuantity}
+        decrementQuantity={decrementQuantity}
+      />
+    </Flex>
   )
 }
 

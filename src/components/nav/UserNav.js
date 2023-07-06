@@ -37,7 +37,7 @@ const UserNav = () => {
   const navigate = useNavigate()
 
   return (
-    <Box w="200px" h="calc(100vh - 41px)" bg="gray.100" p={4}>
+    <Box w="200px" h="calc(100vh - 49px)" bg="gray.100" p={4}>
       <Flex
         direction="column"
         justifyContent="center"

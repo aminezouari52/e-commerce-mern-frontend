@@ -58,23 +58,18 @@ const CategoryUpdate = () => {
   }
 
   return (
-    <Box w="100%" h="90vh">
-      <Flex>
-        <AdminNav />
-        <Flex w="70%" direction="column" my={5} mx={10}>
-          <Heading mb={6} color="blue">
-            Update a Category
-          </Heading>
-          <CategoryForm
-            label="category"
-            name={name}
-            setName={setName}
-            handleSubmit={handleSubmit}
-            loading={loading}
-          />
-        </Flex>
-      </Flex>
-    </Box>
+    <Flex w="70%" direction="column" h="calc(100vh - 49px)" mx={10}>
+      <Heading my={5} color="blue">
+        Update a Category
+      </Heading>
+      <CategoryForm
+        label="category"
+        name={name}
+        setName={setName}
+        handleSubmit={handleSubmit}
+        loading={loading}
+      />
+    </Flex>
   )
 }
 

@@ -73,39 +73,36 @@ const SubUpdate = () => {
   }, [params.slug])
 
   return (
-    <Box w="100%" h="90vh">
-      <Flex>
-        <AdminNav />
-        <Flex w="70%" direction="column" my={5} mx={10}>
-          <Heading color="blue">Update a sub Category</Heading>
-          <Flex direction="column" my={4}>
-            <Text color="gray" fontSize="md" fontWeight="600">
-              Parent category
-            </Text>
-            <Select
-              variant="flushed"
-              placeholder="Please select"
-              onChange={(e) => setParent(e.target.value)}
-              value={parent}
-            >
-              {categories.length > 0 &&
-                categories.map((c) => (
-                  <option key={c._id} value={c._id}>
-                    {c.name}
-                  </option>
-                ))}
-            </Select>
-          </Flex>
-          <CategoryForm
-            label="sub category"
-            name={name}
-            setName={setName}
-            handleSubmit={handleSubmit}
-            loading={loading}
-          />
-        </Flex>
+    <Flex w="70%" direction="column" h="calc(100vh - 49px)" mx={10}>
+      <Heading color="blue" my={5}>
+        Update a sub Category
+      </Heading>
+      <Flex direction="column" mb={4}>
+        <Text color="gray" fontSize="md" fontWeight="600">
+          Parent category
+        </Text>
+        <Select
+          variant="flushed"
+          placeholder="Please select"
+          onChange={(e) => setParent(e.target.value)}
+          value={parent}
+        >
+          {categories.length > 0 &&
+            categories.map((c) => (
+              <option key={c._id} value={c._id}>
+                {c.name}
+              </option>
+            ))}
+        </Select>
       </Flex>
-    </Box>
+      <CategoryForm
+        label="sub category"
+        name={name}
+        setName={setName}
+        handleSubmit={handleSubmit}
+        loading={loading}
+      />
+    </Flex>
   )
 }
 

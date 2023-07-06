@@ -26,12 +26,9 @@ import {
 // ICONS
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { CiSettings } from 'react-icons/ci'
-import {
-  AiOutlineAppstore,
-  AiOutlineUserAdd,
-  AiOutlineUser,
-} from 'react-icons/ai'
+import { AiOutlineUserAdd, AiOutlineUser } from 'react-icons/ai'
 import { FiLogOut } from 'react-icons/fi'
+import { BiHome } from 'react-icons/bi'
 
 const Header = () => {
   const toast = useToast()
@@ -77,9 +74,9 @@ const Header = () => {
       >
         <Button
           _hover={{ color: 'blue' }}
-          fontSize={{ lg: '16px', base: '12px' }}
           variant="transparent-with-icon"
-          leftIcon={<Icon as={AiOutlineAppstore} />}
+          leftIcon={<Icon as={BiHome} />}
+          size="lg"
         >
           <Text>Home</Text>
         </Button>

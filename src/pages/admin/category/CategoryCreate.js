@@ -95,7 +95,7 @@ const CategoryCreate = () => {
       const res = await removeCategory(slug, user.token)
       setLoading(false)
       toast({
-        title: `${res.data.name} deleted`,
+        title: `"${res.data.name}" deleted`,
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -115,85 +115,85 @@ const CategoryCreate = () => {
   }
 
   return (
-    <Box h="90vh" w="100%">
-      <Flex>
-        <AdminNav />
-        <Flex w="70%" direction="column" my={5} mx={10}>
-          <Heading mb={6} color="blue">
-            Create a category
-          </Heading>
-          <CategoryForm
-            label="category"
-            name={name}
-            setName={setName}
-            handleSubmit={handleSubmit}
-            loading={loading}
-          />
-          <LocalSearch keyword={keyword} setKeyword={setKeyword} />
-          <Text color="gray" fontSize="xl" fontWeight="600" my={2}>
-            Categories
-          </Text>
-          <Flex direction="column">
-            {categories.filter(searched(keyword)).map((c) => (
-              <Flex
-                justifyContent="space-between"
-                key={c._id}
-                bg="gray.100"
-                mb={2}
-                py={2}
-                px={4}
+    <Flex
+      w="70%"
+      direction="column"
+      h={categories.length > 5 ? 'calc(100% - 49px)' : 'calc(100vh - 49px)'}
+      mx={10}
+    >
+      <Heading my={5} color="blue">
+        Create a category
+      </Heading>
+      <CategoryForm
+        label="Category"
+        name={name}
+        setName={setName}
+        handleSubmit={handleSubmit}
+        loading={loading}
+      />
+      <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+      <Text color="gray" fontSize="xl" fontWeight="600" my={2}>
+        Categories
+      </Text>
+      <Flex direction="column">
+        {categories.filter(searched(keyword)).map((c) => (
+          <Flex
+            justifyContent="space-between"
+            key={c._id}
+            bg="gray.100"
+            mb={2}
+            py={2}
+            px={4}
+          >
+            <Text>{c.name}</Text>
+            <Flex>
+              <Button
+                size="sm"
+                colorScheme="yellow"
+                mr={2}
+                onClick={() => navigate(`/admin/category/${c.slug}`)}
               >
-                <Text>{c.name}</Text>
-                <Flex>
-                  <Button
-                    size="sm"
-                    colorScheme="yellow"
-                    mr={2}
-                    onClick={() => navigate(`/admin/category/${c.slug}`)}
-                  >
-                    <Icon as={AiFillEdit} />
-                  </Button>
-                  <Button size="sm" colorScheme="red" onClick={() => onOpen()}>
-                    <Icon as={AiFillDelete} />
-                  </Button>
-                  {/* DELETE DIALOG */}
-                  <AlertDialog
-                    isOpen={isOpen}
-                    leastDestructiveRef={cancelRef}
-                    onClose={onClose}
-                  >
-                    <AlertDialogOverlay bgColor="rgba(0, 0, 0, 0.2)">
-                      <AlertDialogContent>
-                        <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                          Delete Category
-                        </AlertDialogHeader>
+                <Icon as={AiFillEdit} />
+              </Button>
+              <Button size="sm" colorScheme="red" onClick={() => onOpen()}>
+                <Icon as={AiFillDelete} />
+              </Button>
+              {/* DELETE DIALOG */}
+              <AlertDialog
+                isOpen={isOpen}
+                leastDestructiveRef={cancelRef}
+                onClose={onClose}
+              >
+                <AlertDialogOverlay bgColor="rgba(0, 0, 0, 0.2)">
+                  <AlertDialogContent>
+                    <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                      Delete Category
+                    </AlertDialogHeader>
 
-                        <AlertDialogBody>
-                          Are you sure? You can't undo this action afterwards.
-                        </AlertDialogBody>
+                    <AlertDialogBody>
+                      Are you sure? You can't undo this action afterwards.
+                    </AlertDialogBody>
 
-                        <AlertDialogFooter>
-                          <Button ref={cancelRef} onClick={onClose}>
-                            Cancel
-                          </Button>
-                          <Button
-                            colorScheme="red"
-                            onClick={() => handleRemove(c.slug)}
-                            ml={3}
-                          >
-                            Delete
-                          </Button>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialogOverlay>
-                  </AlertDialog>
-                </Flex>
-              </Flex>
-            ))}
+                    <AlertDialogFooter>
+                      <Button ref={cancelRef} onClick={onClose}>
+                        Cancel
+                      </Button>
+                      <Button
+                        colorScheme="red"
+                        onClick={() => handleRemove(c.slug)}
+                        ml={3}
+                      >
+                        Delete
+                      </Button>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialogOverlay>
+              </AlertDialog>
+            </Flex>
           </Flex>
-        </Flex>
+        ))}
       </Flex>
-    </Box>
+    </Flex>
   )
 }
 

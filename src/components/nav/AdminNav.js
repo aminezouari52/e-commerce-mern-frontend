@@ -6,6 +6,10 @@ import { Box, Button, Icon, Flex, Stack } from '@chakra-ui/react'
 
 // ICONS
 import { MdOutlineSpaceDashboard } from 'react-icons/md'
+import { BiCube } from 'react-icons/bi'
+import { GrCubes } from 'react-icons/gr'
+import { FaListUl } from 'react-icons/fa'
+import { MdSubject } from 'react-icons/md'
 
 const navElements = [
   {
@@ -15,47 +19,32 @@ const navElements = [
   },
   {
     title: 'Product',
-    icon: (
-      <Box mr={4} fill="tertiary.500">
-        {/* <UsersIcon height="20px" width="20px" /> */}
-      </Box>
-    ),
+    icon: <Icon as={BiCube} mr={2} />,
     link: '/admin/product',
   },
   {
+    title: 'Products',
+    icon: <Icon as={GrCubes} mr={2} />,
+    link: '/admin/products',
+  },
+  {
     title: 'Category',
-    icon: (
-      <Box mr={4}>
-        {/* <CalendarIcon color="primary.500" h="20px" w="20px" /> */}
-      </Box>
-    ),
+    icon: <Icon as={FaListUl} mr={2} />,
     link: '/admin/category',
   },
   {
     title: 'Sub category',
-    icon: (
-      <Box mr={4} fill="green.500">
-        {/* <LaptopIcon height="20px" width="20px" /> */}
-      </Box>
-    ),
+    icon: <Icon as={MdSubject} mr={2} />,
     link: '/admin/sub',
   },
   {
     title: 'Coupon',
-    icon: (
-      <Box mr={4} fill="error.500">
-        {/* <GraphTreeIcon height="20px" width="20px" /> */}
-      </Box>
-    ),
+    icon: <Icon as={BiCube} mr={2} />,
     link: '/admin/coupon',
   },
   {
     title: 'Password',
-    icon: (
-      <Box mr={4} fill="error.500">
-        {/* <GraphTreeIcon height="20px" width="20px" /> */}
-      </Box>
-    ),
+    icon: <Icon as={BiCube} mr={2} />,
     link: '/user/password',
   },
 ]
@@ -64,7 +53,7 @@ const AdminNav = () => {
   const navigate = useNavigate()
 
   return (
-    <Box w="200px" h="calc(100vh - 41px)" bg="gray.100" p={4}>
+    <Box bg="gray.200" p={4}>
       <Flex
         direction="column"
         justifyContent="center"

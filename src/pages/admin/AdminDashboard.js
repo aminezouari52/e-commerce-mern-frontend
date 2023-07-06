@@ -2,17 +2,15 @@
 import AdminNav from '../../components/nav/AdminNav'
 
 // STYLE
-import { Flex, Box } from '@chakra-ui/react'
+import { Flex, Box, Heading } from '@chakra-ui/react'
 
-const AdminDashboard = () => (
-  <Box w="100%">
-    <Flex>
-      <AdminNav />
-      <Box my={5} mx={10}>
-        Admin Dashboard
-      </Box>
-    </Flex>
-  </Box>
-)
-
+const AdminDashboard = () => {
+  return (
+    <Box h="calc(100vh - 49px)" mx={10}>
+      <Heading mb={6} color="blue" mt={5}>
+        Admin dashboard
+      </Heading>
+    </Box>
+  )
+}
 export default AdminDashboard

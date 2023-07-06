@@ -10,6 +10,10 @@ import { currentAdmin } from '../../functions/auth'
 
 // COMPONENTS
 import LoadingToRedirect from './LoadingToRedirect'
+import AdminNav from '../nav/AdminNav'
+
+// STYLE
+import { Box, Flex } from '@chakra-ui/react'
 
 const AdminRoute = () => {
   const user = useSelector((state) => state.user.loggedInUser)
@@ -27,7 +31,16 @@ const AdminRoute = () => {
     }
   }, [user])
 
-  return ok ? <Outlet /> : <LoadingToRedirect />
+  return ok ? (
+    <Box w="100%" overflowX="hidden">
+      <Flex>
+        <AdminNav />
+        <Outlet />
+      </Flex>
+    </Box>
+  ) : (
+    <LoadingToRedirect />
+  )
 }
 
 export default AdminRoute
