@@ -12,7 +12,7 @@ import { getProductsByCount, removeProduct } from '../../../functions/product'
 import AdminProductCard from '../../../components/cards/AdminProductCard'
 
 // STYLE
-import { Flex, Box, Heading, Center, Spinner } from '@chakra-ui/react'
+import { Flex, Box, Heading, Center, Spinner, Text } from '@chakra-ui/react'
 
 const AllProducts = () => {
   const toast = useToast()
@@ -79,6 +79,7 @@ const AllProducts = () => {
           <Spinner size="xl" color="blue" />
         </Center>
       )}
+
       <Box
         w="100%"
         my={5}
@@ -88,20 +89,26 @@ const AllProducts = () => {
         <Heading mb={6} color="blue">
           All products
         </Heading>
-        <Flex wrap="wrap" justifyContent="space-between">
-          {products.map((product) => {
-            return (
-              <AdminProductCard
-                product={product}
-                key={product._id}
-                handleRemove={handleRemove}
-                isOpen={isOpen}
-                onOpen={onOpen}
-                onClose={onClose}
-              />
-            )
-          })}
-        </Flex>
+        {products.length > 0 ? (
+          <Flex wrap="wrap" justifyContent="space-between">
+            {products.map((product) => {
+              return (
+                <AdminProductCard
+                  product={product}
+                  key={product._id}
+                  handleRemove={handleRemove}
+                  isOpen={isOpen}
+                  onOpen={onOpen}
+                  onClose={onClose}
+                />
+              )
+            })}
+          </Flex>
+        ) : (
+          <Text fontSize="xl" my={5} h="calc(100vh - 49px)">
+            No products found
+          </Text>
+        )}
       </Box>
     </>
   )

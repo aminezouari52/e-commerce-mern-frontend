@@ -1,4 +1,8 @@
+// REACT
 import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+// STYLE
 import {
   Card,
   Image,
@@ -8,11 +12,9 @@ import {
   CardBody,
   Divider,
   CardFooter,
-  ButtonGroup,
   Button,
   Flex,
   Icon,
-  Box,
   AlertDialogOverlay,
   AlertDialog,
   AlertDialogContent,
@@ -35,11 +37,11 @@ const AdminProductCard = ({
   // destructure
   const { title, description, images, slug } = product
 
+  const navigate = useNavigate()
   const cancelRef = useRef()
 
   return (
     <Card w="31%" minW="200px" mb={4}>
-      <Button onClick={() => console.log(slug)}>fsqfqs</Button>
       <CardBody>
         <Image
           src={images && images.length ? images[0].url : laptop}
@@ -61,7 +63,14 @@ const AdminProductCard = ({
       <Divider />
       <CardFooter p={4}>
         <Flex justifyContent="space-around" w="100%">
-          <Button variant="ghost" colorScheme="yellow" size="lg">
+          <Button
+            variant="ghost"
+            colorScheme="yellow"
+            size="lg"
+            onClick={() => {
+              navigate(`/admin/product/${slug}`)
+            }}
+          >
             <Icon as={AiFillEdit} h="30px" w="30px" />
           </Button>
           <Divider orientation="vertical" />

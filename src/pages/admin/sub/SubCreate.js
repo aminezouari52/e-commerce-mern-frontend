@@ -123,7 +123,7 @@ const SubCreate = () => {
         Create a sub category
       </Heading>
       <Flex direction="column" mb={4}>
-        <Text color="gray" fontSize="md" fontWeight="600">
+        <Text fontSize="md" fontWeight="600">
           Parent category
         </Text>
         <Select
@@ -147,7 +147,7 @@ const SubCreate = () => {
         loading={loading}
       />
       <LocalSearch keyword={keyword} setKeyword={setKeyword} />
-      <Text color="gray" fontSize="xl" fontWeight="600" my={2}>
+      <Text fontSize="xl" fontWeight="600" my={2}>
         All sub categories
       </Text>
       <Flex direction="column">

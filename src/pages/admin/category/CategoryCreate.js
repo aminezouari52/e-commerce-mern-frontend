@@ -132,7 +132,7 @@ const CategoryCreate = () => {
         loading={loading}
       />
       <LocalSearch keyword={keyword} setKeyword={setKeyword} />
-      <Text color="gray" fontSize="xl" fontWeight="600" my={2}>
+      <Text fontSize="xl" fontWeight="600" my={2}>
         Categories
       </Text>
       <Flex direction="column">

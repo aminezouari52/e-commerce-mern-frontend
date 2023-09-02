@@ -78,7 +78,7 @@ const SubUpdate = () => {
         Update a sub Category
       </Heading>
       <Flex direction="column" mb={4}>
-        <Text color="gray" fontSize="md" fontWeight="600">
+        <Text fontSize="md" fontWeight="600">
           Parent category
         </Text>
         <Select

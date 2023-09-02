@@ -10,7 +10,7 @@ const CategoryForm = ({ handleSubmit, name, setName, loading, label }) => {
       // minWidth="250px"
       onSubmit={handleSubmit}
     >
-      <FormLabel color="gray">{label}</FormLabel>
+      <FormLabel>{label}</FormLabel>
       <Input
         value={name}
         onChange={(e) => setName(e.target.value)}
