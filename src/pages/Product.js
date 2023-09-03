@@ -8,6 +8,9 @@ import { getProduct } from '../functions/product'
 // COMPONENTS
 import SingleProduct from '../components/cards/SingleProduct'
 
+// STYLE
+import { Box, Text } from '@chakra-ui/react'
+
 const Product = ({ match }) => {
   const params = useParams()
   const [product, setProduct] = useState({})
@@ -21,15 +24,15 @@ const Product = ({ match }) => {
   }, [slug])
 
   return (
-    <div className="container-fluid">
-      <div className="row pt-4">
-        <SingleProduct product={product} />
-      </div>
-
-      <div className="row">
-        <div>Related products</div>
-      </div>
-    </div>
+    <Box w="100%">
+      <SingleProduct product={product} />
+      <Text>Related products</Text>
+      <Text>Related products</Text>
+      <Text>Related products</Text>
+      <Text>Related products</Text>
+      <Text>Related products</Text>
+      <Text>Related products</Text>
+    </Box>
   )
 }
 

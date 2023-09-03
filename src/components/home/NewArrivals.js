@@ -22,7 +22,7 @@ const NewArrivals = () => {
   const loadAllProducts = () => {
     setLoading(true)
     // sort, order, limit
-    getProducts('createdAt', 'desc', 10).then((res) => {
+    getProducts('createdAt', 'desc', products?.length).then((res) => {
       setProducts(res.data)
       setLoading(false)
     })

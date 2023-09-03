@@ -17,7 +17,7 @@ import laptop from '../../images/laptop.jpg'
 import { AiOutlineEye } from 'react-icons/ai'
 import { BsCartFill } from 'react-icons/bs'
 
-const ProductCard = ({ product, productKey }) => {
+const ProductCard = ({ product }) => {
   const navigate = useNavigate()
   const { images, title, description, slug } = product
 
