@@ -1,7 +1,7 @@
 // REACT
 import { useState, useEffect } from 'react'
 import { useToast } from '@chakra-ui/react'
-import { useNavigate, NavLink } from 'react-router-dom'
+import { useNavigate, NavLink, useLocation } from 'react-router-dom'
 
 // FIREBASE
 import { auth, googleAuthProvider } from '../../firebase'
@@ -25,29 +25,41 @@ const Login = () => {
   // HOOKS
   const toast = useToast()
   const navigate = useNavigate()
+  const location = useLocation()
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
-  // CHECK IF USER EXISTS
+  // REDIRECT USER
   const loggedInUser = useSelector((state) => state.user.loggedInUser)
   useEffect(() => {
-    if (loggedInUser && loggedInUser.token) {
-      if (loggedInUser.role === 'admin') {
+    const intended = location.state
+    if (intended) {
+      return
+    } else {
+      console.log('got here')
+      if (loggedInUser && loggedInUser.token) {
+        if (loggedInUser.role === 'admin') {
+          navigate('/admin/dashboard')
+        } else {
+          navigate('/user/history')
+        }
+      }
+    }
+  }, [loggedInUser, navigate, location])
+
+  // REDIRECT FUNCTION
+  const roleBasedRedirect = (res) => {
+    const intended = location.state
+    if (intended) {
+      navigate(intended.from)
+    } else {
+      if (res.data.role === 'admin') {
         navigate('/admin/dashboard')
       } else {
         navigate('/user/history')
       }
-    }
-  }, [loggedInUser, navigate])
-
-  // REDIRECT FUNCTION
-  const roleBasedRedirect = (res) => {
-    if (res.data.role === 'admin') {
-      navigate('/admin/dashboard')
-    } else {
-      navigate('/user/history')
     }
   }
   // SUBMIT FUNCTION

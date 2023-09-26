@@ -61,6 +61,9 @@ const App = () => {
     return () => unsubscribe()
   }, [dispatch])
 
+  // OPTIONAL
+  // TODO: handle not-found routes (example: /auth/login)
+
   return (
     <>
       <Header />

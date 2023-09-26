@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 
 export const createProduct = async (product, authtoken) =>
   await axios.post(`${process.env.REACT_APP_API}/product`, product, {
@@ -34,3 +34,14 @@ export const getProducts = async (sort, order, limit) =>
     order,
     limit,
   })
+
+export const productStar = async (productId, star, authtoken) =>
+  await axios.put(
+    `${process.env.REACT_APP_API}/product/star/${productId}`,
+    { star },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  )

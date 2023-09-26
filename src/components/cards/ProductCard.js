@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom"
 import {
   Card,
   CardBody,
@@ -10,12 +10,13 @@ import {
   CardFooter,
   ButtonGroup,
   Button,
-} from '@chakra-ui/react'
-import { Icon } from '@chakra-ui/react'
-import laptop from '../../images/laptop.jpg'
+} from "@chakra-ui/react"
+import { Icon } from "@chakra-ui/react"
+import laptop from "../../images/laptop.jpg"
 
-import { AiOutlineEye } from 'react-icons/ai'
-import { BsCartFill } from 'react-icons/bs'
+import { AiOutlineEye } from "react-icons/ai"
+import { BsCartFill } from "react-icons/bs"
+import { showAverage } from "../../functions/rating"
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate()
@@ -23,6 +24,13 @@ const ProductCard = ({ product }) => {
 
   return (
     <Card minWidth="300px" w="30%" m={2}>
+      {product && product.ratings && product.ratings.length > 0 ? (
+        showAverage(product)
+      ) : (
+        <Text textAlign="center" p="2">
+          No rating yet
+        </Text>
+      )}
       <CardBody>
         <Image
           src={images && images.length ? images[0].url : laptop}
