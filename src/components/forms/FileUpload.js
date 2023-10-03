@@ -1,6 +1,6 @@
-import { useSelector } from 'react-redux'
-import Resizer from 'react-image-file-resizer'
-import axios from 'axios'
+import { useSelector } from "react-redux"
+import Resizer from "react-image-file-resizer"
+import axios from "axios"
 
 // STYLE
 import {
@@ -11,8 +11,8 @@ import {
   Input,
   Avatar,
   Spinner,
-} from '@chakra-ui/react'
-import { SmallCloseIcon } from '@chakra-ui/icons'
+} from "@chakra-ui/react"
+import { SmallCloseIcon } from "@chakra-ui/icons"
 
 const FileUpload = ({ values, setValues, setLoading, loading }) => {
   const user = useSelector((state) => state.user.loggedInUser)
@@ -21,7 +21,6 @@ const FileUpload = ({ values, setValues, setLoading, loading }) => {
     let files = e.target.files // 3
     let allUploadedFiles = values.images
 
-    console.log(e.target.files)
     // resize
     if (files) {
       setLoading(true)
@@ -30,45 +29,40 @@ const FileUpload = ({ values, setValues, setLoading, loading }) => {
           files[i],
           720,
           720,
-          'JPEG',
+          "JPEG",
           100,
           0,
           async (uri) => {
-            console.log(uri)
             try {
               const res = await axios.post(
                 `${process.env.REACT_APP_API}/uploadimages`,
                 { image: uri },
-                { headers: { authtoken: user ? user.token : '' } }
+                { headers: { authtoken: user ? user.token : "" } }
               )
-              console.log('IMAGE UPLOAD RES DATA', res)
               setLoading(false)
               allUploadedFiles.push(res.data)
 
               setValues({ ...values, images: allUploadedFiles })
             } catch (err) {
               setLoading(false)
-              console.log('CLOUDINARY UPLOAD ERR', err)
+              console.log("CLOUDINARY UPLOAD ERR", err)
             }
           },
-          'base64'
+          "base64"
         )
       }
     }
-    // send back to server to upload to cloudinary
-    // set url to images[] in the parent component state - ProductCreate
   }
 
   const handleImageRemove = async (public_id) => {
     setLoading(true)
-    // console.log("remove image", public_id);
     try {
       await axios.post(
         `${process.env.REACT_APP_API}/removeimage`,
         { public_id },
         {
           headers: {
-            authtoken: user ? user.token : '',
+            authtoken: user ? user.token : "",
           },
         }
       )
@@ -118,7 +112,7 @@ const FileUpload = ({ values, setValues, setLoading, loading }) => {
             fontWeight="bold"
             cursor="pointer"
             borderRadius="4px"
-            _hover={{ opacity: '0.7' }}
+            _hover={{ opacity: "0.7" }}
             py={2}
             px={4}
           >

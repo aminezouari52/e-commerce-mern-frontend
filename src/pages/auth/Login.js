@@ -1,25 +1,25 @@
 // REACT
-import { useState, useEffect } from 'react'
-import { useToast } from '@chakra-ui/react'
-import { useNavigate, NavLink, useLocation } from 'react-router-dom'
+import { useState, useEffect } from "react"
+import { useToast } from "@chakra-ui/react"
+import { useNavigate, NavLink, useLocation } from "react-router-dom"
 
 // FIREBASE
-import { auth, googleAuthProvider } from '../../firebase'
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
+import { auth, googleAuthProvider } from "../../firebase"
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
 
 // REDUX
-import { useDispatch, useSelector } from 'react-redux'
-import { setLoggedInUser } from '../../reducers/userReducer'
+import { useDispatch, useSelector } from "react-redux"
+import { setLoggedInUser } from "../../reducers/userReducer"
 
 // FUNCTIONS
-import { createOrUpdateUser } from '../../functions/auth'
+import { createOrUpdateUser } from "../../functions/auth"
 
 // STYLE
-import { Flex, Heading, Input, Button, Link, Text } from '@chakra-ui/react'
+import { Flex, Heading, Input, Button, Link, Text } from "@chakra-ui/react"
 
 // ICONS
-import { AiOutlineMail } from 'react-icons/ai'
-import { FcGoogle } from 'react-icons/fc'
+import { AiOutlineMail } from "react-icons/ai"
+import { FcGoogle } from "react-icons/fc"
 
 const Login = () => {
   // HOOKS
@@ -27,8 +27,8 @@ const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useDispatch()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
 
   // REDIRECT USER
@@ -38,12 +38,11 @@ const Login = () => {
     if (intended) {
       return
     } else {
-      console.log('got here')
       if (loggedInUser && loggedInUser.token) {
-        if (loggedInUser.role === 'admin') {
-          navigate('/admin/dashboard')
+        if (loggedInUser.role === "admin") {
+          navigate("/admin/dashboard")
         } else {
-          navigate('/user/history')
+          navigate("/user/history")
         }
       }
     }
@@ -55,10 +54,10 @@ const Login = () => {
     if (intended) {
       navigate(intended.from)
     } else {
-      if (res.data.role === 'admin') {
-        navigate('/admin/dashboard')
+      if (res.data.role === "admin") {
+        navigate("/admin/dashboard")
       } else {
-        navigate('/user/history')
+        navigate("/user/history")
       }
     }
   }
@@ -91,7 +90,7 @@ const Login = () => {
       console.log(error)
       toast({
         title: error.message,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
       })
@@ -122,7 +121,7 @@ const Login = () => {
       console.log(err)
       toast({
         title: err.message,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
       })
@@ -158,7 +157,7 @@ const Login = () => {
           as={NavLink}
           to="/forgot-password" // Replace with your actual forgot password route
           color="blue"
-          _hover={{ textDecoration: 'underline' }}
+          _hover={{ textDecoration: "underline" }}
           fontSize="sm"
         >
           Forgot password?
@@ -187,7 +186,7 @@ const Login = () => {
           to="/register"
           color="blue"
           fontWeight="semibold"
-          _hover={{ textDecoration: 'underline' }}
+          _hover={{ textDecoration: "underline" }}
         >
           Register
         </Link>

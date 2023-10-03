@@ -1,34 +1,34 @@
 // REACT
-import { useState, useEffect, useCallback } from 'react'
-import { useToast } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useState, useEffect, useCallback } from "react"
+import { useToast } from "@chakra-ui/react"
+import { useSelector } from "react-redux"
+import { useNavigate, useParams } from "react-router-dom"
 
 // FUNCTIONS
-import { getCategories, getCategorySubs } from '../../../functions/category'
-import { getProduct, updateProduct } from '../../../functions/product'
+import { getCategories, getCategorySubs } from "../../../functions/category"
+import { getProduct, updateProduct } from "../../../functions/product"
 
 // COMPONENTS
-import FileUpload from '../../../components/forms/FileUpload'
-import ProductUpdateForm from '../../../components/forms/ProductUpdateForm'
+import FileUpload from "../../../components/forms/FileUpload"
+import ProductUpdateForm from "../../../components/forms/ProductUpdateForm"
 
 // STYLE
-import { Flex, Heading } from '@chakra-ui/react'
+import { Flex, Heading } from "@chakra-ui/react"
 
 const initialState = {
-  title: '',
-  description: '',
-  price: '',
+  title: "",
+  description: "",
+  price: "",
   categories: [],
-  category: '',
+  category: "",
   subs: [],
-  shipping: '',
-  quantity: '',
+  shipping: "",
+  quantity: "",
   images: [],
-  colors: ['Black', 'Brown', 'Silver', 'White', 'Blue'],
-  brands: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'ASUS'],
-  color: '',
-  brand: '',
+  colors: ["Black", "Brown", "Silver", "White", "Blue"],
+  brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
+  color: "",
+  brand: "",
 }
 const ProductUpdate = () => {
   const slug = useParams().slug
@@ -38,7 +38,7 @@ const ProductUpdate = () => {
   const [categories, setCategories] = useState([])
   const [subOptions, setSubOptions] = useState([])
   const [arrayOfSubs, setArrayOfSubs] = useState([])
-  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState("")
 
   const [loading, setLoading] = useState(false)
 
@@ -57,12 +57,12 @@ const ProductUpdate = () => {
 
       toast({
         title: `"${res.data.title}" is updated`,
-        status: 'success',
+        status: "success",
         duration: 1000,
         isClosable: true,
       })
       setTimeout(() => {
-        navigate('/admin/products')
+        navigate("/admin/products")
       }, 1000)
     } catch (err) {
       console.log(err)
@@ -70,7 +70,7 @@ const ProductUpdate = () => {
 
       toast({
         title: err.response.data.err,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
       })
@@ -83,19 +83,16 @@ const ProductUpdate = () => {
 
   const handleCategoryChange = (e) => {
     e.preventDefault()
-    console.log('CLICKED CATEGORY', e.target.value)
     setValues({ ...values, subs: [], category: e.target.value })
     setSelectedCategory(e.target.value)
 
     getCategorySubs(e.target.value).then((res) => {
-      console.log('SUB OPTIONS ON CATGORY CLICK', res)
       setSubOptions(res.data)
     })
   }
   const loadProduct = useCallback(async () => {
     try {
       const productResponse = await getProduct(slug)
-      // console.log('single product', productResponse)
       // 1 load single proudct
       setValues({ ...values, ...productResponse.data })
       // 2 load single product category subs
@@ -107,7 +104,6 @@ const ProductUpdate = () => {
       productResponse.data.subs.map((s) => {
         arr.push(s._id)
       })
-      // console.log("ARR", arr);
       setArrayOfSubs((prev) => arr) // required for chakraUI checkbox to work
     } catch (err) {
       console.log(err)
@@ -149,7 +145,7 @@ const ProductUpdate = () => {
     <Flex
       w="70%"
       direction="column"
-      h={{ lg: 'calc(100vh - 49px)', base: 'calc(100% - 49px)' }}
+      h={{ lg: "calc(100vh - 49px)", base: "calc(100% - 49px)" }}
       mx={10}
     >
       <Heading color="blue" mt={5}>

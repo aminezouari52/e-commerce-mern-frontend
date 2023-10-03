@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom'
-import { Flex, Text, Stack, HStack, Button } from '@chakra-ui/react'
+import { useNavigate } from "react-router-dom"
+import { Flex, Text, Stack, HStack, Button } from "@chakra-ui/react"
 
 const ProductListItems = ({ product }) => {
   const navigate = useNavigate()
@@ -14,27 +14,26 @@ const ProductListItems = ({ product }) => {
         </Text>
         <Text fontWeight="medium">$ {price}</Text>
       </Flex>
-      {category && (
-        <Flex justifyContent="space-between">
-          <Text fontWeight="medium" color="gray">
-            Category
-          </Text>
-
+      <Flex justifyContent="space-between">
+        <Text fontWeight="medium" color="gray">
+          Category
+        </Text>
+        {category && (
           <Button
             variant="link"
             colorScheme="teal"
-            onClick={() => navigate(category.slug)}
+            onClick={() => navigate(`/category/${category.slug}`)}
           >
             {category.name}
           </Button>
-        </Flex>
-      )}
+        )}
+      </Flex>
 
-      {subs && (
-        <Flex justifyContent="space-between">
-          <Text fontWeight="medium" color="gray">
-            Sub Categories
-          </Text>
+      <Flex justifyContent="space-between">
+        <Text fontWeight="medium" color="gray">
+          Sub Categories
+        </Text>
+        {subs && (
           <HStack spacing={4}>
             {subs.map((s) => (
               <Button
@@ -47,8 +46,8 @@ const ProductListItems = ({ product }) => {
               </Button>
             ))}
           </HStack>
-        </Flex>
-      )}
+        )}
+      </Flex>
 
       <Flex justifyContent="space-between">
         <Text fontWeight="medium" color="gray">

@@ -1,15 +1,8 @@
-import { Flex, Input, Button, FormLabel } from '@chakra-ui/react'
+import { Flex, Input, Button, FormLabel } from "@chakra-ui/react"
 
 const CategoryForm = ({ handleSubmit, name, setName, loading, label }) => {
   return (
-    <Flex
-      as="form"
-      direction="column"
-      // w="100%"
-      // maxW="350px"
-      // minWidth="250px"
-      onSubmit={handleSubmit}
-    >
+    <Flex as="form" direction="column" onSubmit={handleSubmit}>
       <FormLabel>{label}</FormLabel>
       <Input
         value={name}

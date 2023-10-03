@@ -1,28 +1,28 @@
 // REACT
-import { useState } from 'react'
-import { useNavigate, NavLink } from 'react-router-dom'
-import { useToast } from '@chakra-ui/react'
+import { useState } from "react"
+import { useNavigate, NavLink } from "react-router-dom"
+import { useToast } from "@chakra-ui/react"
 
 // REDUX
-import { useDispatch } from 'react-redux'
-import { setLoggedInUser } from '../../reducers/userReducer'
+import { useDispatch } from "react-redux"
+import { setLoggedInUser } from "../../reducers/userReducer"
 
 // FIREBASE
-import { auth } from '../../firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from "../../firebase"
+import { createUserWithEmailAndPassword } from "firebase/auth"
 
 // FUNCTIONS
-import { createOrUpdateUser } from '../../functions/auth'
+import { createOrUpdateUser } from "../../functions/auth"
 
 // STYLE
-import { Flex, Input, Button, Heading, Text, Link } from '@chakra-ui/react'
+import { Flex, Input, Button, Heading, Text, Link } from "@chakra-ui/react"
 
 const Register = () => {
   let dispatch = useDispatch()
   const navigate = useNavigate()
   const toast = useToast()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -30,9 +30,9 @@ const Register = () => {
     // validation
     if (!email || !password) {
       toast({
-        title: 'Email and password is required',
+        title: "Email and password is required",
         // description: "We've created your account for you.",
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
       })
@@ -40,8 +40,8 @@ const Register = () => {
     }
     if (password.length < 6) {
       toast({
-        title: 'Password must be at least 6 characters long',
-        status: 'error',
+        title: "Password must be at least 6 characters long",
+        status: "error",
         duration: 3000,
         isClosable: true,
       })
@@ -61,7 +61,6 @@ const Register = () => {
       const idTokenResult = await user.getIdTokenResult()
 
       // redux store
-      console.log('user', user, 'idTokenResult', idTokenResult)
       const res = await createOrUpdateUser(idTokenResult.token)
       dispatch(
         setLoggedInUser({
@@ -74,11 +73,11 @@ const Register = () => {
       )
 
       // redirect
-      navigate('/')
+      navigate("/")
       toast({
-        title: 'Account created successfully!',
+        title: "Account created successfully!",
         // description: "We've created your account for you.",
-        status: 'success',
+        status: "success",
         duration: 3000,
         isClosable: true,
       })
@@ -87,7 +86,7 @@ const Register = () => {
       toast({
         title: error.message,
         // description: "We've created your account for you.",
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
       })
@@ -132,7 +131,7 @@ const Register = () => {
           to="/login"
           color="blue"
           fontWeight="semibold"
-          _hover={{ textDecoration: 'underline' }}
+          _hover={{ textDecoration: "underline" }}
         >
           Login
         </Link>

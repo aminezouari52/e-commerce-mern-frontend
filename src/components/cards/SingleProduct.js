@@ -62,7 +62,7 @@ const SingleProduct = ({ product, star, onStarClick }) => {
           {product && product.ratings && product.ratings.length > 0 ? (
             showAverage(product)
           ) : (
-            <Text textAlign="center" p="2">
+            <Text textAlign="center" fontWeight="bold" p="2">
               No rating yet
             </Text>
           )}

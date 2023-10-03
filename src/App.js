@@ -1,38 +1,41 @@
 // REACT
-import { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { useEffect } from "react"
+import { Routes, Route } from "react-router-dom"
 
 // FIREBASE
-import { auth } from './firebase'
-import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from "./firebase"
+import { onAuthStateChanged } from "firebase/auth"
 
 // REDUX
-import { useDispatch } from 'react-redux'
-import { setLoggedInUser } from './reducers/userReducer'
+import { useDispatch } from "react-redux"
+import { setLoggedInUser } from "./reducers/userReducer"
 
 // FUNCTIONS
-import { currentUser } from './functions/auth'
+import { currentUser } from "./functions/auth"
 
 // COMPONENTS
-import Header from './components/nav/Header'
-import Home from './pages/Home'
-import Register from './pages/auth/Register'
-import Login from './pages/auth/Login'
-import ForgotPassword from './pages/auth/ForgotPassword'
-import UserRoute from './components/routes/UserRoute'
-import History from './pages/user/History'
-import Password from './pages/user/Password'
-import Wishlist from './pages/user/Wishlist'
-import AdminRoute from './components/routes/AdminRoute'
-import AdminDashboard from './pages/admin/AdminDashboard'
-import CategoryCreate from './pages/admin/category/CategoryCreate'
-import CategoryUpdate from './pages/admin/category/CategoryUpdate'
-import SubCreate from './pages/admin/sub/SubCreate'
-import SubUpdate from './pages/admin/sub/SubUpdate'
-import ProductCreate from './pages/admin/product/ProductCreate'
-import AllProducts from './pages/admin/product/AllProducts'
-import ProductUpdate from './pages/admin/product/ProductUpdate'
-import Product from './pages/Product'
+import Header from "./components/nav/Header"
+import Home from "./pages/Home"
+import Shop from "./pages/Shop"
+import Register from "./pages/auth/Register"
+import Login from "./pages/auth/Login"
+import ForgotPassword from "./pages/auth/ForgotPassword"
+import UserRoute from "./components/routes/UserRoute"
+import History from "./pages/user/History"
+import Password from "./pages/user/Password"
+import Wishlist from "./pages/user/Wishlist"
+import AdminRoute from "./components/routes/AdminRoute"
+import AdminDashboard from "./pages/admin/AdminDashboard"
+import CategoryCreate from "./pages/admin/category/CategoryCreate"
+import CategoryUpdate from "./pages/admin/category/CategoryUpdate"
+import SubCreate from "./pages/admin/sub/SubCreate"
+import SubUpdate from "./pages/admin/sub/SubUpdate"
+import ProductCreate from "./pages/admin/product/ProductCreate"
+import AllProducts from "./pages/admin/product/AllProducts"
+import ProductUpdate from "./pages/admin/product/ProductUpdate"
+import Product from "./pages/Product"
+import CategoryHome from "./pages/category/CategoryHome"
+import SubHome from "./pages/sub/SubHome"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -69,6 +72,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/shop" element={<Shop />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/forgot-password" element={<ForgotPassword />} />
@@ -88,6 +92,8 @@ const App = () => {
           <Route path="product/:slug" element={<ProductUpdate />} />
         </Route>
         <Route exact path="/product/:slug" element={<Product />} />
+        <Route exact path="/category/:slug" element={<CategoryHome />} />
+        <Route exact path="/sub/:slug" element={<SubHome />} />
       </Routes>
     </>
   )

@@ -1,5 +1,5 @@
 // COMPONENTS
-import FileUpload from './FileUpload'
+import FileUpload from "./FileUpload"
 
 // STYLE
 import {
@@ -22,7 +22,7 @@ import {
   CheckboxGroup,
   Checkbox,
   Divider,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react"
 
 const ProductCreateForm = ({
   handleSubmit,
@@ -34,7 +34,6 @@ const ProductCreateForm = ({
   decrementQuantity,
   subOptions,
   setValues,
-
   values,
 }) => {
   const {
@@ -57,16 +56,16 @@ const ProductCreateForm = ({
     <Flex
       as="form"
       direction="column"
-      alignItems={{ lg: 'end', base: 'start' }}
+      alignItems={{ lg: "end", base: "start" }}
       onSubmit={handleSubmit}
     >
       <Flex
         w="100%"
-        direction={{ lg: 'row', base: 'column' }}
+        direction={{ lg: "row", base: "column" }}
         justifyContent="space-between"
         mb={4}
       >
-        <Box w={{ lg: '45%', base: '90%' }}>
+        <Box w={{ lg: "45%", base: "90%" }}>
           <FormControl isRequired>
             <FormLabel color="gray">Title</FormLabel>
             <Input
@@ -98,7 +97,7 @@ const ProductCreateForm = ({
                 </Text>
                 <NumberInput
                   variant="flushed"
-                  step={0.1}
+                  step={0.01}
                   min={0}
                   value={price}
                   name="price"
@@ -130,7 +129,7 @@ const ProductCreateForm = ({
           </RadioGroup>
         </Box>
 
-        <Box w={{ lg: '45%', base: '90%' }}>
+        <Box w={{ lg: "45%", base: "90%" }}>
           <Flex>
             <FormControl isRequired>
               <FormLabel color="gray" mt={2}>
@@ -213,7 +212,7 @@ const ProductCreateForm = ({
                 defaultValue={[]}
                 onChange={(value) => setValues({ ...values, subs: value })}
               >
-                <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                <Stack spacing={[1, 5]} direction={["column", "row"]}>
                   {subOptions.map((s) => (
                     <Checkbox key={s._id} value={s._id}>
                       {s.name}

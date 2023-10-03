@@ -4,13 +4,15 @@ import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 // FUNCTIONS
-import { getProduct, productStar } from "../functions/product"
+import { getProduct, productStar, getRelated } from "../functions/product"
 
 // COMPONENTS
 import SingleProduct from "../components/cards/SingleProduct"
+import ProductCard from "../components/cards/ProductCard"
 
 // STYLE
 import {
+  Flex,
   Box,
   Text,
   Tabs,
@@ -18,11 +20,13 @@ import {
   TabPanel,
   TabList,
   Tab,
+  Heading,
 } from "@chakra-ui/react"
 
 const Product = () => {
   const params = useParams()
   const [product, setProduct] = useState({})
+  const [related, setRelated] = useState([])
   const [star, setStar] = useState()
   const user = useSelector((state) => state.user.loggedInUser)
 
@@ -42,8 +46,8 @@ const Product = () => {
 
   const loadSingleProduct = () =>
     getProduct(slug).then((res) => {
-      console.log(res.data)
       setProduct(res.data)
+      getRelated(res.data._id).then((res) => setRelated(res.data))
     })
 
   const onStarClick = async (newRating, productId) => {
@@ -55,6 +59,7 @@ const Product = () => {
   return (
     <Box w="100%">
       <SingleProduct product={product} onStarClick={onStarClick} star={star} />
+
       <Tabs variant="enclosed" ml={2}>
         <TabList>
           <Tab fontWeight="medium">Description</Tab>
@@ -71,6 +76,22 @@ const Product = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
+      <Box mx={4}>
+        <Heading textAlign="center" size="lg" my={4}>
+          Related Products
+        </Heading>
+        <Flex py={2} flexWrap="wrap">
+          {related?.length ? (
+            related?.map((r) => (
+              <Box key={r._id} my={2}>
+                <ProductCard product={r} />
+              </Box>
+            ))
+          ) : (
+            <Text textAlign="center">No Products Found</Text>
+          )}
+        </Flex>
+      </Box>
     </Box>
   )
 }

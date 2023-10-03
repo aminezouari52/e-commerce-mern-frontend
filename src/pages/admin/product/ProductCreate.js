@@ -1,34 +1,34 @@
 // REACT
-import { useState, useEffect } from 'react'
-import { useToast } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
+import { useState, useEffect } from "react"
+import { useToast } from "@chakra-ui/react"
+import { useSelector } from "react-redux"
 
 // FUNCTIONS
-import { createProduct } from '../../../functions/product'
-import { getCategories, getCategorySubs } from '../../../functions/category'
+import { createProduct } from "../../../functions/product"
+import { getCategories, getCategorySubs } from "../../../functions/category"
 
 // COMPONENTS
-import AdminNav from '../../../components/nav/AdminNav'
+import AdminNav from "../../../components/nav/AdminNav"
 
 // STYLE
-import { Flex, Box, Heading } from '@chakra-ui/react'
-import ProductCreateForm from '../../../components/forms/ProductCreateForm'
-import FileUpload from '../../../components/forms/FileUpload'
+import { Flex, Box, Heading } from "@chakra-ui/react"
+import ProductCreateForm from "../../../components/forms/ProductCreateForm"
+import FileUpload from "../../../components/forms/FileUpload"
 
 const initialState = {
-  title: '',
-  description: '',
-  price: '',
+  title: "",
+  description: "",
+  price: "",
   categories: [],
-  category: '',
+  category: "",
   subs: [],
-  shipping: 'No',
-  quantity: '1',
+  shipping: "No",
+  quantity: "1",
   images: [],
-  colors: ['Black', 'Brown', 'Silver', 'White', 'Blue'],
-  brands: ['Apple', 'Samsung', 'Microsoft', 'Lenovo', 'ASUS'],
-  color: '',
-  brand: '',
+  colors: ["Black", "Brown", "Silver", "White", "Blue"],
+  brands: ["Apple", "Samsung", "Microsoft", "Lenovo", "Asus"],
+  color: "",
+  brand: "",
 }
 const ProductCreate = () => {
   const toast = useToast()
@@ -44,8 +44,8 @@ const ProductCreate = () => {
     try {
       await createProduct(values, user.token)
       toast({
-        title: 'Product created!',
-        status: 'success',
+        title: "Product created!",
+        status: "success",
         duration: 1000,
         isClosable: true,
       })
@@ -56,7 +56,7 @@ const ProductCreate = () => {
       console.log(err)
       toast({
         title: err.response.data.err,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
       })
@@ -69,10 +69,8 @@ const ProductCreate = () => {
 
   const handleCatagoryChange = (e) => {
     e.preventDefault()
-    console.log('CLICKED CATEGORY', e.target.value)
     setValues({ ...values, subs: [], category: e.target.value })
     getCategorySubs(e.target.value).then((res) => {
-      console.log('SUB OPTIONS ON CATGORY CLICK', res)
       setSubOptions(res.data)
     })
   }
@@ -110,7 +108,7 @@ const ProductCreate = () => {
     <Flex
       w="70%"
       direction="column"
-      h={{ lg: 'calc(100vh - 49px)', base: 'calc(100% - 49px)' }}
+      h={{ lg: "calc(100vh - 49px)", base: "calc(100% - 49px)" }}
       mx={10}
     >
       <Heading color="blue" mt={5}>
