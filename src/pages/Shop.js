@@ -86,7 +86,6 @@ const Shop = () => {
   }, []);
 
   const loadAllProducts = () => {
-    console.log("true");
     getProductsByCount(12).then((p) => {
       setProducts(p.data);
       setLoading(false);
@@ -113,7 +112,6 @@ const Shop = () => {
 
   // 3. load products based on price range
   useEffect(() => {
-    console.log("ok to request");
     fetchProducts({ price });
   }, [ok]);
 
@@ -148,8 +146,6 @@ const Shop = () => {
     setShipping("");
     let inTheState = [...categoryIds];
     let justChecked = e.target.value;
-    console.log("just checked", justChecked);
-    console.log("inTheState", inTheState);
     let foundInTheState = inTheState.indexOf(justChecked); // index or -1
 
     // indexOf method ?? if not found returns -1 else return index [1,2,3,4,5]
@@ -161,7 +157,6 @@ const Shop = () => {
     }
 
     setCategoryIds(inTheState);
-    // console.log(inTheState);
     fetchProducts({ category: inTheState });
   };
 

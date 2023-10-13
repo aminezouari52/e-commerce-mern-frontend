@@ -1,15 +1,15 @@
 // REACT
-import { useState } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
-import { Divider, useToast } from "@chakra-ui/react"
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Divider, useToast } from "@chakra-ui/react";
 
 // FIREBASE
-import { auth } from "../../firebase"
-import { signOut } from "firebase/auth"
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
 
 // REDUX
-import { useDispatch, useSelector } from "react-redux"
-import { logout } from "../../reducers/userReducer"
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../reducers/userReducer";
 
 // STYLE
 import {
@@ -21,39 +21,42 @@ import {
   Menu,
   MenuList,
   MenuItem,
-} from "@chakra-ui/react"
+  Badge,
+} from "@chakra-ui/react";
 
 // ICONS
-import { ChevronDownIcon } from "@chakra-ui/icons"
-import { CiSettings } from "react-icons/ci"
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { CiSettings } from "react-icons/ci";
 import {
   AiOutlineHome,
   AiOutlineShopping,
   AiOutlineUserAdd,
   AiOutlineUser,
-} from "react-icons/ai"
-import { FiLogOut } from "react-icons/fi"
-import Search from "../forms/Search"
+} from "react-icons/ai";
+import { FiLogOut } from "react-icons/fi";
+import Search from "../forms/Search";
+import { BsCart } from "react-icons/bs";
 
 const Header = () => {
-  const toast = useToast()
-  const dispatch = useDispatch()
-  const user = useSelector((state) => state.user.loggedInUser)
+  const toast = useToast();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.loggedInUser);
+  const cart = useSelector((state) => state.cart.cart.cartItems);
 
-  const navigate = useNavigate()
-  const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
   const handleMenuOpen = () => {
-    setIsOpen(true)
-  }
+    setIsOpen(true);
+  };
   const handleMenuClose = () => {
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   const logoutHandler = async () => {
     try {
-      await signOut(auth)
-      dispatch(logout(null))
-      navigate("/login")
+      await signOut(auth);
+      dispatch(logout(null));
+      navigate("/login");
     } catch (err) {
       toast({
         title: "Logout failed!",
@@ -61,9 +64,9 @@ const Header = () => {
         status: "error",
         duration: 3000,
         isClosable: true,
-      })
+      });
     }
-  }
+  };
 
   return (
     <Flex justifyContent="space-between" w="100%" borderBottom="solid 1px #ccc">
@@ -104,6 +107,30 @@ const Header = () => {
             size="lg"
           >
             <Text>Shop</Text>
+          </Button>
+        </NavLink>
+        <NavLink
+          height="100%"
+          to="/cart"
+          style={({ isActive }) => ({
+            color: isActive ? "blue" : "#000",
+            fill: isActive ? "#adb5bd" : "#000",
+            borderBottom: isActive && "2px solid blue",
+            transition: "border-color ease-in-out 0.3s",
+          })}
+        >
+          <Button
+            _hover={{ color: "blue" }}
+            variant="transparent-with-icon"
+            leftIcon={<Icon as={BsCart} />}
+            size="lg"
+          >
+            <Flex alignItems="start">
+              <Text>Cart</Text>
+              <Badge borderRadius="50%" colorScheme="red" variant="solid">
+                {cart?.length}
+              </Badge>
+            </Flex>
           </Button>
         </NavLink>
       </Flex>
@@ -225,7 +252,7 @@ const Header = () => {
         )}
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

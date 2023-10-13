@@ -18,10 +18,38 @@ import laptop from "../../images/laptop.jpg";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsCartFill } from "react-icons/bs";
 import { showAverage } from "../../functions/rating";
+import _ from "lodash";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setCart } from "../../reducers/cartReducer";
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const { images, title, description, slug, price } = product;
+  const cart = useSelector((state) => state.cart.cart);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    // create cart array
+    let cart = [];
+    if (typeof window !== "undefined") {
+      // if cart is in local storage GET it
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      // push new product to cart
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      // remove duplicates
+      let unique = _.uniqWith(cart, _.isEqual);
+      // save to local storage
+      // console.log('unique', unique)
+      localStorage.setItem("cart", JSON.stringify(unique));
+      dispatch(setCart(unique));
+    }
+  };
 
   return (
     <Card minWidth="300px" w="30%" m={2}>
@@ -66,6 +94,7 @@ const ProductCard = ({ product }) => {
             variant="solid"
             colorScheme="blue"
             leftIcon={<Icon as={BsCartFill} />}
+            onClick={handleAddToCart}
           >
             Add to cart
           </Button>

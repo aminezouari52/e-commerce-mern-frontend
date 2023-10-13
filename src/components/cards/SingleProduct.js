@@ -1,17 +1,17 @@
 // PACKAGES
-import "react-responsive-carousel/lib/styles/carousel.min.css" // requires a loader
-import { Carousel } from "react-responsive-carousel"
-import StarRating from "react-star-ratings"
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import StarRating from "react-star-ratings";
 
 // REACT
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 // FUNCTIONS
-import { showAverage } from "../../functions/rating"
+import { showAverage } from "../../functions/rating";
 
 // COMPONENTS
-import ProductListItems from "./ProductListItems"
-import RatingModal from "../modal/RatingModal"
+import ProductListItems from "./ProductListItems";
+import RatingModal from "../modal/RatingModal";
 
 // STYLE
 import {
@@ -25,16 +25,44 @@ import {
   Button,
   Icon,
   Text,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 // ASSETS
-import noImg from "../../images/no-image-available.jpg"
-import { AiOutlineHeart } from "react-icons/ai"
-import { AiOutlineShoppingCart } from "react-icons/ai"
+import noImg from "../../images/no-image-available.jpg";
+import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "../../reducers/cartReducer";
 
 const SingleProduct = ({ product, star, onStarClick }) => {
-  const navigate = useNavigate()
-  const { title, images, slug, _id } = product
+  const navigate = useNavigate();
+  const { title, images, slug, _id } = product;
+  const cart = useSelector((state) => state.cart.cart);
+  const user = useSelector((state) => state.user.loggedInUser);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    // create cart array
+    let cart = [];
+    if (typeof window !== "undefined") {
+      // if cart is in local storage GET it
+      if (localStorage.getItem("cart")) {
+        cart = JSON.parse(localStorage.getItem("cart"));
+      }
+      // push new product to cart
+      cart.push({
+        ...product,
+        count: 1,
+      });
+      // remove duplicates
+      let unique = _.uniqWith(cart, _.isEqual);
+      // save to local storage
+      // console.log('unique', unique)
+      localStorage.setItem("cart", JSON.stringify(unique));
+      dispatch(setCart(unique));
+    }
+  };
 
   return (
     <Card direction={{ lg: "row", md: "row", base: "column" }} m={2}>
@@ -74,6 +102,7 @@ const SingleProduct = ({ product, star, onStarClick }) => {
               variant="ghost"
               colorScheme="green"
               leftIcon={<Icon as={AiOutlineShoppingCart} />}
+              onClick={handleAddToCart}
             >
               Add to cart
             </Button>
@@ -99,7 +128,7 @@ const SingleProduct = ({ product, star, onStarClick }) => {
         </CardFooter>
       </Stack>
     </Card>
-  )
-}
+  );
+};
 
-export default SingleProduct
+export default SingleProduct;
