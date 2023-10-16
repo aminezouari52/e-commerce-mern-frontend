@@ -85,7 +85,12 @@ const ProductCardInCheckout = ({ p }) => {
       <Td>{p.brand}</Td>
       <Td>{p.color}</Td>
       <Td>
-        <Input type="number" value={p.count} onChange={handleQuantityChange} />
+        <Input
+          type="number"
+          minWidth="70px"
+          value={p.count}
+          onChange={handleQuantityChange}
+        />
       </Td>
       <Td>
         <Flex justifyContent="center" alignItems="center">

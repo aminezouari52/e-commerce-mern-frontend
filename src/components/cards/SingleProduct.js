@@ -24,6 +24,7 @@ import {
   ButtonGroup,
   Button,
   Icon,
+  useToast,
   Text,
 } from "@chakra-ui/react";
 
@@ -41,7 +42,7 @@ const SingleProduct = ({ product, star, onStarClick }) => {
   const cart = useSelector((state) => state.cart.cart);
   const user = useSelector((state) => state.user.loggedInUser);
   const dispatch = useDispatch();
-
+  const toast = useToast();
   const handleAddToCart = () => {
     // create cart array
     let cart = [];
@@ -61,6 +62,12 @@ const SingleProduct = ({ product, star, onStarClick }) => {
       // console.log('unique', unique)
       localStorage.setItem("cart", JSON.stringify(unique));
       dispatch(setCart(unique));
+      toast({
+        title: "Product added.",
+        status: "info",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   };
 
@@ -103,16 +110,9 @@ const SingleProduct = ({ product, star, onStarClick }) => {
               colorScheme="green"
               leftIcon={<Icon as={AiOutlineShoppingCart} />}
               onClick={handleAddToCart}
+              isDisabled={product?.quantity < 1}
             >
-              Add to cart
-            </Button>
-            <Button
-              variant="ghost"
-              colorScheme="blue"
-              leftIcon={<Icon as={AiOutlineHeart} />}
-              // onClick={() => navigate(`/product/${slug}`)}
-            >
-              Add to Wishlist
+              {product?.quantity < 1 ? "Out of stock" : "Add to cart"}
             </Button>
             <RatingModal>
               <StarRating

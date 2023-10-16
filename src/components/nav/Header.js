@@ -26,7 +26,6 @@ import {
 
 // ICONS
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { CiSettings } from "react-icons/ci";
 import {
   AiOutlineHome,
   AiOutlineShopping,
@@ -36,21 +35,16 @@ import {
 import { FiLogOut } from "react-icons/fi";
 import Search from "../forms/Search";
 import { BsCart } from "react-icons/bs";
+import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { BsClockHistory } from "react-icons/bs";
 
 const Header = () => {
   const toast = useToast();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user.loggedInUser);
   const cart = useSelector((state) => state.cart.cart.cartItems);
-
-  const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
-  const handleMenuOpen = () => {
-    setIsOpen(true);
-  };
-  const handleMenuClose = () => {
-    setIsOpen(false);
-  };
 
   const logoutHandler = async () => {
     try {
@@ -139,65 +133,46 @@ const Header = () => {
         <Flex alignItems="center">
           <Search />
         </Flex>
-        {user && (
-          <Flex alignItems="center">
-            <Menu isOpen={isOpen} onClose={handleMenuClose}>
+        {user ? (
+          <Flex alignItems="center" mx={2}>
+            <Menu>
               <MenuButton
                 as={Button}
-                leftIcon={<Icon as={CiSettings} />}
+                colorScheme="blue"
+                variant="ghost"
+                size="sm"
+                fontWeight="bold"
                 rightIcon={<ChevronDownIcon />}
-                onMouseEnter={handleMenuOpen}
-                _hover={{ color: "blue" }} // Remove hover styles
-                _active={{ color: "blue" }} // Remove active styles
-                _focus={{}} // Remove focus styles
-                backgroundColor="transparent" // Remove background color
               >
                 {user.email && user.email.split("@")[0]}
               </MenuButton>
-              <MenuList onMouseLeave={handleMenuClose}>
-                {user.role === "admin" && (
-                  <MenuItem
-                    as={NavLink}
-                    to="/admin/dashboard"
-                    _hover={{ bg: "none" }}
-                    style={({ isActive }) => ({
-                      color: isActive ? "blue" : "#000",
-                    })}
-                  >
-                    <Button
-                      _hover={{ color: "blue", bg: "none" }}
-                      fontSize={{ lg: "16px", base: "12px" }}
-                      variant="transparent"
-                    >
-                      <Text>Dashboard</Text>
-                    </Button>
-                  </MenuItem>
-                )}
-
-                {user.role === "subscriber" && (
-                  <MenuItem
-                    as={NavLink}
-                    to="/user/history"
-                    _hover={{ bg: "none" }}
-                    style={({ isActive }) => ({
-                      color: isActive ? "blue" : "#000",
-                    })}
-                  >
-                    <Button
-                      _hover={{ color: "blue", bg: "none" }}
-                      fontSize={{ lg: "16px", base: "12px" }}
-                      variant="transparent"
-                    >
-                      <Text>Dashboard</Text>
-                    </Button>
-                  </MenuItem>
-                )}
+              <MenuList>
+                <MenuItem
+                  variant="transparent"
+                  onClick={() =>
+                    navigate(
+                      user.role === "admin"
+                        ? "/admin/dashboard"
+                        : "/user/history"
+                    )
+                  }
+                  icon={
+                    <Icon
+                      h="15px"
+                      w="15px"
+                      as={
+                        user.role === "admin"
+                          ? MdOutlineSpaceDashboard
+                          : BsClockHistory
+                      }
+                    />
+                  }
+                >
+                  {user.role === "admin" ? "Dashboard" : "History"}
+                </MenuItem>
                 <Divider />
                 <MenuItem
-                  as={Button}
                   icon={<Icon h="15px" w="15px" as={FiLogOut} />}
-                  _hover={{ color: "blue", bg: "none" }}
-                  fontSize={{ lg: "16px", base: "12px" }}
                   onClick={logoutHandler}
                 >
                   Logout
@@ -205,8 +180,7 @@ const Header = () => {
               </MenuList>
             </Menu>
           </Flex>
-        )}
-        {!user && (
+        ) : (
           <Flex>
             <NavLink
               to="/register"
@@ -221,7 +195,6 @@ const Header = () => {
             >
               <Button
                 _hover={{ color: "blue" }}
-                fontSize={{ lg: "16px", base: "12px" }}
                 variant="transparent-with-icon"
                 leftIcon={<Icon as={AiOutlineUserAdd} />}
               >
@@ -241,7 +214,6 @@ const Header = () => {
             >
               <Button
                 _hover={{ color: "blue" }}
-                fontSize={{ lg: "16px", base: "12px" }}
                 variant="transparent-with-icon"
                 leftIcon={<Icon as={AiOutlineUser} />}
               >

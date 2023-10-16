@@ -48,9 +48,15 @@ const Cart = () => {
     <Flex
       direction={{ lg: "row", md: "row", sm: "column", base: "column" }}
       p={4}
-      justifyContent="space-between"
+      justifyContent={{
+        lg: "space-around",
+        md: "space-around",
+        sm: "start",
+        base: "start",
+      }}
+      alignItems={{ lg: "start", md: "start", sm: "center", base: "center" }}
     >
-      <Box maxWidth={{ lg: "80%", md: "70%", sm: "70%", base: "100%" }}>
+      <Box maxWidth={{ lg: "70%", md: "60%", sm: "100%", base: "100%" }}>
         <Heading size="md">Cart / {cart.length} Product</Heading>
         {!cart.length ? (
           <Text>
@@ -88,7 +94,7 @@ const Cart = () => {
         )}
       </Box>
       <Stack
-        w={{ lg: "30%", md: "30%", sm: "30%", base: "100%" }}
+        w={{ lg: "30%", md: "30%", sm: "100%", base: "100%" }}
         spacing="4"
         mt={{ lg: 0, md: 0, sm: 0, base: 4 }}
         ml={{ lg: 4, md: 4, sm: 4, base: 0 }}

@@ -24,7 +24,6 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import UserRoute from "./components/routes/UserRoute";
 import History from "./pages/user/History";
 import Password from "./pages/user/Password";
-import Wishlist from "./pages/user/Wishlist";
 import AdminRoute from "./components/routes/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CategoryCreate from "./pages/admin/category/CategoryCreate";
@@ -38,7 +37,6 @@ import Product from "./pages/Product";
 import CategoryHome from "./pages/category/CategoryHome";
 import SubHome from "./pages/sub/SubHome";
 import Checkout from "./pages/Checkout";
-import Payment from "./pages/Payment";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -83,9 +81,7 @@ const App = () => {
         <Route path="/user/*" element={<UserRoute />}>
           <Route path="history" element={<History />} />
           <Route path="password" element={<Password />} />
-          <Route path="wishlist" element={<Wishlist />} />
           <Route path="checkout" element={<Checkout />} />
-          <Route path="payment" element={<Payment />} />
         </Route>
         <Route path="/admin/*" element={<AdminRoute />}>
           <Route path="dashboard" element={<AdminDashboard />} />

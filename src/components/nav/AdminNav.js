@@ -1,59 +1,49 @@
 // REACT
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 // STYLE
-import { Box, Button, Icon, Flex, Stack } from '@chakra-ui/react'
+import { Box, Button, Icon, Flex, Stack } from "@chakra-ui/react";
 
 // ICONS
-import { MdOutlineSpaceDashboard } from 'react-icons/md'
-import { BiCube } from 'react-icons/bi'
-import { GrCubes } from 'react-icons/gr'
-import { FaListUl } from 'react-icons/fa'
-import { MdSubject } from 'react-icons/md'
+import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { BiCube } from "react-icons/bi";
+import { GrCubes } from "react-icons/gr";
+import { FaListUl } from "react-icons/fa";
+import { MdSubject } from "react-icons/md";
 
 const navElements = [
   {
-    title: 'Dashboard',
+    title: "Dashboard",
     icon: <Icon as={MdOutlineSpaceDashboard} mr={2} />,
-    link: '/admin/dashboard',
+    link: "/admin/dashboard",
   },
   {
-    title: 'Product',
+    title: "Product",
     icon: <Icon as={BiCube} mr={2} />,
-    link: '/admin/product',
+    link: "/admin/product",
   },
   {
-    title: 'Products',
+    title: "Products",
     icon: <Icon as={GrCubes} mr={2} />,
-    link: '/admin/products',
+    link: "/admin/products",
   },
   {
-    title: 'Category',
+    title: "Category",
     icon: <Icon as={FaListUl} mr={2} />,
-    link: '/admin/category',
+    link: "/admin/category",
   },
   {
-    title: 'Sub category',
+    title: "Sub category",
     icon: <Icon as={MdSubject} mr={2} />,
-    link: '/admin/sub',
+    link: "/admin/sub",
   },
-  {
-    title: 'Coupon',
-    icon: <Icon as={BiCube} mr={2} />,
-    link: '/admin/coupon',
-  },
-  {
-    title: 'Password',
-    icon: <Icon as={BiCube} mr={2} />,
-    link: '/user/password',
-  },
-]
+];
 
 const AdminNav = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
-    <Box bg="gray.200" p={4}>
+    <Box p={4}>
       <Flex
         direction="column"
         justifyContent="center"
@@ -68,7 +58,7 @@ const AdminNav = () => {
             colorScheme="transparent"
             justifyContent="start"
             _hover={{
-              bg: 'blue.400',
+              bg: "blue.400",
             }}
             onClick={() => navigate(element.link)}
           >
@@ -78,6 +68,6 @@ const AdminNav = () => {
         ))}
       </Stack>
     </Box>
-  )
-}
-export default AdminNav
+  );
+};
+export default AdminNav;

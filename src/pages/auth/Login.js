@@ -1,78 +1,77 @@
 // REACT
-import { useState, useEffect } from "react"
-import { useToast } from "@chakra-ui/react"
-import { useNavigate, NavLink, useLocation } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useToast } from "@chakra-ui/react";
+import { useNavigate, NavLink, useLocation } from "react-router-dom";
 
 // FIREBASE
-import { auth, googleAuthProvider } from "../../firebase"
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
+import { auth, googleAuthProvider } from "../../firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 // REDUX
-import { useDispatch, useSelector } from "react-redux"
-import { setLoggedInUser } from "../../reducers/userReducer"
+import { useDispatch, useSelector } from "react-redux";
+import { setLoggedInUser } from "../../reducers/userReducer";
 
 // FUNCTIONS
-import { createOrUpdateUser } from "../../functions/auth"
+import { createOrUpdateUser } from "../../functions/auth";
 
 // STYLE
-import { Flex, Heading, Input, Button, Link, Text } from "@chakra-ui/react"
+import { Flex, Heading, Input, Button, Link, Text } from "@chakra-ui/react";
 
 // ICONS
-import { AiOutlineMail } from "react-icons/ai"
-import { FcGoogle } from "react-icons/fc"
+import { AiOutlineMail } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   // HOOKS
-  const toast = useToast()
-  const navigate = useNavigate()
-  const location = useLocation()
-  const dispatch = useDispatch()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
+  const toast = useToast();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // REDIRECT USER
-  const loggedInUser = useSelector((state) => state.user.loggedInUser)
+  const loggedInUser = useSelector((state) => state.user.loggedInUser);
   useEffect(() => {
-    const intended = location.state
+    const intended = location.state;
     if (intended) {
-      return
+      return;
     } else {
       if (loggedInUser && loggedInUser.token) {
         if (loggedInUser.role === "admin") {
-          navigate("/admin/dashboard")
+          navigate("/admin/dashboard");
         } else {
-          navigate("/user/history")
+          navigate("/user/history");
         }
       }
     }
-  }, [loggedInUser, navigate, location])
+  }, [loggedInUser, navigate, location]);
 
   // REDIRECT FUNCTION
   const roleBasedRedirect = (res) => {
-    const intended = location.state
+    const intended = location.state;
     if (intended) {
-      navigate(intended.from)
+      navigate(intended.from);
     } else {
       if (res.data.role === "admin") {
-        navigate("/admin/dashboard")
+        navigate("/admin/dashboard");
       } else {
-        navigate("/user/history")
+        navigate("/user/history");
       }
     }
-  }
+  };
   // SUBMIT FUNCTION
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     try {
-      const result = await signInWithEmailAndPassword(auth, email, password)
-      const { user } = result
-      const idTokenResult = await user.getIdTokenResult()
-
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      const { user } = result;
+      const idTokenResult = await user.getIdTokenResult();
       // create user in database
       try {
-        const res = await createOrUpdateUser(idTokenResult.token)
+        const res = await createOrUpdateUser(idTokenResult.token);
         dispatch(
           setLoggedInUser({
             name: res.data.name,
@@ -81,32 +80,32 @@ const Login = () => {
             role: res.data.role,
             _id: res.data._id,
           })
-        )
-        roleBasedRedirect(res)
+        );
+        roleBasedRedirect(res);
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast({
         title: error.message,
         status: "error",
         duration: 3000,
         isClosable: true,
-      })
-      setLoading(false)
+      });
+      setLoading(false);
     }
-  }
+  };
 
   // LOGIN WITH GOOGLE
   const googleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, googleAuthProvider)
-      const { user } = result
-      const idTokenResult = await user.getIdTokenResult()
+      const result = await signInWithPopup(auth, googleAuthProvider);
+      const { user } = result;
+      const idTokenResult = await user.getIdTokenResult();
 
       // create user in database
-      const res = await createOrUpdateUser(idTokenResult.token)
+      const res = await createOrUpdateUser(idTokenResult.token);
       dispatch(
         setLoggedInUser({
           name: res.data.name,
@@ -115,18 +114,18 @@ const Login = () => {
           role: res.data.role,
           _id: res.data._id,
         })
-      )
-      roleBasedRedirect(res)
+      );
+      roleBasedRedirect(res);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       toast({
         title: err.message,
         status: "error",
         duration: 3000,
         isClosable: true,
-      })
+      });
     }
-  }
+  };
 
   const loginForm = (
     <Flex
@@ -192,7 +191,7 @@ const Login = () => {
         </Link>
       </Flex>
     </Flex>
-  )
+  );
   return (
     <Flex justifyContent="center" alignItems="center" w="100%" h="90vh">
       <Flex direction="column" alignItems="center" w="30%">
@@ -202,7 +201,7 @@ const Login = () => {
         {loginForm}
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

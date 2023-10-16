@@ -1,18 +1,18 @@
 // REACT
-import { useState, useEffect, useRef } from 'react'
-import { useToast, useDisclosure } from '@chakra-ui/react'
+import { useState, useEffect, useRef } from "react";
+import { useToast, useDisclosure } from "@chakra-ui/react";
 
 // REDUX
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 
 // FUNCTIONS
-import { getCategories } from '../../../functions/category'
-import { getSubs, createSub, removeSub } from '../../../functions/sub'
+import { getCategories } from "../../../functions/category";
+import { getSubs, createSub, removeSub } from "../../../functions/sub";
 
 // COMPONENTS
-import AdminNav from '../../../components/nav/AdminNav'
-import CategoryForm from '../../../components/forms/CategoryForm'
-import LocalSearch from '../../../components/forms/LocalSearch'
+import AdminNav from "../../../components/nav/AdminNav";
+import CategoryForm from "../../../components/forms/CategoryForm";
+import LocalSearch from "../../../components/forms/LocalSearch";
 
 // STYLE
 import {
@@ -29,96 +29,96 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
-} from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+} from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 // ICONS
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
 const SubCreate = () => {
   // LOGGED IN USER
-  const user = useSelector((state) => state.user.loggedInUser)
+  const user = useSelector((state) => state.user.loggedInUser);
 
   // STATES
-  const [name, setName] = useState('')
-  const [categories, setCategories] = useState([])
-  const [category, setCategory] = useState('')
-  const [subs, setSubs] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [name, setName] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
+  const [subs, setSubs] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate()
-  const toast = useToast()
+  const navigate = useNavigate();
+  const toast = useToast();
 
   // DELETE DIALOG
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = useRef()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
 
   // SEARCH
-  const [keyword, setKeyword] = useState('')
-  const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword)
+  const [keyword, setKeyword] = useState("");
+  const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   // LOAD STATES
   const loadCategories = () => {
-    getCategories().then((c) => setCategories(c.data))
-  }
-  const loadSubs = () => getSubs().then((s) => setSubs(s.data))
+    getCategories().then((c) => setCategories(c.data));
+  };
+  const loadSubs = () => getSubs().then((s) => setSubs(s.data));
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     try {
-      const res = await createSub({ name, parent: category }, user.token)
-      setLoading(false)
-      setName('')
+      const res = await createSub({ name, parent: category }, user.token);
+      setLoading(false);
+      setName("");
       toast({
         title: `"${res.data.name}" is created!`,
-        status: 'success',
+        status: "success",
         duration: 3000,
         isClosable: true,
-      })
-      loadSubs()
+      });
+      loadSubs();
     } catch (err) {
-      setLoading(false)
+      setLoading(false);
       toast({
         title: err.message,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
-      })
+      });
     }
-  }
+  };
   const handleRemove = async (slug) => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const res = await removeSub(slug, user.token)
-      setLoading(false)
+      const res = await removeSub(slug, user.token);
+      setLoading(false);
       toast({
         title: `"${res.data.name}" deleted`,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
-      })
-      loadSubs()
+      });
+      loadSubs();
     } catch (err) {
-      console.log(err)
-      setLoading(false)
+      console.log(err);
+      setLoading(false);
       toast({
         title: err.message,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
-      })
+      });
     }
-    onClose()
-  }
+    onClose();
+  };
 
   useEffect(() => {
-    loadCategories()
-    loadSubs()
-  }, [])
+    loadCategories();
+    loadSubs();
+  }, []);
 
   return (
-    <Flex w="70%" direction="column" h="calc(100vh - 49px)" mx={10}>
+    <Box mx={10}>
       <Heading color="blue" my={5}>
         Create a sub category
       </Heading>
@@ -208,8 +208,8 @@ const SubCreate = () => {
           </Flex>
         ))}
       </Flex>
-    </Flex>
-  )
-}
+    </Box>
+  );
+};
 
-export default SubCreate
+export default SubCreate;

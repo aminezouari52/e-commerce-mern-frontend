@@ -1,79 +1,79 @@
 // REACT
-import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useToast } from '@chakra-ui/react'
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 // REDUX
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 
 // FUNCTIONS
-import { getCategories } from '../../../functions/category'
-import { updateSub, getSub } from '../../../functions/sub'
+import { getCategories } from "../../../functions/category";
+import { updateSub, getSub } from "../../../functions/sub";
 
 // COMPONENTS
-import AdminNav from '../../../components/nav/AdminNav'
-import CategoryForm from '../../../components/forms/CategoryForm'
+import AdminNav from "../../../components/nav/AdminNav";
+import CategoryForm from "../../../components/forms/CategoryForm";
 
 // STYLE
-import { Flex, Box, Heading, Text, Select } from '@chakra-ui/react'
+import { Flex, Box, Heading, Text, Select } from "@chakra-ui/react";
 
 const SubUpdate = () => {
-  const params = useParams()
-  const navigate = useNavigate()
-  const toast = useToast()
+  const params = useParams();
+  const navigate = useNavigate();
+  const toast = useToast();
 
   // LOGGED IN USER
-  const user = useSelector((state) => state.user.loggedInUser)
+  const user = useSelector((state) => state.user.loggedInUser);
 
   // STATE
-  const [name, setName] = useState('')
-  const [categories, setCategories] = useState([])
-  const [parent, setParent] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [name, setName] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [parent, setParent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
     try {
-      const res = await updateSub(params.slug, { name, parent }, user.token)
-      setLoading(false)
-      setName('')
+      const res = await updateSub(params.slug, { name, parent }, user.token);
+      setLoading(false);
+      setName("");
       toast({
         title: `"${res.data.name}" is updated`,
-        status: 'success',
+        status: "success",
         duration: 3000,
         isClosable: true,
-      })
-      navigate('/admin/sub')
+      });
+      navigate("/admin/sub");
     } catch (err) {
-      setLoading(false)
+      setLoading(false);
       toast({
         title: err.message,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
-      })
+      });
     }
-  }
+  };
 
   useEffect(() => {
     // LOAD STATES
     const loadCategories = () => {
-      getCategories().then((c) => setCategories(c.data))
-    }
+      getCategories().then((c) => setCategories(c.data));
+    };
     const loadSub = () => {
       getSub(params.slug).then((s) => {
-        setName(s.data.name)
-        setParent(s.data.parent)
-      })
-    }
+        setName(s.data.name);
+        setParent(s.data.parent);
+      });
+    };
 
-    loadSub()
-    loadCategories()
-  }, [params.slug])
+    loadSub();
+    loadCategories();
+  }, [params.slug]);
 
   return (
-    <Flex w="70%" direction="column" h="calc(100vh - 49px)" mx={10}>
+    <Box mx={10}>
       <Heading color="blue" my={5}>
         Update a sub Category
       </Heading>
@@ -102,8 +102,8 @@ const SubUpdate = () => {
         handleSubmit={handleSubmit}
         loading={loading}
       />
-    </Flex>
-  )
-}
+    </Box>
+  );
+};
 
-export default SubUpdate
+export default SubUpdate;

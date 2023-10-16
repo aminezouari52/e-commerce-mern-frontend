@@ -35,3 +35,21 @@ export const saveUserAddress = async (authtoken, address) =>
       },
     }
   );
+
+export const createOrder = async (amount, authtoken) =>
+  await axios.post(
+    `${process.env.REACT_APP_API}/user/order`,
+    { amount },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );
+
+export const getUserOrders = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/user/orders`, {
+    headers: {
+      authtoken,
+    },
+  });

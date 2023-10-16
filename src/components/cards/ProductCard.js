@@ -11,6 +11,7 @@ import {
   CardFooter,
   ButtonGroup,
   Button,
+  useToast,
 } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/react";
 import laptop from "../../images/laptop.jpg";
@@ -28,6 +29,7 @@ const ProductCard = ({ product }) => {
   const { images, title, description, slug, price } = product;
   const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
+  const toast = useToast();
 
   const handleAddToCart = () => {
     // create cart array
@@ -48,6 +50,12 @@ const ProductCard = ({ product }) => {
       // console.log('unique', unique)
       localStorage.setItem("cart", JSON.stringify(unique));
       dispatch(setCart(unique));
+      toast({
+        title: "Product added.",
+        status: "info",
+        duration: 2000,
+        isClosable: true,
+      });
     }
   };
 
@@ -93,10 +101,11 @@ const ProductCard = ({ product }) => {
             size="sm"
             variant="solid"
             colorScheme="blue"
+            isDisabled={product?.quantity < 1}
             leftIcon={<Icon as={BsCartFill} />}
             onClick={handleAddToCart}
           >
-            Add to cart
+            {product?.quantity < 1 ? "Out of stock" : "Add to cart"}
           </Button>
         </ButtonGroup>
       </CardFooter>

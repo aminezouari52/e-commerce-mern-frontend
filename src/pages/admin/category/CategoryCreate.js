@@ -1,21 +1,21 @@
 // REACT
-import { useState, useEffect, useRef } from 'react'
-import { useToast, useDisclosure } from '@chakra-ui/react'
+import { useState, useEffect, useRef } from "react";
+import { useToast, useDisclosure } from "@chakra-ui/react";
 
 // REDUX
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 
 // FUNCTIONS
 import {
   createCategory,
   getCategories,
   removeCategory,
-} from '../../../functions/category'
+} from "../../../functions/category";
 
 // COMPONENTS
-import AdminNav from '../../../components/nav/AdminNav'
-import CategoryForm from '../../../components/forms/CategoryForm'
-import LocalSearch from '../../../components/forms/LocalSearch'
+import AdminNav from "../../../components/nav/AdminNav";
+import CategoryForm from "../../../components/forms/CategoryForm";
+import LocalSearch from "../../../components/forms/LocalSearch";
 
 // STYLE
 import {
@@ -31,96 +31,91 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
-} from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+} from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 // ICONS
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
 const CategoryCreate = () => {
-  const user = useSelector((state) => state.user.loggedInUser)
+  const user = useSelector((state) => state.user.loggedInUser);
 
-  const [name, setName] = useState('')
-  const [categories, setCategories] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [name, setName] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate()
-  const toast = useToast()
+  const navigate = useNavigate();
+  const toast = useToast();
 
   // DELETE DIALOG
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = useRef()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
 
   // SEARCH
-  const [keyword, setKeyword] = useState('')
-  const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword)
+  const [keyword, setKeyword] = useState("");
+  const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   useEffect(() => {
-    loadCategories()
-  }, [])
+    loadCategories();
+  }, []);
 
   const loadCategories = () => {
-    getCategories().then((c) => setCategories(c.data))
-  }
+    getCategories().then((c) => setCategories(c.data));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
 
     // CREATE CATEGORY
     try {
-      const res = await createCategory({ name }, user.token)
-      setLoading(false)
-      setName('')
+      const res = await createCategory({ name }, user.token);
+      setLoading(false);
+      setName("");
       toast({
         title: `"${res.data.name}" is created!`,
-        status: 'success',
+        status: "success",
         duration: 3000,
         isClosable: true,
-      })
-      loadCategories()
+      });
+      loadCategories();
     } catch (err) {
-      setLoading(false)
+      setLoading(false);
       toast({
         title: err.message,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
-      })
+      });
     }
-  }
+  };
   const handleRemove = async (slug) => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const res = await removeCategory(slug, user.token)
-      setLoading(false)
+      const res = await removeCategory(slug, user.token);
+      setLoading(false);
       toast({
         title: `"${res.data.name}" deleted`,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
-      })
-      loadCategories()
+      });
+      loadCategories();
     } catch (err) {
-      console.log(err)
-      setLoading(false)
+      console.log(err);
+      setLoading(false);
       toast({
         title: err.message,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
-      })
+      });
     }
-    onClose()
-  }
+    onClose();
+  };
 
   return (
-    <Flex
-      w="70%"
-      direction="column"
-      h={categories.length > 5 ? 'calc(100% - 49px)' : 'calc(100vh - 49px)'}
-      mx={10}
-    >
+    <Box mx={10}>
       <Heading my={5} color="blue">
         Create a category
       </Heading>
@@ -193,8 +188,8 @@ const CategoryCreate = () => {
           </Flex>
         ))}
       </Flex>
-    </Flex>
-  )
-}
+    </Box>
+  );
+};
 
-export default CategoryCreate
+export default CategoryCreate;
