@@ -1,14 +1,14 @@
 //REACT
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // FUNCTIONS
-import { getProduct, productStar, getRelated } from "../functions/product"
+import { getProduct, productStar, getRelated } from "../functions/product";
 
 // COMPONENTS
-import SingleProduct from "../components/cards/SingleProduct"
-import ProductCard from "../components/cards/ProductCard"
+import SingleProduct from "../components/cards/SingleProduct";
+import ProductCard from "../components/cards/ProductCard";
 
 // STYLE
 import {
@@ -21,46 +21,45 @@ import {
   TabList,
   Tab,
   Heading,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 const Product = () => {
-  const params = useParams()
-  const [product, setProduct] = useState({})
-  const [related, setRelated] = useState([])
-  const [star, setStar] = useState()
-  const user = useSelector((state) => state.user.loggedInUser)
+  const params = useParams();
+  const [product, setProduct] = useState({});
+  const [related, setRelated] = useState([]);
+  const [star, setStar] = useState();
+  const user = useSelector((state) => state.user.loggedInUser);
 
-  const { slug } = params
+  const { slug } = params;
 
   useEffect(() => {
-    loadSingleProduct()
-  }, [slug])
+    loadSingleProduct();
+  }, [slug]);
 
   // Set initial modal star value
   useEffect(() => {
     let existingRatingObject = product.ratings?.find(
       (ele) => ele.postedBy.toString() === user._id?.toString()
-    )
-    existingRatingObject && setStar(existingRatingObject.star) // current user's star
-  }, [])
+    );
+    existingRatingObject && setStar(existingRatingObject.star); // current user's star
+  }, []);
 
   const loadSingleProduct = () =>
     getProduct(slug).then((res) => {
-      setProduct(res.data)
-      getRelated(res.data._id).then((res) => setRelated(res.data))
-    })
+      setProduct(res.data);
+      getRelated(res.data._id).then((res) => setRelated(res.data));
+    });
 
   const onStarClick = async (newRating, productId) => {
-    setStar(newRating)
-    await productStar(productId, newRating, user.token)
-    loadSingleProduct()
-  }
+    setStar(newRating);
+    await productStar(productId, newRating, user.token);
+    loadSingleProduct();
+  };
 
   return (
     <Box w="100%">
       <SingleProduct product={product} onStarClick={onStarClick} star={star} />
-
-      <Tabs variant="enclosed" ml={2}>
+      <Tabs variant="enclosed" colorScheme="white" ml={2}>
         <TabList>
           <Tab fontWeight="medium">Description</Tab>
           <Tab fontWeight="medium">More</Tab>
@@ -71,7 +70,7 @@ const Product = () => {
           </TabPanel>
           <TabPanel>
             <Text>
-              Call us on xxxx xxx xxx to learn more about this product.
+              Call us on +216 21 439 095 to learn more about this product.
             </Text>
           </TabPanel>
         </TabPanels>
@@ -93,7 +92,7 @@ const Product = () => {
         </Flex>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;

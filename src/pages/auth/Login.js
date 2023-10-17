@@ -1,21 +1,31 @@
-// REACT
-import { useState, useEffect } from "react";
-import { useToast } from "@chakra-ui/react";
-import { useNavigate, NavLink, useLocation } from "react-router-dom";
-
 // FIREBASE
 import { auth, googleAuthProvider } from "../../firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
-// REDUX
+// HOOKS
+import { useState, useEffect } from "react";
+import { useToast } from "@chakra-ui/react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoggedInUser } from "../../reducers/userReducer";
 
 // FUNCTIONS
 import { createOrUpdateUser } from "../../functions/auth";
+import { setLoggedInUser } from "../../reducers/userReducer";
+
+// COMPONENTS
+import { NavLink } from "react-router-dom";
 
 // STYLE
-import { Flex, Heading, Input, Button, Link, Text } from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  Flex,
+  Heading,
+  Input,
+  Button,
+  Link,
+  Text,
+} from "@chakra-ui/react";
 
 // ICONS
 import { AiOutlineMail } from "react-icons/ai";
@@ -127,78 +137,85 @@ const Login = () => {
     }
   };
 
-  const loginForm = (
-    <Flex
-      as="form"
-      direction="column"
-      w="100%"
-      maxW="350px"
-      minWidth="250px"
-      onSubmit={handleSubmit}
-    >
-      <Flex direction="column" alignItems="end" mb={2}>
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Your email"
-          autoFocus
-        />
-
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Your password"
-          my={2}
-        />
-        <Link
-          as={NavLink}
-          to="/forgot-password" // Replace with your actual forgot password route
-          color="blue"
-          _hover={{ textDecoration: "underline" }}
-          fontSize="sm"
-        >
-          Forgot password?
-        </Link>
-      </Flex>
-      <Button
-        type="submit"
-        leftIcon={<AiOutlineMail />}
-        isDisabled={!email || password.length < 6}
-        isLoading={loading}
-        colorScheme="blue"
-        mb={2}
-      >
-        Login with Email/Password
-      </Button>
-      <Button onClick={googleLogin} leftIcon={<FcGoogle />} colorScheme="gray">
-        Login with Google
-      </Button>
-
-      <Flex my={2}>
-        <Text color="gray" mr={1}>
-          Dont have an account?
-        </Text>
-        <Link
-          as={NavLink}
-          to="/register"
-          color="blue"
-          fontWeight="semibold"
-          _hover={{ textDecoration: "underline" }}
-        >
-          Register
-        </Link>
-      </Flex>
-    </Flex>
-  );
   return (
     <Flex justifyContent="center" alignItems="center" w="100%" h="90vh">
       <Flex direction="column" alignItems="center" w="30%">
-        <Heading mb={6} color="blue">
-          Login Account
-        </Heading>
-        {loginForm}
+        <Card>
+          <CardBody>
+            <Flex direction="column" alignItems="center" px={8}>
+              <Heading mb={6} color="blue">
+                Login Account
+              </Heading>
+              <Flex
+                as="form"
+                direction="column"
+                w="100%"
+                maxW="350px"
+                minWidth="250px"
+                onSubmit={handleSubmit}
+              >
+                <Flex direction="column" alignItems="end" mb={2}>
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email"
+                    autoFocus
+                  />
+
+                  <Input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Your password"
+                    my={2}
+                  />
+                  <Link
+                    as={NavLink}
+                    to="/forgot-password" // Replace with your actual forgot password route
+                    color="blue"
+                    _hover={{ textDecoration: "underline" }}
+                    fontSize="sm"
+                  >
+                    Forgot password?
+                  </Link>
+                </Flex>
+                <Button
+                  type="submit"
+                  leftIcon={<AiOutlineMail />}
+                  isDisabled={!email || password.length < 6}
+                  isLoading={loading}
+                  colorScheme="blue"
+                  mb={2}
+                >
+                  Login with Email/Password
+                </Button>
+                <Button
+                  onClick={googleLogin}
+                  leftIcon={<FcGoogle />}
+                  colorScheme="gray"
+                >
+                  Login with Google
+                </Button>
+
+                <Flex my={2}>
+                  <Text color="gray" mr={1}>
+                    Dont have an account?
+                  </Text>
+                  <Link
+                    as={NavLink}
+                    to="/register"
+                    color="blue"
+                    fontWeight="semibold"
+                    _hover={{ textDecoration: "underline" }}
+                  >
+                    Register
+                  </Link>
+                </Flex>
+              </Flex>
+            </Flex>
+          </CardBody>
+        </Card>
       </Flex>
     </Flex>
   );

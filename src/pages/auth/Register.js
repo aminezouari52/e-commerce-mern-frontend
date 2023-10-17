@@ -1,31 +1,40 @@
 // REACT
-import { useState } from "react"
-import { useNavigate, NavLink } from "react-router-dom"
-import { useToast } from "@chakra-ui/react"
+import { useState } from "react";
+import { useNavigate, NavLink } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 // REDUX
-import { useDispatch } from "react-redux"
-import { setLoggedInUser } from "../../reducers/userReducer"
+import { useDispatch } from "react-redux";
+import { setLoggedInUser } from "../../reducers/userReducer";
 
 // FIREBASE
-import { auth } from "../../firebase"
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 // FUNCTIONS
-import { createOrUpdateUser } from "../../functions/auth"
+import { createOrUpdateUser } from "../../functions/auth";
 
 // STYLE
-import { Flex, Input, Button, Heading, Text, Link } from "@chakra-ui/react"
+import {
+  Flex,
+  Card,
+  CardBody,
+  Input,
+  Button,
+  Heading,
+  Text,
+  Link,
+} from "@chakra-ui/react";
 
 const Register = () => {
-  let dispatch = useDispatch()
-  const navigate = useNavigate()
-  const toast = useToast()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  let dispatch = useDispatch();
+  const navigate = useNavigate();
+  const toast = useToast();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // validation
     if (!email || !password) {
@@ -35,8 +44,8 @@ const Register = () => {
         status: "error",
         duration: 3000,
         isClosable: true,
-      })
-      return
+      });
+      return;
     }
     if (password.length < 6) {
       toast({
@@ -44,8 +53,8 @@ const Register = () => {
         status: "error",
         duration: 3000,
         isClosable: true,
-      })
-      return
+      });
+      return;
     }
 
     // create user
@@ -54,14 +63,14 @@ const Register = () => {
         auth,
         email,
         password
-      )
+      );
 
       // get user id token
-      const user = userCredential.user
-      const idTokenResult = await user.getIdTokenResult()
+      const user = userCredential.user;
+      const idTokenResult = await user.getIdTokenResult();
 
       // redux store
-      const res = await createOrUpdateUser(idTokenResult.token)
+      const res = await createOrUpdateUser(idTokenResult.token);
       dispatch(
         setLoggedInUser({
           name: res.data.name,
@@ -70,85 +79,87 @@ const Register = () => {
           role: res.data.role,
           _id: res.data._id,
         })
-      )
+      );
 
       // redirect
-      navigate("/")
+      navigate("/");
       toast({
         title: "Account created successfully!",
         // description: "We've created your account for you.",
         status: "success",
         duration: 3000,
         isClosable: true,
-      })
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast({
         title: error.message,
         // description: "We've created your account for you.",
         status: "error",
         duration: 3000,
         isClosable: true,
-      })
+      });
     }
-  }
-
-  const registerForm = (
-    <Flex
-      as="form"
-      onSubmit={handleSubmit}
-      direction="column"
-      w="100%"
-      maxW="350px"
-      minWidth="250px"
-    >
-      <Input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="email"
-        autoFocus
-        mb={2}
-      />
-
-      <Input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        mb={2}
-      />
-
-      <Button type="submit" colorScheme="blue">
-        Register
-      </Button>
-      <Flex my={2}>
-        <Text color="gray" mr={1}>
-          Already have an account?
-        </Text>
-        <Link
-          as={NavLink}
-          to="/login"
-          color="blue"
-          fontWeight="semibold"
-          _hover={{ textDecoration: "underline" }}
-        >
-          Login
-        </Link>
-      </Flex>
-    </Flex>
-  )
+  };
 
   return (
     <Flex justifyContent="center" alignItems="center" w="100%" h="90vh">
-      <Flex direction="column" alignItems="center" w="30%">
-        <Heading mb={6} color="blue">
-          Create Account
-        </Heading>
-        {registerForm}
+      <Flex direction="column" alignItems="center" w="40%">
+        <Card>
+          <CardBody>
+            <Flex direction="column" alignItems="center" px={8}>
+              <Heading mb={6} color="blue">
+                Create an Account
+              </Heading>
+              <Flex
+                as="form"
+                onSubmit={handleSubmit}
+                direction="column"
+                w="100%"
+                maxW="350px"
+                minWidth="250px"
+              >
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="email"
+                  autoFocus
+                  mb={2}
+                />
+
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  mb={2}
+                />
+
+                <Button type="submit" colorScheme="blue">
+                  Register
+                </Button>
+                <Flex my={2}>
+                  <Text color="gray" mr={1}>
+                    Already have an account?
+                  </Text>
+                  <Link
+                    as={NavLink}
+                    to="/login"
+                    color="blue"
+                    fontWeight="semibold"
+                    _hover={{ textDecoration: "underline" }}
+                  >
+                    Login
+                  </Link>
+                </Flex>
+              </Flex>
+            </Flex>
+          </CardBody>
+        </Card>
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
