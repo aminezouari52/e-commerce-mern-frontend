@@ -11,7 +11,6 @@ import { getCategories } from "../../../functions/category";
 import { updateSub, getSub } from "../../../functions/sub";
 
 // COMPONENTS
-import AdminNav from "../../../components/nav/AdminNav";
 import CategoryForm from "../../../components/forms/CategoryForm";
 
 // STYLE

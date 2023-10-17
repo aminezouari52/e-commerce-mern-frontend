@@ -10,7 +10,6 @@ import { getCategories } from "../../../functions/category";
 import { getSubs, createSub, removeSub } from "../../../functions/sub";
 
 // COMPONENTS
-import AdminNav from "../../../components/nav/AdminNav";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 

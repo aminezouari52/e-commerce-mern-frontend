@@ -1,8 +1,7 @@
 import { Flex, Box, Heading, useToast } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import AdminNav from "../../components/nav/AdminNav";
 import { getOrders, changeStatus } from "../../functions/admin";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Orders from "../../components/Orders";
 
 const AdminDashboard = () => {
@@ -17,7 +16,6 @@ const AdminDashboard = () => {
 
   const loadOrders = () =>
     getOrders(user.token).then((res) => {
-      console.log(JSON.stringify(res.data, null, 4));
       setOrders(res.data);
     });
 
@@ -33,7 +31,7 @@ const AdminDashboard = () => {
     });
   };
   return (
-    <Box h="100%" mx={10}>
+    <Box overflowY="hidden" h="100%">
       <Heading mb={6} color="blue" mt={5}>
         Admin dashboard
       </Heading>

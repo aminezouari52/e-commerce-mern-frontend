@@ -33,9 +33,13 @@ const AdminRoute = () => {
 
   return ok ? (
     <Flex>
-      <AdminNav />
-      <Box w="100%" overflowX="hidden" overflowY="hidden">
-        <Outlet />
+      <Box w="200px">
+        <AdminNav />
+      </Box>
+      <Box w="100%" overflowX="hidden">
+        <Box px={2} bg="white">
+          <Outlet />
+        </Box>
       </Box>
     </Flex>
   ) : (

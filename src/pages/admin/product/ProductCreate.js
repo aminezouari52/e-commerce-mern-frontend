@@ -7,9 +7,6 @@ import { useSelector } from "react-redux";
 import { createProduct } from "../../../functions/product";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 
-// COMPONENTS
-import AdminNav from "../../../components/nav/AdminNav";
-
 // STYLE
 import { Flex, Box, Heading } from "@chakra-ui/react";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";

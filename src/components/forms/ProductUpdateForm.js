@@ -18,7 +18,7 @@ import {
   NumberDecrementStepper,
   CheckboxGroup,
   Checkbox,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 
 const ProductCreateForm = ({
   handleSubmit,
@@ -48,22 +48,21 @@ const ProductCreateForm = ({
     brands,
     color,
     brand,
-  } = values
+  } = values;
 
   return (
     <Flex
       as="form"
       direction="column"
-      alignItems={{ lg: 'end', base: 'start' }}
+      alignItems={{ lg: "end", base: "start" }}
       onSubmit={handleSubmit}
     >
       <Flex
-        w="100%"
-        direction={{ lg: 'row', base: 'column' }}
+        direction={{ lg: "row", base: "column" }}
         justifyContent="space-between"
         mb={4}
       >
-        <Box w={{ lg: '45%', base: '90%' }}>
+        <Box w={{ lg: "45%", base: "90%" }}>
           <FormControl isRequired>
             <FormLabel>Title</FormLabel>
             <Input
@@ -122,7 +121,7 @@ const ProductCreateForm = ({
           </RadioGroup>
         </Box>
 
-        <Box w={{ lg: '45%', base: '90%' }}>
+        <Box w={{ lg: "45%", base: "90%" }}>
           <Flex>
             <FormControl>
               <FormLabel mt={2}>Quantity</FormLabel>
@@ -207,7 +206,7 @@ const ProductCreateForm = ({
                 defaultValue={[]}
                 onChange={(value) => setArrayOfSubs(value)}
               >
-                <Stack spacing={[1, 5]} direction={['column', 'row']}>
+                <Stack spacing={[1, 5]} direction={["column", "row"]}>
                   {subOptions.map((s) => (
                     <Checkbox key={s._id} value={s._id}>
                       {s.name}
@@ -219,11 +218,11 @@ const ProductCreateForm = ({
           )}
         </Box>
       </Flex>
-      <Button type="submit" colorScheme="blue">
+      <Button size="sm" type="submit" colorScheme="blue">
         Save
       </Button>
     </Flex>
-  )
-}
+  );
+};
 
-export default ProductCreateForm
+export default ProductCreateForm;

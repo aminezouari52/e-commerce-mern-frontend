@@ -43,31 +43,23 @@ const AdminNav = () => {
   const navigate = useNavigate();
 
   return (
-    <Box p={4}>
-      <Flex
-        direction="column"
-        justifyContent="center"
-        alignItems="start"
-        mb="4"
-      ></Flex>
-      <Stack spacing={4} direction="column">
-        {navElements.map((element) => (
-          <Button
-            key={element.title}
-            color="#000"
-            colorScheme="transparent"
-            justifyContent="start"
-            _hover={{
-              bg: "blue.400",
-            }}
-            onClick={() => navigate(element.link)}
-          >
-            {element.icon}
-            <Box>{element.title}</Box>
-          </Button>
-        ))}
-      </Stack>
-    </Box>
+    <Stack spacing={4} direction="column" p={4} w="200px">
+      {navElements.map((element) => (
+        <Button
+          key={element.title}
+          color="#000"
+          colorScheme="transparent"
+          justifyContent="start"
+          _hover={{
+            bg: "blue.400",
+          }}
+          onClick={() => navigate(element.link)}
+        >
+          {element.icon}
+          <Box>{element.title}</Box>
+        </Button>
+      ))}
+    </Stack>
   );
 };
 export default AdminNav;
