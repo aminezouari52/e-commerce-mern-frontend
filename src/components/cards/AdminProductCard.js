@@ -1,6 +1,6 @@
 // REACT
-import { useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 // STYLE
 import {
@@ -21,11 +21,11 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
-} from '@chakra-ui/react'
-import laptop from '../../images/laptop.jpg'
+} from "@chakra-ui/react";
+import laptop from "../../images/laptop.jpg";
 
 // ICONS
-import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 
 const AdminProductCard = ({
   product,
@@ -35,13 +35,13 @@ const AdminProductCard = ({
   isOpen,
 }) => {
   // destructure
-  const { title, description, images, slug } = product
+  const { title, description, images, slug } = product;
 
-  const navigate = useNavigate()
-  const cancelRef = useRef()
+  const navigate = useNavigate();
+  const cancelRef = useRef();
 
   return (
-    <Card w="31%" minW="200px" mb={4}>
+    <Card w="300px" mb={4}>
       <CardBody>
         <Image
           src={images && images.length ? images[0].url : laptop}
@@ -68,7 +68,7 @@ const AdminProductCard = ({
             colorScheme="yellow"
             size="lg"
             onClick={() => {
-              navigate(`/admin/product/${slug}`)
+              navigate(`/admin/product/${slug}`);
             }}
           >
             <Icon as={AiFillEdit} h="30px" w="30px" />
@@ -110,7 +110,7 @@ const AdminProductCard = ({
         </Flex>
       </CardFooter>
     </Card>
-  )
-}
+  );
+};
 
-export default AdminProductCard
+export default AdminProductCard;

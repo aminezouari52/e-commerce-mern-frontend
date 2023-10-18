@@ -31,7 +31,7 @@ const AdminDashboard = () => {
     });
   };
   return (
-    <Box overflowY="hidden" h="100%">
+    <Box overflowY="hidden">
       <Heading mb={6} color="blue" mt={5}>
         Admin dashboard
       </Heading>

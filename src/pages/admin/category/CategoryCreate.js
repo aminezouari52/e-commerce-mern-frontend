@@ -30,6 +30,8 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
+  Card,
+  CardBody,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -114,79 +116,83 @@ const CategoryCreate = () => {
   };
 
   return (
-    <Box mx={10}>
-      <Heading my={5} color="blue">
+    <Box overflowY="hidden">
+      <Heading color="blue" mt={5}>
         Create a category
       </Heading>
-      <CategoryForm
-        label="Category"
-        name={name}
-        setName={setName}
-        handleSubmit={handleSubmit}
-        loading={loading}
-      />
-      <LocalSearch keyword={keyword} setKeyword={setKeyword} />
-      <Text fontSize="xl" fontWeight="600" my={2}>
-        Categories
-      </Text>
-      <Flex direction="column">
-        {categories.filter(searched(keyword)).map((c) => (
-          <Flex
-            justifyContent="space-between"
-            key={c._id}
-            bg="gray.100"
-            mb={2}
-            py={2}
-            px={4}
-          >
-            <Text>{c.name}</Text>
-            <Flex>
-              <Button
-                size="sm"
-                colorScheme="yellow"
-                mr={2}
-                onClick={() => navigate(`/admin/category/${c.slug}`)}
+      <Card my={2}>
+        <CardBody>
+          <CategoryForm
+            label="Category"
+            name={name}
+            setName={setName}
+            handleSubmit={handleSubmit}
+            loading={loading}
+          />
+          <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+          <Text fontSize="xl" fontWeight="600" my={2}>
+            Categories
+          </Text>
+          <Flex direction="column">
+            {categories.filter(searched(keyword)).map((c) => (
+              <Flex
+                justifyContent="space-between"
+                key={c._id}
+                bg="gray.100"
+                mb={2}
+                py={2}
+                px={4}
               >
-                <Icon as={AiFillEdit} />
-              </Button>
-              <Button size="sm" colorScheme="red" onClick={() => onOpen()}>
-                <Icon as={AiFillDelete} />
-              </Button>
-              {/* DELETE DIALOG */}
-              <AlertDialog
-                isOpen={isOpen}
-                leastDestructiveRef={cancelRef}
-                onClose={onClose}
-              >
-                <AlertDialogOverlay bgColor="rgba(0, 0, 0, 0.2)">
-                  <AlertDialogContent>
-                    <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                      Delete Category
-                    </AlertDialogHeader>
+                <Text>{c.name}</Text>
+                <Flex>
+                  <Button
+                    size="sm"
+                    colorScheme="yellow"
+                    mr={2}
+                    onClick={() => navigate(`/admin/category/${c.slug}`)}
+                  >
+                    <Icon as={AiFillEdit} />
+                  </Button>
+                  <Button size="sm" colorScheme="red" onClick={() => onOpen()}>
+                    <Icon as={AiFillDelete} />
+                  </Button>
+                  {/* DELETE DIALOG */}
+                  <AlertDialog
+                    isOpen={isOpen}
+                    leastDestructiveRef={cancelRef}
+                    onClose={onClose}
+                  >
+                    <AlertDialogOverlay bgColor="rgba(0, 0, 0, 0.2)">
+                      <AlertDialogContent>
+                        <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                          Delete Category
+                        </AlertDialogHeader>
 
-                    <AlertDialogBody>
-                      Are you sure? You can't undo this action afterwards.
-                    </AlertDialogBody>
+                        <AlertDialogBody>
+                          Are you sure? You can't undo this action afterwards.
+                        </AlertDialogBody>
 
-                    <AlertDialogFooter>
-                      <Button ref={cancelRef} onClick={onClose}>
-                        Cancel
-                      </Button>
-                      <Button
-                        colorScheme="red"
-                        onClick={() => handleRemove(c.slug)}
-                        ml={3}
-                      >
-                        Delete
-                      </Button>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialogOverlay>
-              </AlertDialog>
-            </Flex>
+                        <AlertDialogFooter>
+                          <Button ref={cancelRef} onClick={onClose}>
+                            Cancel
+                          </Button>
+                          <Button
+                            colorScheme="red"
+                            onClick={() => handleRemove(c.slug)}
+                            ml={3}
+                          >
+                            Delete
+                          </Button>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialogOverlay>
+                  </AlertDialog>
+                </Flex>
+              </Flex>
+            ))}
           </Flex>
-        ))}
-      </Flex>
+        </CardBody>
+      </Card>
     </Box>
   );
 };

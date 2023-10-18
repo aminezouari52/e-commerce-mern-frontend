@@ -13,7 +13,7 @@ import FileUpload from "../../../components/forms/FileUpload";
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 
 // STYLE
-import { Flex, Heading } from "@chakra-ui/react";
+import { Box, Heading, Card, CardBody } from "@chakra-ui/react";
 
 const initialState = {
   title: "",
@@ -142,33 +142,37 @@ const ProductUpdate = () => {
   };
 
   return (
-    <Flex direction="column" mb={2}>
+    <Box overflowY="hidden">
       <Heading color="blue" mt={5}>
         Update a product
       </Heading>
-      <FileUpload
-        values={values}
-        setValues={setValues}
-        setLoading={setLoading}
-        loading={loading}
-      />
-      <ProductUpdateForm
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        values={values}
-        categories={categories}
-        handleCategoryChange={handleCategoryChange}
-        subOptions={subOptions}
-        setValues={setValues}
-        setArrayOfSubs={setArrayOfSubs}
-        arrayOfSubs={arrayOfSubs}
-        incrementPrice={incrementPrice}
-        decrementPrice={decrementPrice}
-        incrementQuantity={incrementQuantity}
-        decrementQuantity={decrementQuantity}
-        selectedCategory={selectedCategory}
-      />
-    </Flex>
+      <Card my={2}>
+        <CardBody>
+          <FileUpload
+            values={values}
+            setValues={setValues}
+            setLoading={setLoading}
+            loading={loading}
+          />
+          <ProductUpdateForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            values={values}
+            categories={categories}
+            handleCategoryChange={handleCategoryChange}
+            subOptions={subOptions}
+            setValues={setValues}
+            setArrayOfSubs={setArrayOfSubs}
+            arrayOfSubs={arrayOfSubs}
+            incrementPrice={incrementPrice}
+            decrementPrice={decrementPrice}
+            incrementQuantity={incrementQuantity}
+            decrementQuantity={decrementQuantity}
+            selectedCategory={selectedCategory}
+          />
+        </CardBody>
+      </Card>
+    </Box>
   );
 };
 

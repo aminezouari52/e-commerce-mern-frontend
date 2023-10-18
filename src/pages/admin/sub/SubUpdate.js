@@ -14,7 +14,15 @@ import { updateSub, getSub } from "../../../functions/sub";
 import CategoryForm from "../../../components/forms/CategoryForm";
 
 // STYLE
-import { Flex, Box, Heading, Text, Select } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Heading,
+  Text,
+  Select,
+  Card,
+  CardBody,
+} from "@chakra-ui/react";
 
 const SubUpdate = () => {
   const params = useParams();
@@ -72,35 +80,39 @@ const SubUpdate = () => {
   }, [params.slug]);
 
   return (
-    <Box mx={10}>
-      <Heading color="blue" my={5}>
-        Update a sub Category
+    <Box overflowY="hidden">
+      <Heading color="blue" mt={5}>
+        Update a sub category
       </Heading>
-      <Flex direction="column" mb={4}>
-        <Text fontSize="md" fontWeight="600">
-          Parent category
-        </Text>
-        <Select
-          variant="flushed"
-          placeholder="Please select"
-          onChange={(e) => setParent(e.target.value)}
-          value={parent}
-        >
-          {categories.length > 0 &&
-            categories.map((c) => (
-              <option key={c._id} value={c._id}>
-                {c.name}
-              </option>
-            ))}
-        </Select>
-      </Flex>
-      <CategoryForm
-        label="sub category"
-        name={name}
-        setName={setName}
-        handleSubmit={handleSubmit}
-        loading={loading}
-      />
+      <Card my={2}>
+        <CardBody>
+          <Flex direction="column" mb={4}>
+            <Text fontSize="md" fontWeight="600">
+              Parent category
+            </Text>
+            <Select
+              variant="flushed"
+              placeholder="Please select"
+              onChange={(e) => setParent(e.target.value)}
+              value={parent}
+            >
+              {categories.length > 0 &&
+                categories.map((c) => (
+                  <option key={c._id} value={c._id}>
+                    {c.name}
+                  </option>
+                ))}
+            </Select>
+          </Flex>
+          <CategoryForm
+            label="sub category"
+            name={name}
+            setName={setName}
+            handleSubmit={handleSubmit}
+            loading={loading}
+          />
+        </CardBody>
+      </Card>
     </Box>
   );
 };

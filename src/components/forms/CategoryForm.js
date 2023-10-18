@@ -1,4 +1,4 @@
-import { Flex, Input, Button, FormLabel } from "@chakra-ui/react"
+import { Flex, Input, Button, FormLabel } from "@chakra-ui/react";
 
 const CategoryForm = ({ handleSubmit, name, setName, loading, label }) => {
   return (
@@ -20,11 +20,12 @@ const CategoryForm = ({ handleSubmit, name, setName, loading, label }) => {
         isLoading={loading}
         colorScheme="blue"
         my={2}
+        size="sm"
       >
         Save
       </Button>
     </Flex>
-  )
-}
+  );
+};
 
-export default CategoryForm
+export default CategoryForm;

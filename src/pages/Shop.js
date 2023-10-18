@@ -264,6 +264,7 @@ const Shop = () => {
                 onThumbDragStart={() => setTooltip(true)}
                 onThumbDragEnd={() => setTooltip(false)}
                 max={4999}
+                id="range-slider"
               />
             </AccordionPanel>
           </AccordionItem>

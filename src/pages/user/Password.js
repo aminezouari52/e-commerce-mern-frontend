@@ -6,11 +6,16 @@ import { useToast } from "@chakra-ui/react";
 import { auth } from "../../firebase";
 import { updatePassword } from "firebase/auth";
 
-// COMPONENTS
-import UserNav from "../../components/nav/UserNav";
-
 // STYLE
-import { Flex, Box, Heading, Input, Button } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Heading,
+  Input,
+  Button,
+  Card,
+  CardBody,
+} from "@chakra-ui/react";
 
 const Password = () => {
   const [password, setPassword] = useState("");
@@ -44,35 +49,41 @@ const Password = () => {
   };
 
   return (
-    <Box mx={10}>
+    <Box overflowY="hidden">
       <Flex flexDirection="column" alignItems="center" mt={8}>
-        <Heading mb={6}>Update Password</Heading>
-        <Flex
-          as="form"
-          direction="column"
-          w="100%"
-          maxW="350px"
-          minWidth="250px"
-          onSubmit={handleSubmit}
-        >
-          <Input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Your new password"
-            mb={2}
-          />
+        <Card>
+          <CardBody>
+            <Heading color="blue" mb={4}>
+              Update Password
+            </Heading>
+            <Flex
+              as="form"
+              direction="column"
+              w="100%"
+              maxW="350px"
+              minWidth="250px"
+              onSubmit={handleSubmit}
+            >
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Your new password"
+                mb={2}
+              />
 
-          <Button
-            type="submit"
-            isDisabled={!password || password.length < 6 || loading}
-            isLoading={loading}
-            colorScheme="blue"
-            mb={2}
-          >
-            Submit
-          </Button>
-        </Flex>
+              <Button
+                type="submit"
+                isDisabled={!password || password.length < 6 || loading}
+                isLoading={loading}
+                colorScheme="blue"
+                mb={2}
+              >
+                Submit
+              </Button>
+            </Flex>
+          </CardBody>
+        </Card>
       </Flex>
     </Box>
   );

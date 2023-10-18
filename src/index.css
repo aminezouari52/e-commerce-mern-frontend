@@ -9,5 +9,8 @@
 
 #root {
   background-color:#f6f8fb;
-  
+}
+
+#range-slider {
+  z-index: 0;
 }

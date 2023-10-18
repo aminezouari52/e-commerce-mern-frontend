@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux"
-import Resizer from "react-image-file-resizer"
-import axios from "axios"
+import { useSelector } from "react-redux";
+import Resizer from "react-image-file-resizer";
+import axios from "axios";
 
 // STYLE
 import {
@@ -11,19 +11,19 @@ import {
   Input,
   Avatar,
   Spinner,
-} from "@chakra-ui/react"
-import { SmallCloseIcon } from "@chakra-ui/icons"
+} from "@chakra-ui/react";
+import { SmallCloseIcon } from "@chakra-ui/icons";
 
 const FileUpload = ({ values, setValues, setLoading, loading }) => {
-  const user = useSelector((state) => state.user.loggedInUser)
+  const user = useSelector((state) => state.user.loggedInUser);
 
   const fileUploadAndResize = (e) => {
-    let files = e.target.files // 3
-    let allUploadedFiles = values.images
+    let files = e.target.files; // 3
+    let allUploadedFiles = values.images;
 
     // resize
     if (files) {
-      setLoading(true)
+      setLoading(true);
       for (let i = 0; i < files.length; i++) {
         Resizer.imageFileResizer(
           files[i],
@@ -38,24 +38,24 @@ const FileUpload = ({ values, setValues, setLoading, loading }) => {
                 `${process.env.REACT_APP_API}/uploadimages`,
                 { image: uri },
                 { headers: { authtoken: user ? user.token : "" } }
-              )
-              setLoading(false)
-              allUploadedFiles.push(res.data)
+              );
+              setLoading(false);
+              allUploadedFiles.push(res.data);
 
-              setValues({ ...values, images: allUploadedFiles })
+              setValues({ ...values, images: allUploadedFiles });
             } catch (err) {
-              setLoading(false)
-              console.log("CLOUDINARY UPLOAD ERR", err)
+              setLoading(false);
+              console.log("CLOUDINARY UPLOAD ERR", err);
             }
           },
           "base64"
-        )
+        );
       }
     }
-  }
+  };
 
   const handleImageRemove = async (public_id) => {
-    setLoading(true)
+    setLoading(true);
     try {
       await axios.post(
         `${process.env.REACT_APP_API}/removeimage`,
@@ -65,19 +65,19 @@ const FileUpload = ({ values, setValues, setLoading, loading }) => {
             authtoken: user ? user.token : "",
           },
         }
-      )
+      );
 
-      setLoading(false)
-      const { images } = values
+      setLoading(false);
+      const { images } = values;
       let filteredImages = images.filter((item) => {
-        return item.public_id !== public_id
-      })
-      setValues({ ...values, images: filteredImages })
+        return item.public_id !== public_id;
+      });
+      setValues({ ...values, images: filteredImages });
     } catch (err) {
-      console.log(err)
-      setLoading(false)
+      console.log(err);
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
@@ -106,7 +106,7 @@ const FileUpload = ({ values, setValues, setLoading, loading }) => {
           <Spinner color="blue" />
         ) : (
           <FormLabel
-            w="120px"
+            w="140px"
             bg="gray.200"
             color="blue"
             fontWeight="bold"
@@ -116,7 +116,7 @@ const FileUpload = ({ values, setValues, setLoading, loading }) => {
             py={2}
             px={4}
           >
-            Choose File
+            Choose image
             <Input
               type="file"
               multiple
@@ -128,7 +128,7 @@ const FileUpload = ({ values, setValues, setLoading, loading }) => {
         )}
       </FormControl>
     </>
-  )
-}
+  );
+};
 
-export default FileUpload
+export default FileUpload;

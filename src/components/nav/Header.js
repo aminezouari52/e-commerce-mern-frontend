@@ -1,7 +1,6 @@
 // REACT
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { Divider, useToast } from "@chakra-ui/react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useToast, useDisclosure } from "@chakra-ui/react";
 
 // FIREBASE
 import { auth } from "../../firebase";
@@ -11,8 +10,12 @@ import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../reducers/userReducer";
 
+// COMPONENTS
+import Search from "../forms/Search";
+
 // STYLE
 import {
+  Box,
   Flex,
   Text,
   Button,
@@ -22,10 +25,11 @@ import {
   MenuList,
   MenuItem,
   Badge,
+  Divider,
 } from "@chakra-ui/react";
 
 // ICONS
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   AiOutlineHome,
   AiOutlineShopping,
@@ -33,14 +37,14 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
-import Search from "../forms/Search";
-import { BsCart } from "react-icons/bs";
+import { BsCart, BsClockHistory } from "react-icons/bs";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { BsClockHistory } from "react-icons/bs";
 
 const Header = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.loggedInUser);
@@ -63,70 +67,142 @@ const Header = () => {
   };
 
   return (
-    <Flex justifyContent="space-between" w="100%" borderBottom="solid 1px #ccc">
-      <Flex>
-        <NavLink
+    <Flex
+      justifyContent="space-between"
+      w="100%"
+      borderBottom="solid 1px #ccc"
+      height="40px"
+    >
+      <Flex alignItems="center">
+        <Box display={{ lg: "none", md: "none", sm: "none", base: "block" }}>
+          <Menu>
+            <MenuButton
+              as={Button}
+              colorScheme="black"
+              variant="ghost"
+              size="lg"
+            >
+              <HamburgerIcon colorScheme="black" variant="ghost" />
+            </MenuButton>
+            <MenuList>
+              <MenuItem>
+                <Button
+                  variant="transparent-with-icon"
+                  leftIcon={<Icon as={AiOutlineHome} />}
+                  _hover={{ color: "blue" }}
+                  style={{
+                    color: location.pathname === "/" ? "blue" : "#000",
+                    fill: location.pathname === "/" ? "#adb5bd" : "#000",
+                    transition: "border-color ease-in-out 0.3s",
+                    borderRadius: "0px",
+                  }}
+                  onClick={() => navigate("/")}
+                >
+                  <Text>Home</Text>
+                </Button>
+              </MenuItem>
+              <MenuItem>
+                <Button
+                  variant="transparent-with-icon"
+                  leftIcon={<Icon as={AiOutlineShopping} />}
+                  _hover={{ color: "blue" }}
+                  style={{
+                    color: location.pathname === "/shop" ? "blue" : "#000",
+                    fill: location.pathname === "/shop" ? "#adb5bd" : "#000",
+                    transition: "border-color ease-in-out 0.3s",
+                    borderRadius: "0px",
+                  }}
+                  onClick={() => navigate("/shop")}
+                >
+                  <Text>Shop</Text>
+                </Button>
+              </MenuItem>
+              <MenuItem>
+                <Button
+                  variant="transparent-with-icon"
+                  leftIcon={<Icon as={BsCart} />}
+                  _hover={{ color: "blue" }}
+                  style={{
+                    color: location.pathname === "/cart" ? "blue" : "#000",
+                    fill: location.pathname === "/cart" ? "#adb5bd" : "#000",
+                    transition: "border-color ease-in-out 0.3s",
+                    borderRadius: "0px",
+                  }}
+                  onClick={() => navigate("/cart")}
+                >
+                  <Flex alignItems="start">
+                    <Text>Cart</Text>
+                    <Badge borderRadius="50%" colorScheme="red" variant="solid">
+                      {cart?.length}
+                    </Badge>
+                  </Flex>
+                </Button>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>
+
+        <Button
+          display={{ lg: "flex", md: "flex", sm: "flex", base: "none" }}
           height="100%"
-          to="/"
-          style={({ isActive }) => ({
-            color: isActive ? "blue" : "#000",
-            fill: isActive ? "#adb5bd" : "#000",
-            borderBottom: isActive && "2px solid blue",
+          variant="transparent-with-icon"
+          leftIcon={<Icon as={AiOutlineHome} />}
+          size="sm"
+          _hover={{ color: "blue" }}
+          style={{
+            color: location.pathname === "/" ? "blue" : "#000",
+            fill: location.pathname === "/" ? "#adb5bd" : "#000",
+            borderBottom: location.pathname === "/" && "2px solid blue",
             transition: "border-color ease-in-out 0.3s",
-          })}
+            borderRadius: "0px",
+          }}
+          onClick={() => navigate("/")}
         >
-          <Button
-            _hover={{ color: "blue" }}
-            variant="transparent-with-icon"
-            leftIcon={<Icon as={AiOutlineHome} />}
-            size="lg"
-          >
-            <Text>Home</Text>
-          </Button>
-        </NavLink>
-        <NavLink
+          <Text>Home</Text>
+        </Button>
+
+        <Button
+          display={{ lg: "flex", md: "flex", sm: "flex", base: "none" }}
           height="100%"
-          to="/shop"
-          style={({ isActive }) => ({
-            color: isActive ? "blue" : "#000",
-            fill: isActive ? "#adb5bd" : "#000",
-            borderBottom: isActive && "2px solid blue",
+          variant="transparent-with-icon"
+          size="sm"
+          leftIcon={<Icon as={AiOutlineShopping} />}
+          _hover={{ color: "blue" }}
+          style={{
+            color: location.pathname === "/shop" ? "blue" : "#000",
+            fill: location.pathname === "/shop" ? "#adb5bd" : "#000",
+            borderBottom: location.pathname === "/shop" && "2px solid blue",
             transition: "border-color ease-in-out 0.3s",
-          })}
+            borderRadius: "0px",
+          }}
+          onClick={() => navigate("/shop")}
         >
-          <Button
-            _hover={{ color: "blue" }}
-            variant="transparent-with-icon"
-            leftIcon={<Icon as={AiOutlineShopping} />}
-            size="lg"
-          >
-            <Text>Shop</Text>
-          </Button>
-        </NavLink>
-        <NavLink
+          <Text>Shop</Text>
+        </Button>
+
+        <Button
+          display={{ lg: "flex", md: "flex", sm: "flex", base: "none" }}
           height="100%"
-          to="/cart"
-          style={({ isActive }) => ({
-            color: isActive ? "blue" : "#000",
-            fill: isActive ? "#adb5bd" : "#000",
-            borderBottom: isActive && "2px solid blue",
+          size="sm"
+          variant="transparent-with-icon"
+          leftIcon={<Icon as={BsCart} />}
+          _hover={{ color: "blue" }}
+          style={{
+            color: location.pathname === "/cart" ? "blue" : "#000",
+            fill: location.pathname === "/cart" ? "#adb5bd" : "#000",
+            borderBottom: location.pathname === "/cart" && "2px solid blue",
             transition: "border-color ease-in-out 0.3s",
-          })}
+            borderRadius: "0px",
+          }}
+          onClick={() => navigate("/cart")}
         >
-          <Button
-            _hover={{ color: "blue" }}
-            variant="transparent-with-icon"
-            leftIcon={<Icon as={BsCart} />}
-            size="lg"
-          >
-            <Flex alignItems="start">
-              <Text>Cart</Text>
-              <Badge borderRadius="50%" colorScheme="red" variant="solid">
-                {cart?.length}
-              </Badge>
-            </Flex>
-          </Button>
-        </NavLink>
+          <Flex alignItems="start">
+            <Text>Cart</Text>
+            <Badge borderRadius="50%" colorScheme="red" variant="solid">
+              {cart?.length}
+            </Badge>
+          </Flex>
+        </Button>
       </Flex>
 
       <Flex>
@@ -138,7 +214,7 @@ const Header = () => {
             <Menu>
               <MenuButton
                 as={Button}
-                colorScheme="blue"
+                colorScheme="black"
                 variant="ghost"
                 size="sm"
                 fontWeight="bold"
@@ -182,44 +258,41 @@ const Header = () => {
           </Flex>
         ) : (
           <Flex>
-            <NavLink
-              to="/register"
-              style={({ isActive }) => ({
-                display: "flex",
-                alignItems: "center",
-                color: isActive ? "blue" : "#000",
-                fill: isActive ? "#adb5bd" : "#000",
-                borderBottom: isActive && "2px solid blue",
+            <Button
+              height="100%"
+              variant="transparent-with-icon"
+              leftIcon={<Icon as={AiOutlineUserAdd} />}
+              size="sm"
+              _hover={{ color: "blue" }}
+              style={{
+                color: location.pathname === "/register" ? "blue" : "#000",
+                fill: location.pathname === "/register" ? "#adb5bd" : "#000",
+                borderBottom:
+                  location.pathname === "/register" && "2px solid blue",
                 transition: "border-color ease-in-out 0.3s",
-              })}
+                borderRadius: "0px",
+              }}
+              onClick={() => navigate("/register")}
             >
-              <Button
-                _hover={{ color: "blue" }}
-                variant="transparent-with-icon"
-                leftIcon={<Icon as={AiOutlineUserAdd} />}
-              >
-                <Text>Register</Text>
-              </Button>
-            </NavLink>
-            <NavLink
-              to="/login"
-              style={({ isActive }) => ({
-                display: "flex",
-                alignItems: "center",
-                color: isActive ? "blue" : "#000",
-                fill: isActive ? "#adb5bd" : "#000",
-                borderBottom: isActive && "2px solid blue",
+              <Text>Register</Text>
+            </Button>
+            <Button
+              _hover={{ color: "blue" }}
+              variant="transparent-with-icon"
+              leftIcon={<Icon as={AiOutlineUser} />}
+              size="sm"
+              style={{
+                color: location.pathname === "/login" ? "blue" : "#000",
+                fill: location.pathname === "/login" ? "#adb5bd" : "#000",
+                borderBottom:
+                  location.pathname === "/login" && "2px solid blue",
                 transition: "border-color ease-in-out 0.3s",
-              })}
+                borderRadius: "0px",
+              }}
+              onClick={() => navigate("/login")}
             >
-              <Button
-                _hover={{ color: "blue" }}
-                variant="transparent-with-icon"
-                leftIcon={<Icon as={AiOutlineUser} />}
-              >
-                <Text>Login</Text>
-              </Button>
-            </NavLink>
+              <Text>Login</Text>
+            </Button>
           </Flex>
         )}
       </Flex>

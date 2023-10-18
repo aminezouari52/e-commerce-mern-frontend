@@ -58,13 +58,14 @@ const ProductCreateForm = ({
       onSubmit={handleSubmit}
     >
       <Flex
+        w="100%"
         direction={{ lg: "row", base: "column" }}
         justifyContent="space-between"
         mb={4}
       >
         <Box w={{ lg: "45%", base: "90%" }}>
           <FormControl isRequired>
-            <FormLabel>Title</FormLabel>
+            <FormLabel color="gray">Title</FormLabel>
             <Input
               name="title"
               value={title}
@@ -73,7 +74,9 @@ const ProductCreateForm = ({
             />
           </FormControl>
           <FormControl isRequired>
-            <FormLabel mt={2}>Description</FormLabel>
+            <FormLabel mt={2} color="gray">
+              Description
+            </FormLabel>
             <Input
               name="description"
               value={description}
@@ -83,14 +86,16 @@ const ProductCreateForm = ({
           </FormControl>
           <Flex>
             <FormControl isRequired>
-              <FormLabel mt={2}>Price</FormLabel>
+              <FormLabel mt={2} color="gray">
+                Price
+              </FormLabel>
               <Flex alignItems="center">
                 <Text fontSize="lg" mr={2}>
                   $
                 </Text>
                 <NumberInput
                   variant="flushed"
-                  step={0.1}
+                  step={0.01}
                   min={0}
                   value={price}
                   name="price"
@@ -105,8 +110,7 @@ const ProductCreateForm = ({
               </Flex>
             </FormControl>
           </Flex>
-
-          <Text fontSize="md" fontWeight="600" mt={2}>
+          <Text color="gray" fontSize="md" fontWeight="600" mt={2}>
             Shipping
           </Text>
           <RadioGroup name="shipping" value={shipping}>
@@ -124,7 +128,9 @@ const ProductCreateForm = ({
         <Box w={{ lg: "45%", base: "90%" }}>
           <Flex>
             <FormControl>
-              <FormLabel mt={2}>Quantity</FormLabel>
+              <FormLabel mt={2} color="gray">
+                Quantity
+              </FormLabel>
               <NumberInput
                 step={1}
                 min={1}
@@ -141,9 +147,9 @@ const ProductCreateForm = ({
             </FormControl>
           </Flex>
           <FormControl isRequired direction="column">
-            <FormLabel fontSize="md" fontWeight="600" mt={2} mb={0}>
+            <Text color="gray" fontSize="md" fontWeight="600" mt={2}>
               Color
-            </FormLabel>
+            </Text>
             <Select
               name="color"
               variant="flushed"
@@ -159,9 +165,9 @@ const ProductCreateForm = ({
             </Select>
           </FormControl>
           <FormControl isRequired direction="column">
-            <FormLabel fontSize="md" fontWeight="600" mt={2} mb={0}>
+            <Text color="gray" fontSize="md" fontWeight="600" mt={2}>
               Brand
-            </FormLabel>
+            </Text>
             <Select
               name="brand"
               variant="flushed"
@@ -178,9 +184,9 @@ const ProductCreateForm = ({
           </FormControl>
 
           <FormControl isRequired direction="column">
-            <FormLabel fontSize="md" fontWeight="600" mt={2} mb={0}>
+            <Text color="gray" fontSize="md" fontWeight="600" mt={2}>
               Category
-            </FormLabel>
+            </Text>
             <Select
               name="category"
               variant="flushed"
@@ -206,13 +212,17 @@ const ProductCreateForm = ({
                 defaultValue={[]}
                 onChange={(value) => setArrayOfSubs(value)}
               >
-                <Stack spacing={[1, 5]} direction={["column", "row"]}>
+                <Flex
+                  wrap="wrap"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                >
                   {subOptions.map((s) => (
                     <Checkbox key={s._id} value={s._id}>
                       {s.name}
                     </Checkbox>
                   ))}
-                </Stack>
+                </Flex>
               </CheckboxGroup>
             </Flex>
           )}

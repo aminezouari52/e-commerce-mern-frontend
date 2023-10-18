@@ -8,7 +8,7 @@ import { createProduct } from "../../../functions/product";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 
 // STYLE
-import { Flex, Box, Heading } from "@chakra-ui/react";
+import { Box, Heading, Card, CardBody } from "@chakra-ui/react";
 import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import FileUpload from "../../../components/forms/FileUpload";
 
@@ -102,28 +102,32 @@ const ProductCreate = () => {
   };
 
   return (
-    <Box overflow="hidden" mx={10}>
+    <Box overflowY="hidden">
       <Heading color="blue" mt={5}>
         Create a product
       </Heading>
-      <FileUpload
-        values={values}
-        setValues={setValues}
-        setLoading={setLoading}
-        loading={loading}
-      />
-      <ProductCreateForm
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
-        values={values}
-        handleCatagoryChange={handleCatagoryChange}
-        subOptions={subOptions}
-        setValues={setValues}
-        incrementPrice={incrementPrice}
-        decrementPrice={decrementPrice}
-        incrementQuantity={incrementQuantity}
-        decrementQuantity={decrementQuantity}
-      />
+      <Card my={2}>
+        <CardBody>
+          <FileUpload
+            values={values}
+            setValues={setValues}
+            setLoading={setLoading}
+            loading={loading}
+          />
+          <ProductCreateForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            values={values}
+            handleCatagoryChange={handleCatagoryChange}
+            subOptions={subOptions}
+            setValues={setValues}
+            incrementPrice={incrementPrice}
+            decrementPrice={decrementPrice}
+            incrementQuantity={incrementQuantity}
+            decrementQuantity={decrementQuantity}
+          />
+        </CardBody>
+      </Card>
     </Box>
   );
 };

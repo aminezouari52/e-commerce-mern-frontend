@@ -1,5 +1,5 @@
 // COMPONENTS
-import FileUpload from "./FileUpload"
+import FileUpload from "./FileUpload";
 
 // STYLE
 import {
@@ -22,7 +22,7 @@ import {
   CheckboxGroup,
   Checkbox,
   Divider,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 const ProductCreateForm = ({
   handleSubmit,
@@ -50,7 +50,7 @@ const ProductCreateForm = ({
     brands,
     color,
     brand,
-  } = values
+  } = values;
 
   return (
     <Flex
@@ -112,11 +112,9 @@ const ProductCreateForm = ({
               </Flex>
             </FormControl>
           </Flex>
-
           <Text color="gray" fontSize="md" fontWeight="600" mt={2}>
             Shipping
           </Text>
-
           <RadioGroup name="shipping">
             <Stack
               mt={2}
@@ -165,7 +163,6 @@ const ProductCreateForm = ({
               </option>
             ))}
           </Select>
-
           <Flex direction="column">
             <Text color="gray" fontSize="md" fontWeight="600" mt={2}>
               Brand
@@ -212,30 +209,27 @@ const ProductCreateForm = ({
                 defaultValue={[]}
                 onChange={(value) => setValues({ ...values, subs: value })}
               >
-                <Stack spacing={[1, 5]} direction={["column", "row"]}>
+                <Flex
+                  wrap="wrap"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                >
                   {subOptions.map((s) => (
                     <Checkbox key={s._id} value={s._id}>
                       {s.name}
                     </Checkbox>
                   ))}
-                </Stack>
+                </Flex>
               </CheckboxGroup>
             </Flex>
           )}
         </Box>
       </Flex>
-      <Button
-        type="submit"
-        // w="15%"
-        // isDisabled={!name}
-        // isLoading={loading}
-        // variant="outline"
-        colorScheme="blue"
-      >
+      <Button type="submit" size="sm" colorScheme="blue">
         Save
       </Button>
     </Flex>
-  )
-}
+  );
+};
 
-export default ProductCreateForm
+export default ProductCreateForm;

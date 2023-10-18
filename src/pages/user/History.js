@@ -36,7 +36,7 @@ const History = () => {
     });
 
   return (
-    <Box mx={10}>
+    <Box overflowY="hidden">
       <Heading mb={6} color="blue" mt={5}>
         {orders.length > 0 ? "User purchase orders" : "No purchase orders"}
       </Heading>

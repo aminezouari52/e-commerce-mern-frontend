@@ -1,69 +1,69 @@
 // REACT
-import { useState, useEffect } from 'react'
-import { useToast, useDisclosure } from '@chakra-ui/react'
+import { useState, useEffect } from "react";
+import { useToast, useDisclosure } from "@chakra-ui/react";
 
 // REDUX
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 
 // FUNCTIONS
-import { getProductsByCount, removeProduct } from '../../../functions/product'
+import { getProductsByCount, removeProduct } from "../../../functions/product";
 
 // COMPONENTS
-import AdminProductCard from '../../../components/cards/AdminProductCard'
+import AdminProductCard from "../../../components/cards/AdminProductCard";
 
 // STYLE
-import { Flex, Box, Heading, Center, Spinner, Text } from '@chakra-ui/react'
+import { Flex, Box, Heading, Center, Spinner, Text } from "@chakra-ui/react";
 
 const AllProducts = () => {
-  const toast = useToast()
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
+  const toast = useToast();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const user = useSelector((state) => state.user.loggedInUser)
+  const user = useSelector((state) => state.user.loggedInUser);
 
   // DELETE DIALOG
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    loadAllProducts()
-  }, [])
+    loadAllProducts();
+  }, []);
 
   const loadAllProducts = async () => {
     try {
-      setLoading(true)
-      const res = await getProductsByCount(100)
-      setProducts(res.data)
-      setLoading(false)
+      setLoading(true);
+      const res = await getProductsByCount(100);
+      setProducts(res.data);
+      setLoading(false);
     } catch (err) {
-      setLoading(false)
-      console.log(err)
+      setLoading(false);
+      console.log(err);
     }
-  }
+  };
 
   const handleRemove = async (slug) => {
-    setLoading(true)
+    setLoading(true);
     try {
-      await removeProduct(slug, user.token)
-      setLoading(false)
+      await removeProduct(slug, user.token);
+      setLoading(false);
       toast({
-        title: 'Product deleted',
-        status: 'error',
+        title: "Product deleted",
+        status: "error",
         duration: 3000,
         isClosable: true,
-      })
-      loadAllProducts()
+      });
+      loadAllProducts();
     } catch (err) {
-      console.log(err)
-      setLoading(false)
+      console.log(err);
+      setLoading(false);
       toast({
         title: err.message,
-        status: 'error',
+        status: "error",
         duration: 3000,
         isClosable: true,
-      })
+      });
     }
-    onClose()
-  }
+    onClose();
+  };
 
   return (
     <>
@@ -80,17 +80,12 @@ const AllProducts = () => {
         </Center>
       )}
 
-      <Box
-        w="100%"
-        my={5}
-        mx={10}
-        h={products.length > 3 ? 'calc(100% - 49px)' : 'calc(100vh - 49px)'}
-      >
-        <Heading mb={6} color="blue">
+      <Box>
+        <Heading my={5} color="blue">
           All products
         </Heading>
         {products.length > 0 ? (
-          <Flex wrap="wrap" justifyContent="space-between">
+          <Flex wrap="wrap" justifyContent="space-around">
             {products.map((product) => {
               return (
                 <AdminProductCard
@@ -101,7 +96,7 @@ const AllProducts = () => {
                   onOpen={onOpen}
                   onClose={onClose}
                 />
-              )
+              );
             })}
           </Flex>
         ) : (
@@ -111,6 +106,6 @@ const AllProducts = () => {
         )}
       </Box>
     </>
-  )
-}
-export default AllProducts
+  );
+};
+export default AllProducts;

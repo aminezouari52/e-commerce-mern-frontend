@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { getCategory, updateCategory } from "../../../functions/category";
 
 // STYLE
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Heading, Card, CardBody } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import CategoryForm from "../../../components/forms/CategoryForm";
 
@@ -55,17 +55,21 @@ const CategoryUpdate = () => {
   };
 
   return (
-    <Box mx={10}>
-      <Heading my={5} color="blue">
-        Update a Category
+    <Box overflowY="hidden">
+      <Heading color="blue" mt={5}>
+        Update a category
       </Heading>
-      <CategoryForm
-        label="category"
-        name={name}
-        setName={setName}
-        handleSubmit={handleSubmit}
-        loading={loading}
-      />
+      <Card my={2}>
+        <CardBody>
+          <CategoryForm
+            label="category"
+            name={name}
+            setName={setName}
+            handleSubmit={handleSubmit}
+            loading={loading}
+          />
+        </CardBody>
+      </Card>
     </Box>
   );
 };

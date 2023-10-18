@@ -24,8 +24,8 @@ import moment from "moment";
 
 const Orders = ({ orders, handleStatusChange }) => (
   <>
-    {orders.map((order) => (
-      <Card mb={4}>
+    {orders.map((order, i) => (
+      <Card mb={4} key={i}>
         <CardBody>
           <Stack direction="row" mb={4}>
             <Badge colorScheme="red">id: {order._id}</Badge>
