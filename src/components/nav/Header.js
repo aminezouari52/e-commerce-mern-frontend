@@ -1,6 +1,6 @@
 // REACT
 import { useNavigate, useLocation } from "react-router-dom";
-import { useToast, useDisclosure } from "@chakra-ui/react";
+import { useToast, useDisclosure, useRef } from "@chakra-ui/react";
 
 // FIREBASE
 import { auth } from "../../firebase";
@@ -26,6 +26,12 @@ import {
   MenuItem,
   Badge,
   Divider,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
 } from "@chakra-ui/react";
 
 // ICONS
@@ -75,6 +81,29 @@ const Header = () => {
     >
       <Flex alignItems="center">
         <Box display={{ lg: "none", md: "none", sm: "none", base: "block" }}>
+          <Button colorScheme="teal" onClick={onOpen}>
+            Open
+          </Button>
+          <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
+            <DrawerOverlay />
+            <DrawerContent style={{ width: "220px" }}>
+              <DrawerCloseButton />
+              <DrawerHeader>HEADER</DrawerHeader>
+              <DrawerBody>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Consequat nisl vel pretium lectus quam id. Semper quis lectus
+                  nulla at volutpat diam ut venenatis. Dolor morbi non arcu
+                  risus quis varius quam quisque. Massa ultricies mi quis
+                  hendrerit dolor magna eget est lorem. Erat imperdiet sed
+                  euismod nisi porta. Lectus vestibulum mattis ullamcorper
+                  velit.
+                </p>
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
+
           <Menu>
             <MenuButton
               as={Button}
