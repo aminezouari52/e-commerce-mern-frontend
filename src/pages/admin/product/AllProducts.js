@@ -76,12 +76,12 @@ const AllProducts = () => {
           bottom="0"
           bg="rgba(0, 0, 0, 0.2)"
         >
-          <Spinner size="xl" color="blue" />
+          <Spinner size="xl" color="#3182CE" />
         </Center>
       )}
 
       <Box>
-        <Heading my={5} color="blue">
+        <Heading size="lg" color="#3182ce" my={5}>
           All products
         </Heading>
         {products.length > 0 ? (

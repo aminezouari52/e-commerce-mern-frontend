@@ -120,7 +120,7 @@ const SubCreate = () => {
 
   return (
     <Box overflowY="hidden">
-      <Heading color="blue" mt={5}>
+      <Heading size="lg" color="#3182ce" my={5}>
         Create a sub category
       </Heading>
       <Card my={2}>

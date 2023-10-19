@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react"
-import { getSub } from "../../functions/sub"
-import ProductCard from "../../components/cards/ProductCard"
-import { useParams } from "react-router-dom"
-import { Center, Spinner, Heading, Box, Flex } from "@chakra-ui/react"
+import React, { useState, useEffect } from "react";
+import { getSub } from "../../functions/sub";
+import ProductCard from "../../components/cards/ProductCard";
+import { useParams } from "react-router-dom";
+import { Center, Spinner, Heading, Box, Flex } from "@chakra-ui/react";
 
 const SubHome = () => {
-  const [sub, setSub] = useState({})
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
-  const params = useParams()
+  const [sub, setSub] = useState({});
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const params = useParams();
 
-  const { slug } = params
+  const { slug } = params;
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     getSub(slug).then((s) => {
-      setSub(s.data.sub)
-      setProducts(s.data.products)
-      setLoading(false)
-    })
-  }, [])
+      setSub(s.data.sub);
+      setProducts(s.data.products);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <>
@@ -54,7 +54,7 @@ const SubHome = () => {
         </Flex>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default SubHome
+export default SubHome;

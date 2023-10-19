@@ -35,7 +35,7 @@ const Cart = () => {
     userCart(cart, user.token)
       .then((res) => {
         console.log("CART POST RES", res);
-        if (res.data.ok) navigate("/user/checkout");
+        if (res.data.ok) navigate("/checkout");
       })
       .catch((err) => console.log("cart save err", err));
   };
@@ -46,67 +46,78 @@ const Cart = () => {
 
   return (
     <Flex
+      p={0}
       direction={{ lg: "row", md: "row", sm: "column", base: "column" }}
-      p={4}
-      justifyContent={{
-        lg: "space-around",
-        md: "space-around",
-        sm: "start",
-        base: "start",
+      h={{
+        lg: "calc(100vh - 40px)",
+        md: "calc(100vh - 40px)",
+        sm: "100%",
+        base: "100%",
       }}
-      alignItems={{ lg: "start", md: "start", sm: "center", base: "center" }}
     >
-      <Box maxWidth={{ lg: "70%", md: "60%", sm: "100%", base: "100%" }}>
-        <Heading size="md">Cart / {cart.length} Product</Heading>
-        {!cart.length ? (
-          <Text>
-            No products in cart. <Link to="/shop">Continue Shopping.</Link>
-          </Text>
-        ) : (
-          <TableContainer
-            mt={4}
-            border="1px"
-            borderRadius="4px"
-            borderColor="gray.300"
-            overflowX="auto"
-            mr={2}
-          >
-            <Table m="0" variant="simple">
-              <Thead bg="teal.50">
-                <Tr>
-                  <Th>Image</Th>
-                  <Th>Title</Th>
-                  <Th>Price</Th>
-                  <Th>Brand</Th>
-                  <Th>Color</Th>
-                  <Th>Count</Th>
-                  <Th>Shipping</Th>
-                  <Th>Remove</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {cart.map((p) => (
-                  <ProductCardInCheckout key={p._id} p={p} />
-                ))}
-              </Tbody>
-            </Table>
-          </TableContainer>
-        )}
+      <Box w="100%" overflowX="hidden" bg="#e9ecef" h="100%">
+        <Box px={5} h="100%">
+          <Box overflowY="hidden">
+            <Heading size="lg" color="#3182ce" my={5}>
+              Cart / {cart.length} Product
+            </Heading>
+
+            {!cart.length ? (
+              <Text>
+                No products in cart. <Link to="/shop">Continue Shopping.</Link>
+              </Text>
+            ) : (
+              <TableContainer
+                border="1px"
+                borderRadius="4px"
+                borderColor="gray.300"
+                overflowX="auto"
+                mr={2}
+              >
+                <Table m="0" variant="simple" bg="white">
+                  <Thead bg="teal.50">
+                    <Tr>
+                      <Th>Image</Th>
+                      <Th>Title</Th>
+                      <Th>Price</Th>
+                      <Th>Brand</Th>
+                      <Th>Color</Th>
+                      <Th>Count</Th>
+                      <Th>Shipping</Th>
+                      <Th>Remove</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {cart.map((p) => (
+                      <ProductCardInCheckout key={p._id} p={p} />
+                    ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            )}
+          </Box>
+        </Box>
       </Box>
+
       <Stack
-        w={{ lg: "30%", md: "30%", sm: "100%", base: "100%" }}
-        spacing="4"
-        mt={{ lg: 0, md: 0, sm: 0, base: 4 }}
-        ml={{ lg: 4, md: 4, sm: 4, base: 0 }}
+        spacing={5}
+        w={{ lg: "300px", md: "300px", sm: "100%", base: "100%" }}
+        p={4}
       >
         <Heading size="md">Order Summary</Heading>
         <Divider colorScheme="black" size="lg" />
         <Heading size="sm">Products</Heading>
         <Divider size="lg" />
         {cart.map((c, i) => (
-          <Flex alignItems="center" key={i} w="100%">
-            <Badge colorScheme="purple">
-              {c.title} x {c.count}
+          <Flex alignItems="center" key={i} wrap="nowrap">
+            x{c.count}{" "}
+            <Badge
+              colorScheme="purple"
+              whiteSpace="normal"
+              wordBreak="break-all"
+              maxWidth="100px"
+            >
+              {c.title}
             </Badge>
             <Text> = ${(c.price * c.count).toFixed(2)}</Text>
           </Flex>

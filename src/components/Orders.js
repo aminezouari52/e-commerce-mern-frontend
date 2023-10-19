@@ -2,8 +2,6 @@ import { CloseIcon, CheckCircleIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 import {
-  Box,
-  Heading,
   Flex,
   Badge,
   Th,

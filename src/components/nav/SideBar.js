@@ -8,17 +8,16 @@ import { Box, Button, Icon, Stack } from "@chakra-ui/react";
 // ICONS
 import { AiFillLock } from "react-icons/ai";
 import { BsClockHistory } from "react-icons/bs";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
 import { BiCube } from "react-icons/bi";
-import { GrCubes } from "react-icons/gr";
-import { FaListUl } from "react-icons/fa";
-import { MdSubject } from "react-icons/md";
+import { FaListUl, FaCubes } from "react-icons/fa";
+import { MdSubject, MdOutlineSpaceDashboard } from "react-icons/md";
+
 const SideBar = () => {
   const location = useLocation();
   const user = useSelector((state) => state.user.loggedInUser);
 
-  const sideBarElements =
-    user && user?.role === "admin"
+  const sideBarElements = user
+    ? user?.role === "admin"
       ? [
           {
             title: "Dashboard",
@@ -32,7 +31,7 @@ const SideBar = () => {
           },
           {
             title: "Products",
-            icon: <Icon as={GrCubes} mr={2} />,
+            icon: <Icon as={FaCubes} mr={2} />,
             link: "/admin/products",
           },
           {
@@ -57,7 +56,8 @@ const SideBar = () => {
             icon: <Icon as={AiFillLock} mr={2} />,
             link: "/user/password",
           },
-        ];
+        ]
+    : [];
 
   const navigate = useNavigate();
 
@@ -66,15 +66,17 @@ const SideBar = () => {
       {sideBarElements.map((element) => (
         <Button
           key={element.title}
-          color="#000"
+          color={location.pathname === element.link ? "#fff" : "#000"}
+          fill={location.pathname === element.link ? "#fff" : "#000"}
           colorScheme="transparent"
           justifyContent="start"
           _hover={{
-            bg: "blue.400",
+            bg: "#3182CE",
+            color: "#fff",
+            fill: "#fff",
           }}
-          bg={location.pathname === element.link && "blue.400"}
+          bg={location.pathname === element.link && "#3182CE"}
           onClick={() => navigate(element.link)}
-          size={{ lg: "md", md: "md", sm: "md", base: "xs" }}
         >
           {element.icon}
           <Box>{element.title}</Box>

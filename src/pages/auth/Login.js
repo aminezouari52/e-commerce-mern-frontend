@@ -143,7 +143,7 @@ const Login = () => {
         <Card>
           <CardBody>
             <Flex direction="column" alignItems="center" px={8}>
-              <Heading mb={6} color="blue">
+              <Heading mb={6} color="#3182CE">
                 Login Account
               </Heading>
               <Flex
@@ -173,7 +173,7 @@ const Login = () => {
                   <Link
                     as={NavLink}
                     to="/forgot-password" // Replace with your actual forgot password route
-                    color="blue"
+                    color="#3182CE"
                     _hover={{ textDecoration: "underline" }}
                     fontSize="sm"
                   >
@@ -205,7 +205,7 @@ const Login = () => {
                   <Link
                     as={NavLink}
                     to="/register"
-                    color="blue"
+                    color="#3182CE"
                     fontWeight="semibold"
                     _hover={{ textDecoration: "underline" }}
                   >

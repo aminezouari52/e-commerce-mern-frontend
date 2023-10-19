@@ -90,7 +90,7 @@ const SingleProduct = ({ product, star, onStarClick }) => {
             size={{ lg: "xl", md: "xl", base: "lg" }}
             py={4}
             px={2}
-            background="blue.400"
+            background="blue"
           >
             {title}
           </Heading>

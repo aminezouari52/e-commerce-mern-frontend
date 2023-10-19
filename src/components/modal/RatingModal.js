@@ -1,8 +1,8 @@
 // REACT
-import { useRef } from "react"
-import { useSelector } from "react-redux"
-import { useDisclosure } from "@chakra-ui/react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useRef } from "react";
+import { useSelector } from "react-redux";
+import { useDisclosure } from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
 
 // STYLE
 import {
@@ -16,33 +16,33 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
   useToast,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 
 // ASSETS
-import { AiOutlineStar } from "react-icons/ai"
+import { AiOutlineStar } from "react-icons/ai";
 const RatingModal = ({ children, confirmStarUpdate }) => {
-  const navigate = useNavigate()
-  const cancelRef = useRef()
-  const { slug } = useParams()
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const user = useSelector((state) => state.user.loggedInUser)
-  const toast = useToast()
+  const navigate = useNavigate();
+  const cancelRef = useRef();
+  const { slug } = useParams();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const user = useSelector((state) => state.user.loggedInUser);
+  const toast = useToast();
 
   const onOpenHandler = () => {
     return user && user.token
       ? onOpen()
-      : navigate(`/login`, { state: { from: `/product/${slug}` } })
-  }
+      : navigate(`/login`, { state: { from: `/product/${slug}` } });
+  };
 
   const okHandler = () => {
-    onClose()
+    onClose();
     toast({
       title: "Thanks for your review. It will apper soon",
       status: "success",
       duration: 3000,
       isClosable: true,
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -76,7 +76,7 @@ const RatingModal = ({ children, confirmStarUpdate }) => {
         </AlertDialogContent>
       </AlertDialog>
     </>
-  )
-}
+  );
+};
 
-export default RatingModal
+export default RatingModal;

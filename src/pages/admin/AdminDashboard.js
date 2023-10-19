@@ -32,7 +32,7 @@ const AdminDashboard = () => {
   };
   return (
     <Box overflowY="hidden">
-      <Heading mb={6} color="blue" mt={5}>
+      <Heading size="lg" color="#3182ce" my={5}>
         Admin dashboard
       </Heading>
       <Orders orders={orders} handleStatusChange={handleStatusChange} />

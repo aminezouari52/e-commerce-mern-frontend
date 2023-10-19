@@ -15,6 +15,7 @@ import Search from "../forms/Search";
 
 // STYLE
 import {
+  Stack,
   Box,
   Flex,
   Text,
@@ -45,6 +46,7 @@ import {
 import { FiLogOut } from "react-icons/fi";
 import { BsCart, BsClockHistory } from "react-icons/bs";
 import { MdOutlineSpaceDashboard } from "react-icons/md";
+import SideBar from "./SideBar";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -81,46 +83,26 @@ const Header = () => {
     >
       <Flex alignItems="center">
         <Box display={{ lg: "none", md: "none", sm: "none", base: "block" }}>
-          <Button colorScheme="teal" onClick={onOpen}>
-            Open
+          <Button
+            colorScheme="black"
+            variant="ghost"
+            size="lg"
+            onClick={onOpen}
+          >
+            <HamburgerIcon variant="ghost" />
           </Button>
           <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
             <DrawerOverlay />
-            <DrawerContent style={{ width: "220px" }}>
+            <DrawerContent style={{ width: "200px" }}>
               <DrawerCloseButton />
-              <DrawerHeader>HEADER</DrawerHeader>
-              <DrawerBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Consequat nisl vel pretium lectus quam id. Semper quis lectus
-                  nulla at volutpat diam ut venenatis. Dolor morbi non arcu
-                  risus quis varius quam quisque. Massa ultricies mi quis
-                  hendrerit dolor magna eget est lorem. Erat imperdiet sed
-                  euismod nisi porta. Lectus vestibulum mattis ullamcorper
-                  velit.
-                </p>
-              </DrawerBody>
-            </DrawerContent>
-          </Drawer>
-
-          <Menu>
-            <MenuButton
-              as={Button}
-              colorScheme="black"
-              variant="ghost"
-              size="lg"
-            >
-              <HamburgerIcon colorScheme="black" variant="ghost" />
-            </MenuButton>
-            <MenuList>
-              <MenuItem>
+              <Flex direction="column" alignItems="start" p={4}>
                 <Button
+                  w="100%"
+                  justifyContent="start"
                   variant="transparent-with-icon"
                   leftIcon={<Icon as={AiOutlineHome} />}
-                  _hover={{ color: "blue" }}
                   style={{
-                    color: location.pathname === "/" ? "blue" : "#000",
+                    color: location.pathname === "/" ? "#3182CE" : "#000",
                     fill: location.pathname === "/" ? "#adb5bd" : "#000",
                     transition: "border-color ease-in-out 0.3s",
                     borderRadius: "0px",
@@ -129,14 +111,13 @@ const Header = () => {
                 >
                   <Text>Home</Text>
                 </Button>
-              </MenuItem>
-              <MenuItem>
                 <Button
+                  w="100%"
+                  justifyContent="start"
                   variant="transparent-with-icon"
                   leftIcon={<Icon as={AiOutlineShopping} />}
-                  _hover={{ color: "blue" }}
                   style={{
-                    color: location.pathname === "/shop" ? "blue" : "#000",
+                    color: location.pathname === "/shop" ? "#3182CE" : "#000",
                     fill: location.pathname === "/shop" ? "#adb5bd" : "#000",
                     transition: "border-color ease-in-out 0.3s",
                     borderRadius: "0px",
@@ -145,14 +126,13 @@ const Header = () => {
                 >
                   <Text>Shop</Text>
                 </Button>
-              </MenuItem>
-              <MenuItem>
                 <Button
+                  w="100%"
+                  justifyContent="start"
                   variant="transparent-with-icon"
                   leftIcon={<Icon as={BsCart} />}
-                  _hover={{ color: "blue" }}
                   style={{
-                    color: location.pathname === "/cart" ? "blue" : "#000",
+                    color: location.pathname === "/cart" ? "#3182CE" : "#000",
                     fill: location.pathname === "/cart" ? "#adb5bd" : "#000",
                     transition: "border-color ease-in-out 0.3s",
                     borderRadius: "0px",
@@ -166,9 +146,19 @@ const Header = () => {
                     </Badge>
                   </Flex>
                 </Button>
-              </MenuItem>
-            </MenuList>
-          </Menu>
+              </Flex>
+              <DrawerHeader>
+                {user
+                  ? user?.role === "admin"
+                    ? "Management"
+                    : "Settings"
+                  : ""}
+              </DrawerHeader>
+              <DrawerBody p={0}>
+                <SideBar />
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
         </Box>
 
         <Button
@@ -177,11 +167,10 @@ const Header = () => {
           variant="transparent-with-icon"
           leftIcon={<Icon as={AiOutlineHome} />}
           size="sm"
-          _hover={{ color: "blue" }}
           style={{
-            color: location.pathname === "/" ? "blue" : "#000",
+            color: location.pathname === "/" ? "#3182CE" : "#000",
             fill: location.pathname === "/" ? "#adb5bd" : "#000",
-            borderBottom: location.pathname === "/" && "2px solid blue",
+            borderBottom: location.pathname === "/" && "2px solid #3182CE",
             transition: "border-color ease-in-out 0.3s",
             borderRadius: "0px",
           }}
@@ -196,11 +185,10 @@ const Header = () => {
           variant="transparent-with-icon"
           size="sm"
           leftIcon={<Icon as={AiOutlineShopping} />}
-          _hover={{ color: "blue" }}
           style={{
-            color: location.pathname === "/shop" ? "blue" : "#000",
+            color: location.pathname === "/shop" ? "#3182CE" : "#000",
             fill: location.pathname === "/shop" ? "#adb5bd" : "#000",
-            borderBottom: location.pathname === "/shop" && "2px solid blue",
+            borderBottom: location.pathname === "/shop" && "2px solid #3182CE",
             transition: "border-color ease-in-out 0.3s",
             borderRadius: "0px",
           }}
@@ -215,11 +203,10 @@ const Header = () => {
           size="sm"
           variant="transparent-with-icon"
           leftIcon={<Icon as={BsCart} />}
-          _hover={{ color: "blue" }}
           style={{
-            color: location.pathname === "/cart" ? "blue" : "#000",
+            color: location.pathname === "/cart" ? "#3182CE" : "#000",
             fill: location.pathname === "/cart" ? "#adb5bd" : "#000",
-            borderBottom: location.pathname === "/cart" && "2px solid blue",
+            borderBottom: location.pathname === "/cart" && "2px solid #3182CE",
             transition: "border-color ease-in-out 0.3s",
             borderRadius: "0px",
           }}
@@ -286,18 +273,17 @@ const Header = () => {
             </Menu>
           </Flex>
         ) : (
-          <Flex>
+          <Flex ml={2}>
             <Button
               height="100%"
               variant="transparent-with-icon"
               leftIcon={<Icon as={AiOutlineUserAdd} />}
               size="sm"
-              _hover={{ color: "blue" }}
               style={{
-                color: location.pathname === "/register" ? "blue" : "#000",
+                color: location.pathname === "/register" ? "#3182CE" : "#000",
                 fill: location.pathname === "/register" ? "#adb5bd" : "#000",
                 borderBottom:
-                  location.pathname === "/register" && "2px solid blue",
+                  location.pathname === "/register" && "2px solid #3182CE",
                 transition: "border-color ease-in-out 0.3s",
                 borderRadius: "0px",
               }}
@@ -306,15 +292,15 @@ const Header = () => {
               <Text>Register</Text>
             </Button>
             <Button
-              _hover={{ color: "blue" }}
+              height="100%"
               variant="transparent-with-icon"
               leftIcon={<Icon as={AiOutlineUser} />}
               size="sm"
               style={{
-                color: location.pathname === "/login" ? "blue" : "#000",
+                color: location.pathname === "/login" ? "#3182CE" : "#000",
                 fill: location.pathname === "/login" ? "#adb5bd" : "#000",
                 borderBottom:
-                  location.pathname === "/login" && "2px solid blue",
+                  location.pathname === "/login" && "2px solid #3182CE",
                 transition: "border-color ease-in-out 0.3s",
                 borderRadius: "0px",
               }}

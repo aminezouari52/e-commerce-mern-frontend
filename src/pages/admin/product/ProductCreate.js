@@ -103,7 +103,7 @@ const ProductCreate = () => {
 
   return (
     <Box overflowY="hidden">
-      <Heading color="blue" mt={5}>
+      <Heading size="lg" color="#3182ce" my={5}>
         Create a product
       </Heading>
       <Card my={2}>

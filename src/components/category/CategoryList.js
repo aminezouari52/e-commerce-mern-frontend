@@ -1,27 +1,27 @@
-import { useState, useEffect } from "react"
-import { getCategories } from "../../functions/category"
-import { Box, Button, Heading, Flex } from "@chakra-ui/react"
-import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { getCategories } from "../../functions/category";
+import { Box, Button, Heading, Flex } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const CategoryList = () => {
-  const [categories, setCategories] = useState([])
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     getCategories().then((c) => {
-      setCategories(c.data)
-      setLoading(false)
-    })
-  }, [])
+      setCategories(c.data);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <Box my={2}>
       <Heading
         fontSize="3xl"
         backgroundColor="gray.200"
-        color="#007BFF"
+        color="#3182ce"
         my={4}
         py={6}
         textAlign="center"
@@ -45,7 +45,7 @@ const CategoryList = () => {
         ))}
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default CategoryList
+export default CategoryList;

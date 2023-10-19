@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react"
-import { getCategory } from "../../functions/category"
-import ProductCard from "../../components/cards/ProductCard"
-import { useParams } from "react-router-dom"
-import { Center, Spinner, Heading, Box, Flex } from "@chakra-ui/react"
+import React, { useState, useEffect } from "react";
+import { getCategory } from "../../functions/category";
+import ProductCard from "../../components/cards/ProductCard";
+import { useParams } from "react-router-dom";
+import { Center, Spinner, Heading, Box, Flex } from "@chakra-ui/react";
 
 const CategoryHome = () => {
-  const [category, setCategory] = useState({})
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
-  const params = useParams()
+  const [category, setCategory] = useState({});
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const params = useParams();
 
-  const { slug } = params
+  const { slug } = params;
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     getCategory(slug).then((c) => {
-      setCategory(c.data.category)
-      setProducts(c.data.products)
-      setLoading(false)
-    })
-  }, [])
+      setCategory(c.data.category);
+      setProducts(c.data.products);
+      setLoading(false);
+    });
+  }, []);
 
   return (
     <>
@@ -32,7 +32,7 @@ const CategoryHome = () => {
           bottom="0"
           bg="rgba(0, 0, 0, 0.2)"
         >
-          <Spinner size="xl" color="blue" />
+          <Spinner size="xl" color="#3182CE" />
         </Center>
       )}
       <Box>
@@ -54,7 +54,7 @@ const CategoryHome = () => {
         </Flex>
       </Box>
     </>
-  )
-}
+  );
+};
 
-export default CategoryHome
+export default CategoryHome;

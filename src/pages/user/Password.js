@@ -53,7 +53,7 @@ const Password = () => {
       <Flex flexDirection="column" alignItems="center" mt={8}>
         <Card>
           <CardBody>
-            <Heading color="blue" mb={4}>
+            <Heading size="lg" color="#3182ce" my={5}>
               Update Password
             </Heading>
             <Flex

@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getUserCart,
   emptyUserCart,
   saveUserAddress,
+  saveUserPhoneNumber,
   createOrder,
 } from "../functions/user";
 import {
@@ -24,6 +25,9 @@ import {
   useDisclosure,
   ModalContent,
   ModalHeader,
+  Card,
+  CardBody,
+  Input,
 } from "@chakra-ui/react";
 import { setCart } from "../reducers/cartReducer";
 import ReactQuill from "react-quill";
@@ -33,6 +37,7 @@ import { useNavigate } from "react-router-dom";
 const Checkout = () => {
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const phoneNumberRef = useRef();
 
   const toast = useToast();
   const [products, setProducts] = useState([]);
@@ -68,19 +73,31 @@ const Checkout = () => {
     });
   };
 
-  const saveAddressToDb = () => {
-    // console.log(address);
-    saveUserAddress(user.token, address).then((res) => {
-      if (res.data.ok) {
+  const saveUserInformationToDb = async () => {
+    try {
+      const addressRes = await saveUserAddress(user.token, address);
+      const phoneRes = await saveUserPhoneNumber(
+        user.token,
+        phoneNumberRef.current.value
+      );
+      if (addressRes.data.ok && phoneRes.data.ok) {
         setAddressSaved(true);
         toast({
-          title: "Address saved.",
+          title: "Address and phone number saved!",
           status: "success",
           duration: 3000,
           isClosable: true,
         });
       }
-    });
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: "Something went wrong!",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   const placeOrder = async () => {
@@ -100,34 +117,76 @@ const Checkout = () => {
   return (
     <>
       <Flex
-        direction={{ lg: "row", md: "row", sm: "row", base: "column" }}
-        p={4}
-        justifyContent="space-around"
+        p={0}
+        direction={{ lg: "row", md: "row", sm: "column", base: "column" }}
+        h={{
+          lg: "calc(100vh - 40px)",
+          md: "calc(100vh - 40px)",
+          sm: "100%",
+          base: "100%",
+        }}
       >
-        <Box>
-          <Heading size="md">Delivery Address</Heading>
-          <Box
-            w={{ lg: "80%", md: "70%", sm: "70%", base: "100%" }}
-            my={2}
-            py={2}
-          >
-            <ReactQuill theme="snow" value={address} onChange={setAddress} />
+        <Box w="100%" overflowX="hidden" bg="#e9ecef" h="100%">
+          <Box px={5} h="100%">
+            <Box overflowY="hidden">
+              <Heading size="lg" color="#3182ce" my={5}>
+                Place order
+              </Heading>
+              <Card mb={4}>
+                <CardBody>
+                  <Flex direction="column">
+                    <Flex
+                      direction={{
+                        lg: "row",
+                        md: "row",
+                        sm: "column",
+                        base: "column",
+                      }}
+                      justifyContent="space-between"
+                    >
+                      <Box
+                        w={{ lg: "70%", md: "50%", sm: "100%", base: "100%" }}
+                      >
+                        <Heading size="sm" mb={2}>
+                          Delivery Address
+                        </Heading>
+                        <Box>
+                          <ReactQuill
+                            theme="snow"
+                            value={address}
+                            onChange={setAddress}
+                          />
+                        </Box>
+                      </Box>
+                      <Box>
+                        <Heading size="sm" mb={2}>
+                          Phone number
+                        </Heading>
+                        <Input ref={phoneNumberRef} type="text" />
+                      </Box>
+                    </Flex>
+                    <Flex justifyContent="flex-end">
+                      <Button
+                        size="sm"
+                        variant="solid"
+                        colorScheme="blue"
+                        onClick={saveUserInformationToDb}
+                        mt={4}
+                      >
+                        Save
+                      </Button>
+                    </Flex>
+                  </Flex>
+                </CardBody>
+              </Card>
+            </Box>
           </Box>
-          <Button
-            size="sm"
-            variant="solid"
-            colorScheme="blue"
-            onClick={saveAddressToDb}
-          >
-            Save
-          </Button>
         </Box>
 
         <Stack
-          w={{ lg: "30%", md: "30%", sm: "30%", base: "100%" }}
-          spacing="4"
-          mt={{ lg: 0, md: 0, sm: 0, base: 4 }}
-          ml={{ lg: 4, md: 4, sm: 4, base: 0 }}
+          spacing={5}
+          w={{ lg: "300px", md: "300px", sm: "100%", base: "100%" }}
+          p={4}
         >
           <Heading size="md">Order Summary</Heading>
           <Divider colorScheme="black" size="lg" />
@@ -148,10 +207,7 @@ const Checkout = () => {
           </Text>
           <Divider size="lg" />
 
-          <Flex
-            direction={{ lg: "row", md: "row", sm: "column", base: "row" }}
-            justifyContent="space-around"
-          >
+          <Flex justifyContent="space-around">
             <Button
               size="sm"
               mt={2}
@@ -175,6 +231,7 @@ const Checkout = () => {
           </Flex>
         </Stack>
       </Flex>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

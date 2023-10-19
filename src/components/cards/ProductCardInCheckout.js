@@ -5,8 +5,10 @@ import {
   useToast,
   Input,
   Button,
+  Text,
   Icon,
   Flex,
+  Box,
 } from "@chakra-ui/react";
 import { CloseIcon, CheckCircleIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import laptop from "../../images/laptop.jpg";
@@ -80,14 +82,17 @@ const ProductCardInCheckout = ({ p }) => {
           maxWidth="180px"
         />
       </Td>
-      <Td wordBreak="break-all">{p.title}</Td>
+      <Td style={{ whiteSpace: "normal", wordWrap: "break-word" }}>
+        {p.title}
+      </Td>
       <Td>${p.price}</Td>
       <Td>{p.brand}</Td>
       <Td>{p.color}</Td>
-      <Td>
+      <Td maxWidth="100px">
         <Input
           type="number"
           minWidth="70px"
+          maxWidth="100px"
           value={p.count}
           onChange={handleQuantityChange}
         />

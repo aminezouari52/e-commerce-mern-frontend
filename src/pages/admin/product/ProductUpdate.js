@@ -143,7 +143,7 @@ const ProductUpdate = () => {
 
   return (
     <Box overflowY="hidden">
-      <Heading color="blue" mt={5}>
+      <Heading size="lg" color="#3182ce" my={5}>
         Update a product
       </Heading>
       <Card my={2}>

@@ -1,10 +1,10 @@
-import { Box, Flex, Button } from '@chakra-ui/react'
+import { Box, Flex, Button } from "@chakra-ui/react";
 
 const Pagination = ({ productsPerPage, totalProducts, paginate }) => {
-  const pageNumbers = []
+  const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
-    pageNumbers.push(i)
+    pageNumbers.push(i);
   }
 
   return (
@@ -14,16 +14,17 @@ const Pagination = ({ productsPerPage, totalProducts, paginate }) => {
           <Button
             key={number}
             onClick={() => paginate(number)}
-            colorScheme="yellow"
+            variant="outline"
             size="sm"
             mx={2}
+            colorScheme="blue"
           >
             {number}
           </Button>
         ))}
       </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default Pagination
+export default Pagination;

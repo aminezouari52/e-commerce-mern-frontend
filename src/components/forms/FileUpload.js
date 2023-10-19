@@ -103,12 +103,12 @@ const FileUpload = ({ values, setValues, setLoading, loading }) => {
 
       <FormControl>
         {loading ? (
-          <Spinner color="blue" />
+          <Spinner color="#3182CE" />
         ) : (
           <FormLabel
             w="140px"
             bg="gray.200"
-            color="blue"
+            color="#3182CE"
             fontWeight="bold"
             cursor="pointer"
             borderRadius="4px"

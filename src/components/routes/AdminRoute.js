@@ -35,7 +35,7 @@ const AdminRoute = () => {
     <Flex h="calc(100vh - 40px)">
       <Box
         w="200px"
-        // display={{ lg: "block", md: "block", sm: "block", base: "none" }}
+        display={{ lg: "block", md: "block", sm: "block", base: "none" }}
       >
         <SideBar />
       </Box>

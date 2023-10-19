@@ -1,3 +1,5 @@
+/* $blue: "#3182CE" */
+
 .slider .slider-img {
   height: 450px;
   /* object-fit: cover; */
@@ -14,3 +16,4 @@
 #range-slider {
   z-index: 0;
 }
+

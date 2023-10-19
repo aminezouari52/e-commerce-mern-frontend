@@ -80,15 +80,25 @@ const Shop = () => {
 
   // 1. load products by default on page load
   useEffect(() => {
+    setLoading(true);
     loadAllProducts();
     getCategories().then((res) => setCategories(res.data));
     getSubs().then((res) => setSubs(res.data));
   }, []);
 
+  const fetchProducts = (arg) => {
+    fetchProductsByFilter(arg).then((res) => {
+      setProducts(res.data);
+    });
+  };
+
+  // 1. load products by default on page load
   const loadAllProducts = () => {
     getProductsByCount(12).then((p) => {
-      setProducts(p.data);
-      setLoading(false);
+      setTimeout(() => {
+        setProducts(p.data);
+        setLoading(false);
+      }, 10);
     });
   };
 
@@ -103,12 +113,6 @@ const Shop = () => {
       return () => clearTimeout(delayed);
     }
   }, [text]);
-
-  const fetchProducts = (arg) => {
-    fetchProductsByFilter(arg).then((res) => {
-      setProducts(res.data);
-    });
-  };
 
   // 3. load products based on price range
   useEffect(() => {
@@ -230,192 +234,202 @@ const Shop = () => {
           bottom="0"
           bg="rgba(0, 0, 0, 0.2)"
         >
-          <Spinner size="xl" color="blue" />
+          <Spinner size="xl" color="#3182CE" />
         </Center>
       )}
-      <Flex direction={{ lg: "row", md: "row", sm: "column", base: "column" }}>
-        <Accordion
-          defaultIndex={[0]}
-          allowMultiple
-          maxWidth={{ lg: "50%", md: "50%", sm: "50%", base: "100%" }}
-          minWidth={{ lg: "30%", md: "30%", sm: "30%", base: "100%" }}
-        >
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Flex flex="1" textAlign="left" alignItems="center">
-                  <Icon as={AiOutlineDollarCircle} mr={2} />
-                  <Text>Price</Text>
-                </Flex>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <Tooltip
-                label={`$${price[0]} - $${price[1]}`}
-                placement="top"
-                isOpen={tooltip}
-              >
-                <div />
-              </Tooltip>
-              <RangeSlider
-                value={price}
-                onInput={handleSlider}
-                onThumbDragStart={() => setTooltip(true)}
-                onThumbDragEnd={() => setTooltip(false)}
-                max={4999}
-                id="range-slider"
-              />
-            </AccordionPanel>
-          </AccordionItem>
-
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Flex flex="1" textAlign="left" alignItems="center">
-                  <Icon as={GrCheckboxSelected} mr={2} />
-                  <Text>Category</Text>
-                </Flex>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <CheckboxGroup value={!categoryIds.length && []}>
-                <Stack spacing={[1, 5]} direction="column">
-                  {categories.map((c) => (
-                    <Checkbox
-                      key={c._id}
-                      onChange={handleCheck}
-                      value={c._id}
-                      name="category"
-                      isChecked={categoryIds.includes(c._id)}
+      <Flex
+        direction={{ lg: "row", md: "row", sm: "column", base: "column" }}
+        h="calc(100vh - 40px)"
+      >
+        <Box w={{ lg: "250px", md: "250px", sm: "100%", base: "100%" }}>
+          <Accordion
+            defaultIndex={[0]}
+            allowMultiple
+            w={{ lg: "250px", md: "250px", sm: "100%", base: "100%" }}
+          >
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Flex flex="1" textAlign="left" alignItems="center">
+                    <Icon as={AiOutlineDollarCircle} mr={2} />
+                    <Text>Price</Text>
+                  </Flex>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <Tooltip
+                  label={`$${price[0]} - $${price[1]}`}
+                  placement="top"
+                  isOpen={tooltip}
+                >
+                  <div />
+                </Tooltip>
+                <RangeSlider
+                  value={price}
+                  onInput={handleSlider}
+                  onThumbDragStart={() => setTooltip(true)}
+                  onThumbDragEnd={() => setTooltip(false)}
+                  max={4999}
+                  id="range-slider"
+                />
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Flex flex="1" textAlign="left" alignItems="center">
+                    <Icon as={GrCheckboxSelected} mr={2} />
+                    <Text>Category</Text>
+                  </Flex>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <CheckboxGroup value={!categoryIds.length && []}>
+                  <Stack spacing={[1, 5]} direction="column">
+                    {categories.map((c) => (
+                      <Checkbox
+                        key={c._id}
+                        onChange={handleCheck}
+                        value={c._id}
+                        name="category"
+                        isChecked={categoryIds.includes(c._id)}
+                      >
+                        {c.name}
+                      </Checkbox>
+                    ))}
+                  </Stack>
+                </CheckboxGroup>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Flex flex="1" textAlign="left" alignItems="center">
+                    <Icon as={AiOutlineTag} mr={2} />
+                    <Text>Sub Categories</Text>
+                  </Flex>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <Flex w="100%" wrap="wrap" alignItems="flex-start">
+                  {subs.map((sub) => (
+                    <Badge
+                      key={sub._id}
+                      cursor="pointer"
+                      colorScheme="purple"
+                      onClick={() => handleSub(sub)}
+                      m={2}
                     >
-                      {c.name}
-                    </Checkbox>
+                      {sub.name}
+                    </Badge>
                   ))}
-                </Stack>
-              </CheckboxGroup>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Flex flex="1" textAlign="left" alignItems="center">
-                  <Icon as={AiOutlineTag} mr={2} />
-                  <Text>Sub Categories</Text>
                 </Flex>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <Stack direction="row">
-                {subs.map((sub) => (
-                  <Badge
-                    key={sub._id}
-                    cursor="pointer"
-                    colorScheme="purple"
-                    onClick={() => handleSub(sub)}
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Flex flex="1" textAlign="left" alignItems="center">
+                    <Icon as={BiShapeCircle} mr={2} />
+                    <Text>Brand</Text>
+                  </Flex>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <RadioGroup onChange={setBrand} value={brand}>
+                  <Stack>
+                    {brands.map((b) => (
+                      <Radio
+                        key={b}
+                        value={b}
+                        isChecked={b === brand}
+                        onChange={handleBrand}
+                      >
+                        {b}
+                      </Radio>
+                    ))}
+                  </Stack>
+                </RadioGroup>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Flex flex="1" textAlign="left" alignItems="center">
+                    <Icon as={AiOutlineBgColors} mr={2} />
+                    <Text>Color</Text>
+                  </Flex>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <RadioGroup onChange={setColor} value={color}>
+                  <Stack>
+                    {colors.map((c) => (
+                      <Radio
+                        key={c}
+                        value={c}
+                        isChecked={c === color}
+                        onChange={handleColor}
+                      >
+                        {c}
+                      </Radio>
+                    ))}
+                  </Stack>
+                </RadioGroup>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <h2>
+                <AccordionButton>
+                  <Flex flex="1" textAlign="left" alignItems="center">
+                    <Icon as={MdOutlineLocalShipping} mr={2} />
+                    <Text>Shipping</Text>
+                  </Flex>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <Stack spacing={5} direction="row">
+                  <Checkbox
+                    onChange={handleShippingchange}
+                    value="Yes"
+                    isChecked={shipping === "Yes"}
                   >
-                    {sub.name}
-                  </Badge>
+                    Yes
+                  </Checkbox>
+                  <Checkbox
+                    onChange={handleShippingchange}
+                    value="No"
+                    isChecked={shipping === "No"}
+                  >
+                    No
+                  </Checkbox>
+                </Stack>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        </Box>
+        <Box w="100%" overflowX="hidden" bg="#e9ecef" h="100%">
+          <Box px={5} h="100%">
+            <Box overflowY="hidden">
+              <Heading size="lg" color="#3182ce" my={5}>
+                Products
+              </Heading>
+              {products?.length < 1 && (
+                <Text textAlign="center">No products found</Text>
+              )}
+              <Flex wrap="wrap" justifyContent="space-around">
+                {products?.map((p) => (
+                  <ProductCard key={p._id} product={p} />
                 ))}
-              </Stack>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Flex flex="1" textAlign="left" alignItems="center">
-                  <Icon as={BiShapeCircle} mr={2} />
-                  <Text>Brand</Text>
-                </Flex>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <RadioGroup onChange={setBrand} value={brand}>
-                <Stack>
-                  {brands.map((b) => (
-                    <Radio
-                      key={b}
-                      value={b}
-                      isChecked={b === brand}
-                      onChange={handleBrand}
-                    >
-                      {b}
-                    </Radio>
-                  ))}
-                </Stack>
-              </RadioGroup>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Flex flex="1" textAlign="left" alignItems="center">
-                  <Icon as={AiOutlineBgColors} mr={2} />
-                  <Text>Color</Text>
-                </Flex>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <RadioGroup onChange={setColor} value={color}>
-                <Stack>
-                  {colors.map((c) => (
-                    <Radio
-                      key={c}
-                      value={c}
-                      isChecked={c === color}
-                      onChange={handleColor}
-                    >
-                      {c}
-                    </Radio>
-                  ))}
-                </Stack>
-              </RadioGroup>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <h2>
-              <AccordionButton>
-                <Flex flex="1" textAlign="left" alignItems="center">
-                  <Icon as={MdOutlineLocalShipping} mr={2} />
-                  <Text>Shipping</Text>
-                </Flex>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <Stack spacing={5} direction="row">
-                <Checkbox
-                  onChange={handleShippingchange}
-                  value="Yes"
-                  isChecked={shipping === "Yes"}
-                >
-                  Yes
-                </Checkbox>
-                <Checkbox
-                  onChange={handleShippingchange}
-                  value="No"
-                  isChecked={shipping === "No"}
-                >
-                  No
-                </Checkbox>
-              </Stack>
-            </AccordionPanel>
-          </AccordionItem>
-        </Accordion>
-        <Box px={4}>
-          <Heading color="red.700">Products</Heading>
-          {products.length < 1 && (
-            <Text textAlign="center">No products found</Text>
-          )}
-          <Flex wrap="wrap" justifyContent="space-between">
-            {products.map((p) => (
-              <ProductCard key={p._id} product={p} />
-            ))}
-          </Flex>
+              </Flex>
+            </Box>
+          </Box>
         </Box>
       </Flex>
     </>

@@ -37,7 +37,7 @@ const History = () => {
 
   return (
     <Box overflowY="hidden">
-      <Heading mb={6} color="blue" mt={5}>
+      <Heading size="lg" color="#3182ce" my={5}>
         {orders.length > 0 ? "User purchase orders" : "No purchase orders"}
       </Heading>
       {orders.map((order, i) => (
@@ -74,8 +74,8 @@ const History = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {order?.products?.map((p) => (
-                    <Tr>
+                  {order?.products?.map((p, i) => (
+                    <Tr key={i}>
                       <Td wordBreak="break-all">
                         <strong>{p.product.title}</strong>
                       </Td>

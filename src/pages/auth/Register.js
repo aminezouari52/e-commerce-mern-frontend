@@ -108,7 +108,7 @@ const Register = () => {
         <Card>
           <CardBody>
             <Flex direction="column" alignItems="center" px={8}>
-              <Heading mb={6} color="blue">
+              <Heading mb={6} color="#3182CE">
                 Create an Account
               </Heading>
               <Flex
@@ -146,7 +146,7 @@ const Register = () => {
                   <Link
                     as={NavLink}
                     to="/login"
-                    color="blue"
+                    color="#3182CE"
                     fontWeight="semibold"
                     _hover={{ textDecoration: "underline" }}
                   >
