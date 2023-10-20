@@ -80,13 +80,13 @@ const AllProducts = () => {
         </Center>
       )}
 
-      <Box>
+      <Box overflowY="hidden">
         <Heading size="lg" color="#3182ce" my={5}>
           All products
         </Heading>
-        {products.length > 0 ? (
-          <Flex wrap="wrap" justifyContent="space-evenly">
-            {products.map((product) => {
+        <Flex wrap="wrap" justifyContent="space-evenly">
+          {products.length > 0 ? (
+            products.map((product) => {
               return (
                 <AdminProductCard
                   product={product}
@@ -97,13 +97,13 @@ const AllProducts = () => {
                   onClose={onClose}
                 />
               );
-            })}
-          </Flex>
-        ) : (
-          <Text fontSize="xl" my={5} h="calc(100vh - 40px)">
-            No products found
-          </Text>
-        )}
+            })
+          ) : (
+            <Text fontSize="xl" my={5} h="calc(100vh - 40px)">
+              No products found
+            </Text>
+          )}
+        </Flex>
       </Box>
     </>
   );

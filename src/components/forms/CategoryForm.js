@@ -8,22 +8,20 @@ const CategoryForm = ({ handleSubmit, name, setName, loading, label }) => {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Name"
-        w="30%"
         mb={2}
       />
-
-      <Button
-        type="submit"
-        width="60px"
-        height="40px"
-        isDisabled={!name}
-        isLoading={loading}
-        colorScheme="blue"
-        my={2}
-        size="sm"
-      >
-        Save
-      </Button>
+      <Flex justifyContent="flex-end">
+        <Button
+          type="submit"
+          isDisabled={!name}
+          isLoading={loading}
+          colorScheme="blue"
+          my={2}
+          size="sm"
+        >
+          Save
+        </Button>
+      </Flex>
     </Flex>
   );
 };

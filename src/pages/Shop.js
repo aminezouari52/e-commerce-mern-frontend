@@ -62,7 +62,7 @@ const Shop = () => {
     "Samsung",
     "Microsoft",
     "Lenovo",
-    "ASUS",
+    "Asus",
   ]);
   const [brand, setBrand] = useState("");
   const [colors, setColors] = useState([
@@ -241,7 +241,10 @@ const Shop = () => {
         direction={{ lg: "row", md: "row", sm: "column", base: "column" }}
         h="calc(100vh - 40px)"
       >
-        <Box w={{ lg: "250px", md: "250px", sm: "100%", base: "100%" }}>
+        <Box
+          h="100%"
+          w={{ lg: "250px", md: "250px", sm: "100%", base: "100%" }}
+        >
           <Accordion
             defaultIndex={[0]}
             allowMultiple

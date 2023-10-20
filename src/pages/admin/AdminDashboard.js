@@ -1,4 +1,4 @@
-import { Flex, Box, Heading, useToast } from "@chakra-ui/react";
+import { Box, Heading, useToast, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { getOrders, changeStatus } from "../../functions/admin";
 import { useSelector } from "react-redux";
@@ -35,7 +35,11 @@ const AdminDashboard = () => {
       <Heading size="lg" color="#3182ce" my={5}>
         Admin dashboard
       </Heading>
-      <Orders orders={orders} handleStatusChange={handleStatusChange} />
+      {orders?.length ? (
+        <Orders orders={orders} handleStatusChange={handleStatusChange} />
+      ) : (
+        <Text>No orders yet</Text>
+      )}
     </Box>
   );
 };

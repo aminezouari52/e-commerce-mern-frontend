@@ -38,7 +38,7 @@ const History = () => {
   return (
     <Box overflowY="hidden">
       <Heading size="lg" color="#3182ce" my={5}>
-        {orders.length > 0 ? "User purchase orders" : "No purchase orders"}
+        {orders.length > 0 ? "Your orders" : "No purchase orders"}
       </Heading>
       {orders.map((order, i) => (
         <Card mb={2} key={i}>
