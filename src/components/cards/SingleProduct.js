@@ -90,7 +90,8 @@ const SingleProduct = ({ product, star, onStarClick }) => {
             size={{ lg: "xl", md: "xl", base: "lg" }}
             py={4}
             px={2}
-            background="blue"
+            background="#3182CE"
+            color="#fff"
           >
             {title}
           </Heading>
@@ -107,7 +108,7 @@ const SingleProduct = ({ product, star, onStarClick }) => {
           <ButtonGroup spacing="1" w="100%" justifyContent="end">
             <Button
               variant="ghost"
-              colorScheme="green"
+              colorScheme="blue"
               leftIcon={<Icon as={AiOutlineShoppingCart} />}
               onClick={handleAddToCart}
               isDisabled={product?.quantity < 1}

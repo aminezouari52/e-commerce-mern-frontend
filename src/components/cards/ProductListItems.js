@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom"
-import { Flex, Text, Stack, HStack, Button } from "@chakra-ui/react"
+import { useNavigate } from "react-router-dom";
+import { Flex, Text, Stack, HStack, Button } from "@chakra-ui/react";
 
 const ProductListItems = ({ product }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { price, category, subs, shipping, color, brand, quantity, sold } =
-    product
+    product;
 
   return (
     <Stack w="100%" spacing={4} py={4}>
@@ -21,7 +21,7 @@ const ProductListItems = ({ product }) => {
         {category && (
           <Button
             variant="link"
-            colorScheme="teal"
+            colorScheme="blue"
             onClick={() => navigate(`/category/${category.slug}`)}
           >
             {category.name}
@@ -38,7 +38,7 @@ const ProductListItems = ({ product }) => {
             {subs.map((s) => (
               <Button
                 variant="link"
-                colorScheme="teal"
+                colorScheme="blue"
                 key={s._id}
                 onClick={() => navigate(`/sub/${s.slug}`)}
               >
@@ -83,7 +83,7 @@ const ProductListItems = ({ product }) => {
         <Text fontWeight="medium">{sold}</Text>
       </Flex>
     </Stack>
-  )
-}
+  );
+};
 
-export default ProductListItems
+export default ProductListItems;
