@@ -3,11 +3,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import StarRating from "react-star-ratings";
 
-// REACT
-import { useNavigate } from "react-router-dom";
-
 // FUNCTIONS
 import { showAverage } from "../../functions/rating";
+import { addToWishlist } from "../../functions/user";
 
 // COMPONENTS
 import ProductListItems from "./ProductListItems";
@@ -16,11 +14,9 @@ import RatingModal from "../modal/RatingModal";
 // STYLE
 import {
   Box,
-  Card,
-  CardBody,
+  Flex,
   Stack,
   Heading,
-  CardFooter,
   ButtonGroup,
   Button,
   Icon,
@@ -37,12 +33,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../../reducers/cartReducer";
 
 const SingleProduct = ({ product, star, onStarClick }) => {
-  const navigate = useNavigate();
-  const { title, images, slug, _id } = product;
-  const cart = useSelector((state) => state.cart.cart);
+  const { title, images, _id } = product;
   const user = useSelector((state) => state.user.loggedInUser);
   const dispatch = useDispatch();
   const toast = useToast();
+
   const handleAddToCart = () => {
     // create cart array
     let cart = [];
@@ -63,7 +58,7 @@ const SingleProduct = ({ product, star, onStarClick }) => {
       localStorage.setItem("cart", JSON.stringify(unique));
       dispatch(setCart(unique));
       toast({
-        title: "Product added.",
+        title: "Product added to cart.",
         status: "info",
         duration: 2000,
         isClosable: true,
@@ -71,47 +66,77 @@ const SingleProduct = ({ product, star, onStarClick }) => {
     }
   };
 
+  const handleAddToWishlist = (e) => {
+    e.preventDefault();
+    addToWishlist(product?._id, user.token).then((res) => {
+      console.log("ADDED TO WISHLIST", res.data);
+      toast({
+        title: "Product added to wishlist.",
+        status: "info",
+        colorScheme: "green",
+        duration: 2000,
+        isClosable: true,
+      });
+    });
+  };
+
   return (
-    <Card direction={{ lg: "row", md: "row", base: "column" }} m={2}>
-      {images?.length ? (
-        <Carousel showArrows={true} autoPlay infiniteLoop>
-          {images?.map((image) => (
-            <Box key={image.public_id}>
-              <img src={image.url} alt="slider img" className="slider-img" />
-            </Box>
-          ))}
-        </Carousel>
-      ) : (
-        <img src={noImg} alt="no-img" className="no-img" />
-      )}
-      <Stack w={{ lg: "100%", base: "100%" }}>
-        <CardBody>
-          <Heading
-            size={{ lg: "xl", md: "xl", base: "lg" }}
-            py={4}
-            px={2}
-            background="#3182CE"
-            color="#fff"
+    <Flex direction={{ lg: "row", md: "row", sm: "column", base: "column" }}>
+      <Flex
+        alignItems="center"
+        justifyContent="center"
+        w={{ lg: "50%", md: "50%", sm: "100%", base: "100%" }}
+        p={4}
+      >
+        {images?.length ? (
+          <Carousel showArrows={true} autoPlay infiniteLoop>
+            {images?.map((image) => (
+              <Box key={image.public_id}>
+                <img src={image.url} alt="slider img" className="slider-img" />
+              </Box>
+            ))}
+          </Carousel>
+        ) : (
+          <img src={noImg} alt="no-img" className="no-img" />
+        )}
+      </Flex>
+
+      <Stack w={{ lg: "50%", md: "50%", sm: "100%", base: "100%" }} bg="#fff">
+        <Heading size="md" py={4} px={2} background="#3182CE" color="#fff">
+          {title}
+        </Heading>
+        {product && product.ratings && product.ratings.length > 0 ? (
+          showAverage(product)
+        ) : (
+          <Text textAlign="center" fontWeight="bold" p="2">
+            No rating yet
+          </Text>
+        )}
+        <ProductListItems product={product} />
+        <Box p={4}>
+          <ButtonGroup
+            display="flex"
+            w="100%"
+            flexDirection={{ lg: "row", md: "row", sm: "row", base: "column" }}
+            isAttached={{ lg: "true", md: "true", sm: "true", base: "false" }}
           >
-            {title}
-          </Heading>
-          {product && product.ratings && product.ratings.length > 0 ? (
-            showAverage(product)
-          ) : (
-            <Text textAlign="center" fontWeight="bold" p="2">
-              No rating yet
-            </Text>
-          )}
-          <ProductListItems product={product} />
-        </CardBody>
-        <CardFooter>
-          <ButtonGroup spacing="1" w="100%" justifyContent="end">
+            <Button
+              variant="ghost"
+              colorScheme="green"
+              leftIcon={<Icon as={AiOutlineHeart} />}
+              onClick={handleAddToWishlist}
+              isDisabled={product?.quantity < 1}
+              w="100%"
+            >
+              Add to wishlist
+            </Button>
             <Button
               variant="ghost"
               colorScheme="blue"
               leftIcon={<Icon as={AiOutlineShoppingCart} />}
               onClick={handleAddToCart}
               isDisabled={product?.quantity < 1}
+              w="100%"
             >
               {product?.quantity < 1 ? "Out of stock" : "Add to cart"}
             </Button>
@@ -126,9 +151,9 @@ const SingleProduct = ({ product, star, onStarClick }) => {
               />
             </RatingModal>
           </ButtonGroup>
-        </CardFooter>
+        </Box>
       </Stack>
-    </Card>
+    </Flex>
   );
 };
 

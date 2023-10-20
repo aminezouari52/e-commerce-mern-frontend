@@ -25,16 +25,18 @@ const Orders = ({ orders, handleStatusChange }) => (
     {orders.map((order, i) => (
       <Card mb={4} key={i}>
         <CardBody>
-          <Stack direction="row" mb={4}>
-            <Badge colorScheme="red">id: {order._id}</Badge>
-            <Badge colorScheme="purple">
+          <Flex wrap="wrap" mb={4}>
+            <Badge m={2} colorScheme="red">
+              id: {order._id}
+            </Badge>
+            <Badge m={2} colorScheme="purple">
               Amount: {order.amount.toFixed(2)}dt
             </Badge>
-            <Badge colorScheme="green">
+            <Badge m={2} colorScheme="green">
               Created at:{" "}
               {moment(order.createdAt).format("MMMM Do, YYYY, HH:MM")}
             </Badge>
-          </Stack>
+          </Flex>
           <TableContainer
             key={order._id}
             my={2}

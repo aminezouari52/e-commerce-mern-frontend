@@ -7,7 +7,7 @@ const ProductListItems = ({ product }) => {
     product;
 
   return (
-    <Stack w="100%" spacing={4} py={4}>
+    <Stack w="100%" spacing={4} p={4}>
       <Flex justifyContent="space-between">
         <Text fontWeight="medium" color="gray">
           Price

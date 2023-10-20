@@ -85,7 +85,7 @@ const AllProducts = () => {
           All products
         </Heading>
         {products.length > 0 ? (
-          <Flex wrap="wrap" justifyContent="space-around">
+          <Flex wrap="wrap" justifyContent="space-evenly">
             {products.map((product) => {
               return (
                 <AdminProductCard
@@ -100,7 +100,7 @@ const AllProducts = () => {
             })}
           </Flex>
         ) : (
-          <Text fontSize="xl" my={5} h="calc(100vh - 49px)">
+          <Text fontSize="xl" my={5} h="calc(100vh - 40px)">
             No products found
           </Text>
         )}

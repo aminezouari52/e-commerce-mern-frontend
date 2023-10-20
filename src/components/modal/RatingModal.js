@@ -39,6 +39,7 @@ const RatingModal = ({ children, confirmStarUpdate }) => {
     toast({
       title: "Thanks for your review. It will apper soon",
       status: "success",
+      colorScheme: "red",
       duration: 3000,
       isClosable: true,
     });
@@ -51,6 +52,7 @@ const RatingModal = ({ children, confirmStarUpdate }) => {
         colorScheme="red"
         leftIcon={<Icon as={AiOutlineStar} />}
         onClick={onOpenHandler}
+        w="100%"
       >
         {user ? "Leave rating" : "Login to leave rating"}
       </Button>

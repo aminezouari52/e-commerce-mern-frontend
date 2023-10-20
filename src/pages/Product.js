@@ -51,15 +51,18 @@ const Product = () => {
     });
 
   const onStarClick = async (newRating, productId) => {
-    setStar(newRating);
-    await productStar(productId, newRating, user.token);
-    loadSingleProduct();
+    console.log(user);
+    if (user) {
+      setStar(newRating);
+      await productStar(productId, newRating, user.token);
+      loadSingleProduct();
+    }
   };
 
   return (
     <Box w="100%">
       <SingleProduct product={product} onStarClick={onStarClick} star={star} />
-      <Tabs variant="enclosed" colorScheme="white" ml={2}>
+      <Tabs variant="enclosed" bg="#fff" mt={2} pt={2}>
         <TabList>
           <Tab fontWeight="medium">Description</Tab>
           <Tab fontWeight="medium">More</Tab>
@@ -79,7 +82,7 @@ const Product = () => {
         <Heading textAlign="center" size="lg" my={4}>
           Related Products
         </Heading>
-        <Flex py={2} flexWrap="wrap">
+        <Flex py={2} flexWrap="wrap" justifyContent="space-around">
           {related?.length ? (
             related?.map((r) => (
               <Box key={r._id} my={2}>

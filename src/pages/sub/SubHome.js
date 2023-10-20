@@ -35,24 +35,34 @@ const SubHome = () => {
           <Spinner size="xl" color="blue" />
         </Center>
       )}
-      <Box>
-        <Heading
-          fontSize="3xl"
-          backgroundColor="gray.200"
-          my={4}
-          py={6}
-          textAlign="center"
-          fontWeight="bold"
-        >
-          {products.length} Products in "{sub.name}" sub category
-        </Heading>
-
-        <Flex flexWrap="wrap" justifyContent="space-evenly">
-          {products.map((p) => (
-            <ProductCard key={p._id} product={p} />
-          ))}
-        </Flex>
-      </Box>
+      <Flex
+        p={0}
+        direction={{ lg: "row", md: "row", sm: "column", base: "column" }}
+        h="calc(100vh - 40px)"
+      >
+        <Box w="100%" overflowX="hidden" h="100%">
+          <Box>
+            <Heading
+              fontSize="3xl"
+              backgroundColor="gray.200"
+              my={4}
+              py={6}
+              textAlign="center"
+              fontWeight="bold"
+              color="#3182CE"
+            >
+              {products.length} Products in "{sub.name}" sub category
+            </Heading>
+            <Flex h="100%" py={2} flexWrap="wrap" justifyContent="space-around">
+              {products.map((p) => (
+                <Box key={p._id} my={2}>
+                  <ProductCard product={p} />
+                </Box>
+              ))}
+            </Flex>
+          </Box>
+        </Box>
+      </Flex>
     </>
   );
 };

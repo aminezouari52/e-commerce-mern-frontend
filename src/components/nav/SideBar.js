@@ -6,11 +6,12 @@ import { useSelector } from "react-redux";
 import { Box, Button, Icon, Stack } from "@chakra-ui/react";
 
 // ICONS
-import { AiFillLock } from "react-icons/ai";
-import { BsClockHistory } from "react-icons/bs";
+import { AiFillLock, AiOutlineHeart } from "react-icons/ai";
+import { BsClockHistory, BsMouse2 } from "react-icons/bs";
 import { BiCube } from "react-icons/bi";
-import { FaListUl, FaCubes } from "react-icons/fa";
-import { MdSubject, MdOutlineSpaceDashboard } from "react-icons/md";
+import { FaCubes } from "react-icons/fa";
+import { MdOutlineSpaceDashboard } from "react-icons/md";
+import { HiDesktopComputer } from "react-icons/hi";
 
 const SideBar = () => {
   const location = useLocation();
@@ -36,13 +37,28 @@ const SideBar = () => {
           },
           {
             title: "Category",
-            icon: <Icon as={FaListUl} mr={2} />,
+            icon: <Icon as={HiDesktopComputer} mr={2} />,
             link: "/admin/category",
           },
           {
             title: "Sub category",
-            icon: <Icon as={MdSubject} mr={2} />,
+            icon: <Icon as={BsMouse2} mr={2} />,
             link: "/admin/sub",
+          },
+          {
+            title: "History",
+            icon: <Icon as={BsClockHistory} mr={2} />,
+            link: "/user/history",
+          },
+          {
+            title: "Wishlist",
+            icon: <Icon as={AiOutlineHeart} mr={2} />,
+            link: "/user/wishlist",
+          },
+          {
+            title: "Password",
+            icon: <Icon as={AiFillLock} mr={2} />,
+            link: "/user/password",
           },
         ]
       : [
@@ -50,6 +66,11 @@ const SideBar = () => {
             title: "History",
             icon: <Icon as={BsClockHistory} mr={2} />,
             link: "/user/history",
+          },
+          {
+            title: "Wishlist",
+            icon: <Icon as={AiOutlineHeart} mr={2} />,
+            link: "/user/wishlist",
           },
           {
             title: "Password",

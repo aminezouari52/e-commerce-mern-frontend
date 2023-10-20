@@ -15,7 +15,6 @@ import Search from "../forms/Search";
 
 // STYLE
 import {
-  Stack,
   Box,
   Flex,
   Text,
@@ -94,8 +93,7 @@ const Header = () => {
           <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
             <DrawerOverlay />
             <DrawerContent style={{ width: "200px" }}>
-              <DrawerCloseButton />
-              <Flex direction="column" alignItems="start" p={4}>
+              <Flex direction="column" alignItems="start" py={2} px={4}>
                 <Button
                   w="100%"
                   justifyContent="start"
@@ -147,7 +145,7 @@ const Header = () => {
                   </Flex>
                 </Button>
               </Flex>
-              <DrawerHeader>
+              <DrawerHeader py={2}>
                 {user
                   ? user?.role === "admin"
                     ? "Management"

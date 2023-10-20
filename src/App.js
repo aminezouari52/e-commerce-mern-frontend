@@ -15,16 +15,20 @@ import { currentUser } from "./functions/auth";
 
 // COMPONENTS
 import Header from "./components/nav/Header";
+import AdminRoute from "./components/routes/AdminRoute";
+import UserRoute from "./components/routes/UserRoute";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
-import Register from "./pages/auth/Register";
-import Login from "./pages/auth/Login";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import UserRoute from "./components/routes/UserRoute";
+import Checkout from "./pages/Checkout";
+import Product from "./pages/Product";
+import SubHome from "./pages/sub/SubHome";
+import CategoryHome from "./pages/category/CategoryHome";
 import History from "./pages/user/History";
 import Password from "./pages/user/Password";
-import AdminRoute from "./components/routes/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CategoryCreate from "./pages/admin/category/CategoryCreate";
 import CategoryUpdate from "./pages/admin/category/CategoryUpdate";
@@ -33,10 +37,7 @@ import SubUpdate from "./pages/admin/sub/SubUpdate";
 import ProductCreate from "./pages/admin/product/ProductCreate";
 import AllProducts from "./pages/admin/product/AllProducts";
 import ProductUpdate from "./pages/admin/product/ProductUpdate";
-import Product from "./pages/Product";
-import CategoryHome from "./pages/category/CategoryHome";
-import SubHome from "./pages/sub/SubHome";
-import Checkout from "./pages/Checkout";
+import Wishlist from "./pages/user/Wishlist";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -81,6 +82,7 @@ const App = () => {
         <Route exact path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/user/*" element={<UserRoute />}>
           <Route path="history" element={<History />} />
+          <Route path="wishlist" element={<Wishlist />} />
           <Route path="password" element={<Password />} />
         </Route>
         <Route path="/admin/*" element={<AdminRoute />}>

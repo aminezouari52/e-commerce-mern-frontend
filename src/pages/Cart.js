@@ -32,12 +32,14 @@ const Cart = () => {
   };
 
   const saveOrderToDb = () => {
-    userCart(cart, user.token)
-      .then((res) => {
-        console.log("CART POST RES", res);
-        if (res.data.ok) navigate("/checkout");
-      })
-      .catch((err) => console.log("cart save err", err));
+    if (user.token) {
+      userCart(cart, user.token)
+        .then((res) => {
+          console.log("CART POST RES", res);
+          if (res.data.ok) navigate("/checkout");
+        })
+        .catch((err) => console.log("cart save err", err));
+    }
   };
 
   const loginToCheckout = () => {
@@ -57,15 +59,18 @@ const Cart = () => {
     >
       <Box w="100%" overflowX="hidden" bg="#e9ecef" h="100%">
         <Box px={5} h="100%">
-          <Box overflowY="hidden">
+          <Box overflowY="hidden" height="100%">
             <Heading size="lg" color="#3182ce" my={5}>
               Cart / {cart.length} Product
             </Heading>
 
             {!cart.length ? (
-              <Text>
-                No products in cart. <Link to="/shop">Continue Shopping.</Link>
-              </Text>
+              <Box height="calc(38vh)">
+                <Text mb={2}>
+                  No products in cart.{" "}
+                  <Link to="/shop">Continue Shopping.</Link>
+                </Text>
+              </Box>
             ) : (
               <TableContainer
                 border="1px"

@@ -10,11 +10,11 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
-import { CloseIcon, CheckCircleIcon, SmallCloseIcon } from "@chakra-ui/icons";
+import { CheckCircleIcon } from "@chakra-ui/icons";
 import laptop from "../../images/laptop.jpg";
 import { useDispatch } from "react-redux";
 import { setCart } from "../../reducers/cartReducer";
-import { AiFillCloseCircle } from "react-icons/ai";
+import { AiFillCloseCircle, AiFillDelete } from "react-icons/ai";
 
 const ProductCardInCheckout = ({ p }) => {
   const dispatch = useDispatch();
@@ -113,7 +113,14 @@ const ProductCardInCheckout = ({ p }) => {
       </Td>
       <Td>
         <Flex justifyContent="center" alignItems="center">
-          <CloseIcon cursor="pointer" color="red" onClick={handleRemove} />
+          <Button
+            size="xs"
+            variant="ghost"
+            colorScheme="red"
+            onClick={handleRemove}
+          >
+            <Icon as={AiFillDelete} h="20px" w="20px" />
+          </Button>
         </Flex>
       </Td>
     </Tr>

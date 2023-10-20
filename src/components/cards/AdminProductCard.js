@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 // STYLE
 import {
+  Flex,
   Card,
   Image,
   Stack,
@@ -13,7 +14,6 @@ import {
   Divider,
   CardFooter,
   Button,
-  Flex,
   Icon,
   AlertDialogOverlay,
   AlertDialog,
@@ -21,6 +21,7 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import laptop from "../../images/laptop.jpg";
 
@@ -41,75 +42,88 @@ const AdminProductCard = ({
   const cancelRef = useRef();
 
   return (
-    <Card w="300px" mb={4}>
-      <CardBody>
-        <Image
-          src={images && images.length ? images[0].url : laptop}
-          alt="product image"
-          borderRadius="lg"
-          h="240px"
-          w="100%"
-          position=""
-        />
-        <Stack mt="6" spacing="3">
-          <Heading size="md">{title}</Heading>
-          <Text>
-            {description.length > 20
-              ? `${description.substring(0, 20)}...`
-              : description}
-          </Text>
-        </Stack>
-      </CardBody>
-      <Divider />
-      <CardFooter p={4}>
-        <Flex justifyContent="space-around" w="100%">
-          <Button
-            variant="ghost"
-            colorScheme="yellow"
-            size="lg"
-            onClick={() => {
-              navigate(`/admin/product/${slug}`);
-            }}
-          >
-            <Icon as={AiFillEdit} h="30px" w="30px" />
-          </Button>
-          <Divider orientation="vertical" />
-          <Button variant="ghost" colorScheme="red" size="lg" onClick={onOpen}>
-            <Icon as={AiFillDelete} h="30px" w="30px" />
-          </Button>
-          <AlertDialog
-            isOpen={isOpen}
-            leastDestructiveRef={cancelRef}
-            onClose={onClose}
-          >
-            <AlertDialogOverlay bgColor="rgba(0, 0, 0, 0.2)">
-              <AlertDialogContent>
-                <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                  Delete Product
-                </AlertDialogHeader>
+    <>
+      <Card minWidth="200px" w="20%" m={1}>
+        <CardBody>
+          <Flex justifyContent="center">
+            <Image
+              src={images && images.length ? images[0].url : laptop}
+              alt="product image"
+              borderRadius="md"
+              h="100px"
+            />
+          </Flex>
 
-                <AlertDialogBody>
-                  Are you sure? You can't undo this action afterwards.
-                </AlertDialogBody>
+          <Stack mt={2} spacing={2}>
+            <Text fontSize="sm" fontWeight="bold">
+              {title}
+            </Text>
+            <Text fontSize="sm">
+              {description.length > 20
+                ? `${description.substring(0, 20)}...`
+                : description}
+            </Text>
+          </Stack>
+        </CardBody>
+        <Divider />
 
-                <AlertDialogFooter>
-                  <Button ref={cancelRef} onClick={onClose}>
-                    Cancel
-                  </Button>
-                  <Button
-                    colorScheme="red"
-                    onClick={() => handleRemove(slug)}
-                    ml={3}
-                  >
-                    Delete
-                  </Button>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialogOverlay>
-          </AlertDialog>
-        </Flex>
-      </CardFooter>
-    </Card>
+        <CardFooter border="0px">
+          <ButtonGroup display="flex" w="100%" isAttached>
+            <Button
+              size="xs"
+              variant="ghost"
+              colorScheme="yellow"
+              onClick={() => {
+                navigate(`/admin/product/${slug}`);
+              }}
+              w="100%"
+            >
+              <Icon as={AiFillEdit} h="20px" w="20px" />
+            </Button>
+
+            <Button
+              size="xs"
+              variant="ghost"
+              colorScheme="red"
+              onClick={onOpen}
+              w="100%"
+            >
+              <Icon as={AiFillDelete} h="20px" w="20px" />
+            </Button>
+          </ButtonGroup>
+        </CardFooter>
+      </Card>
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+      >
+        <AlertDialogOverlay bgColor="rgba(0, 0, 0, 0.2)">
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Delete Product
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Are you sure? You can't undo this action afterwards.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button
+                colorScheme="red"
+                onClick={() => handleRemove(slug)}
+                ml={3}
+              >
+                Delete
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    </>
   );
 };
 

@@ -43,6 +43,7 @@ const CategoryHome = () => {
           py={6}
           textAlign="center"
           fontWeight="bold"
+          color="#3182CE"
         >
           {products.length} Products in "{category.name}" category
         </Heading>

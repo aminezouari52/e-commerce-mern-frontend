@@ -1,9 +1,12 @@
 // REACT
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
-// REDUX
-import { useSelector } from "react-redux";
+import { useToast } from "@chakra-ui/react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../reducers/userReducer";
 
 // FUNCTIONS
 import { currentAdmin } from "../../functions/auth";
@@ -18,6 +21,9 @@ import { Box, Flex } from "@chakra-ui/react";
 const AdminRoute = () => {
   const user = useSelector((state) => state.user.loggedInUser);
   const [ok, setOk] = useState(false);
+  // const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  // const toast = useToast();
 
   useEffect(() => {
     if (user && user.token) {
@@ -30,6 +36,23 @@ const AdminRoute = () => {
         });
     }
   }, [user]);
+
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, async (user) => {
+  //     if (!user) {
+  //       await signOut(auth);
+  //       dispatch(logout(null));
+  //       navigate("/login");
+  //       toast({
+  //         title: "Session expired! login again.",
+  //         status: "error",
+  //         duration: 3000,
+  //         isClosable: true,
+  //       });
+  //     }
+  //   });
+  //   return () => unsubscribe();
+  // }, []);
 
   return ok ? (
     <Flex h="calc(100vh - 40px)">

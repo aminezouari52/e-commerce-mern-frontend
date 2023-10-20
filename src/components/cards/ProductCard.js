@@ -11,6 +11,7 @@ import {
   CardFooter,
   ButtonGroup,
   Button,
+  Box,
   useToast,
 } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/react";
@@ -84,30 +85,30 @@ const ProductCard = ({ product }) => {
         </Stack>
       </CardBody>
       <Divider />
-      <CardFooter>
-        <Flex justifyContent="flex-end">
-          <ButtonGroup spacing="1">
-            <Button
-              size="sm"
-              variant="ghost"
-              colorScheme="blue"
-              leftIcon={<Icon as={AiOutlineEye} />}
-              onClick={() => navigate(`/product/${slug}`)}
-            >
-              View Product
-            </Button>
-            <Button
-              size="sm"
-              variant="solid"
-              colorScheme="blue"
-              isDisabled={product?.quantity < 1}
-              leftIcon={<Icon as={BsCartFill} />}
-              onClick={handleAddToCart}
-            >
-              {product?.quantity < 1 ? "Out of stock" : "Add to cart"}
-            </Button>
-          </ButtonGroup>
-        </Flex>
+      <CardFooter border="0px">
+        <ButtonGroup display="flex" w="100%" isAttached>
+          <Button
+            size="sm"
+            variant="ghost"
+            colorScheme="blue"
+            leftIcon={<Icon as={AiOutlineEye} />}
+            onClick={() => navigate(`/product/${slug}`)}
+            w="100%"
+          >
+            View Product
+          </Button>
+          <Button
+            w="100%"
+            size="sm"
+            variant="solid"
+            colorScheme="blue"
+            isDisabled={product?.quantity < 1}
+            leftIcon={<Icon as={BsCartFill} />}
+            onClick={handleAddToCart}
+          >
+            {product?.quantity < 1 ? "Out of stock" : "Add to cart"}
+          </Button>
+        </ButtonGroup>
       </CardFooter>
     </Card>
   );

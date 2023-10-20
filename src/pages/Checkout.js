@@ -1,5 +1,8 @@
+// HOOKS
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import {
   getUserCart,
   emptyUserCart,
@@ -28,11 +31,11 @@ import {
   Card,
   CardBody,
   Input,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import { setCart } from "../reducers/cartReducer";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -51,11 +54,13 @@ const Checkout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getUserCart(user.token).then((res) => {
-      setProducts(res.data.products);
-      setTotal(res.data.cartTotal);
-    });
-  }, []);
+    if (user) {
+      getUserCart(user?.token).then((res) => {
+        setProducts(res.data.products);
+        setTotal(res.data.cartTotal);
+      });
+    }
+  }, [user]);
 
   const emptyCart = async () => {
     if (typeof window !== "undefined") {
@@ -75,6 +80,15 @@ const Checkout = () => {
 
   const saveUserInformationToDb = async () => {
     try {
+      if (address === "" || phoneNumberRef.current.value === "") {
+        toast({
+          title: "Invalid address or phone number!",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
+        return;
+      }
       const addressRes = await saveUserAddress(user.token, address);
       const phoneRes = await saveUserPhoneNumber(
         user.token,
@@ -162,7 +176,7 @@ const Checkout = () => {
                         <Heading size="sm" mb={2}>
                           Phone number
                         </Heading>
-                        <Input ref={phoneNumberRef} type="text" />
+                        <Input size="sm" ref={phoneNumberRef} type="text" />
                       </Box>
                     </Flex>
                     <Flex justifyContent="flex-end">
@@ -207,14 +221,15 @@ const Checkout = () => {
           </Text>
           <Divider size="lg" />
 
-          <Flex justifyContent="space-around">
+          <ButtonGroup display="flex" w="100%" isAttached>
             <Button
               size="sm"
               mt={2}
-              variant="outline"
+              variant="ghost"
               colorScheme="blue"
               onClick={emptyCart}
               disabled={!products?.length}
+              w="100%"
             >
               Empty Cart
             </Button>
@@ -225,10 +240,11 @@ const Checkout = () => {
               colorScheme="blue"
               isDisabled={!addressSaved || !products.length}
               onClick={() => onOpen()}
+              w="100%"
             >
               Place Order
             </Button>
-          </Flex>
+          </ButtonGroup>
         </Stack>
       </Flex>
 

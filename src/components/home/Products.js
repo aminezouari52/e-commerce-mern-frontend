@@ -1,15 +1,21 @@
 // REACT
-import React from 'react'
-import { useDisclosure } from '@chakra-ui/react'
+import React from "react";
+import { useDisclosure } from "@chakra-ui/react";
 
 // COMPONENTS
-import ProductCard from '../cards/ProductCard'
+import ProductCard from "../cards/ProductCard";
 
 // STYLE
-import { Flex, Box, Text, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import {
+  Flex,
+  Box,
+  Text,
+  SkeletonCircle,
+  SkeletonText,
+} from "@chakra-ui/react";
 
 const Products = ({ products, loading }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
@@ -46,12 +52,12 @@ const Products = ({ products, loading }) => {
           ))}
         </Flex>
       ) : (
-        <Text fontSize="xl" my={5} h="calc(100vh - 49px)">
+        <Text fontSize="xl" my={5} h="calc(100vh - 40px)">
           No products found
         </Text>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
