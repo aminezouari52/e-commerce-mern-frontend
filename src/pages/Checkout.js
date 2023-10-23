@@ -265,7 +265,7 @@ const Checkout = () => {
 
                 <Button
                   variant="link"
-                  colorScheme="blue"
+                  colorScheme="teal"
                   onClick={() => navigate("/user/history")}
                 >
                   See it in your purchase history.

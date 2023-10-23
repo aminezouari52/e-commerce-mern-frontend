@@ -53,7 +53,7 @@ const Wishlist = () => {
                 <Flex justifyContent="space-between">
                   <Button
                     variant="link"
-                    colorScheme="blue"
+                    colorScheme="teal"
                     onClick={() => navigate(`/product/${p.slug}`)}
                   >
                     {p.title}

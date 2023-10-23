@@ -71,7 +71,7 @@ const Cart = () => {
                   <Button
                     onClick={() => navigate("/shop")}
                     colorScheme="blue"
-                    variant="link"
+                    variant="teal"
                   >
                     Continue Shopping.
                   </Button>

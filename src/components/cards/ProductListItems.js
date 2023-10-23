@@ -21,7 +21,7 @@ const ProductListItems = ({ product }) => {
         {category && (
           <Button
             variant="link"
-            colorScheme="blue"
+            colorScheme="teal"
             onClick={() => navigate(`/category/${category.slug}`)}
           >
             {category.name}
@@ -38,7 +38,7 @@ const ProductListItems = ({ product }) => {
             {subs.map((s) => (
               <Button
                 variant="link"
-                colorScheme="blue"
+                colorScheme="teal"
                 key={s._id}
                 onClick={() => navigate(`/sub/${s.slug}`)}
               >
