@@ -87,12 +87,10 @@ const Orders = ({ orders, handleStatusChange }) => (
               Delivery Status:
             </Text>
             <Select
-              placeholder="Select option"
               onChange={(e) => handleStatusChange(order?._id, e.target.value)}
               defaultValue={order.orderStatus}
               name="status"
               mx={2}
-              //   maxWidth="80%"
             >
               <option value="Not Processed">Not Processed</option>
               <option value="Processing">Processing</option>

@@ -103,40 +103,51 @@ const Register = () => {
   };
 
   return (
-    <Flex justifyContent="center" alignItems="center" w="100%" h="90vh">
-      <Flex direction="column" alignItems="center" w="40%">
+    <Flex
+      justifyContent="center"
+      alignItems="center"
+      h="calc(100vh - 40px)"
+      mx={4}
+    >
+      <Flex direction="column" alignItems="center">
         <Card>
           <CardBody>
             <Flex direction="column" alignItems="center" px={8}>
-              <Heading mb={6} color="#3182CE">
+              <Heading
+                mb={6}
+                color="#3182CE"
+                size={{ lg: "lg", md: "lg", sm: "md", base: "sm" }}
+              >
                 Create an Account
               </Heading>
-              <Flex
-                as="form"
-                onSubmit={handleSubmit}
-                direction="column"
-                w="100%"
-                maxW="350px"
-                minWidth="250px"
-              >
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="email"
-                  autoFocus
-                  mb={2}
-                />
+              <Flex as="form" direction="column" onSubmit={handleSubmit}>
+                <Flex direction="column" alignItems="end" mb={2}>
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="email"
+                    autoFocus
+                    size={{ lg: "md", md: "md", sm: "sm", base: "sm" }}
+                    mt={2}
+                  />
 
-                <Input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                  mb={2}
-                />
+                  <Input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    my={2}
+                    size={{ lg: "md", md: "md", sm: "sm", base: "sm" }}
+                  />
+                </Flex>
 
-                <Button type="submit" colorScheme="blue">
+                <Button
+                  type="submit"
+                  colorScheme="blue"
+                  size={{ lg: "md", md: "md", sm: "sm", base: "xs" }}
+                  my={2}
+                >
                   Register
                 </Button>
                 <Flex my={2}>

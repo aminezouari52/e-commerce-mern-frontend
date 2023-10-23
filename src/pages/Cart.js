@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Heading,
@@ -61,14 +61,20 @@ const Cart = () => {
         <Box px={5} h="100%">
           <Box overflowY="hidden" height="100%">
             <Heading size="lg" color="#3182ce" my={5}>
-              Cart / {cart.length} Product
+              Cart / {cart.length} Product{cart?.length === 1 ? "" : "s"}
             </Heading>
 
             {!cart.length ? (
               <Box height="calc(38vh)">
                 <Text mb={2}>
                   No products in cart.{" "}
-                  <Link to="/shop">Continue Shopping.</Link>
+                  <Button
+                    onClick={() => navigate("/shop")}
+                    colorScheme="blue"
+                    variant="link"
+                  >
+                    Continue Shopping.
+                  </Button>
                 </Text>
               </Box>
             ) : (

@@ -11,6 +11,7 @@ import { AiFillDelete } from "react-icons/ai";
 
 // STYLE
 import {
+  Text,
   Box,
   Heading,
   Flex,
@@ -42,31 +43,37 @@ const Wishlist = () => {
   return (
     <Box overflowY="hidden">
       <Heading size="lg" color="#3182ce" my={5}>
-        {wishlist.length > 0 ? "Wishlist" : "Wish list is empty."}
+        Wishlist
       </Heading>
-      {wishlist.map((p, i) => (
-        <Card mb={2} key={i}>
-          <CardBody>
-            <Flex justifyContent="space-between">
-              <Button
-                variant="link"
-                colorScheme="teal"
-                onClick={() => navigate(`/product/${p.slug}`)}
-              >
-                {p.title}
-              </Button>
-              <Button
-                size="sm"
-                variant="solid"
-                colorScheme="red"
-                onClick={() => handleRemove(p._id)}
-              >
-                <Icon as={AiFillDelete} h="15px" w="15px" />
-              </Button>
-            </Flex>
-          </CardBody>
-        </Card>
-      ))}
+      {wishlist?.length ? (
+        <>
+          {wishlist.map((p, i) => (
+            <Card mb={2} key={i}>
+              <CardBody>
+                <Flex justifyContent="space-between">
+                  <Button
+                    variant="link"
+                    colorScheme="blue"
+                    onClick={() => navigate(`/product/${p.slug}`)}
+                  >
+                    {p.title}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="solid"
+                    colorScheme="red"
+                    onClick={() => handleRemove(p._id)}
+                  >
+                    <Icon as={AiFillDelete} h="15px" w="15px" />
+                  </Button>
+                </Flex>
+              </CardBody>
+            </Card>
+          ))}
+        </>
+      ) : (
+        <Text>Wish list is empty.</Text>
+      )}
     </Box>
   );
 };

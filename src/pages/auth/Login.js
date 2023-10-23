@@ -138,22 +138,24 @@ const Login = () => {
   };
 
   return (
-    <Flex justifyContent="center" alignItems="center" w="100%" h="90vh">
-      <Flex direction="column" alignItems="center" w="30%">
+    <Flex
+      justifyContent="center"
+      alignItems="center"
+      h="calc(100vh - 40px)"
+      mx={4}
+    >
+      <Flex direction="column" alignItems="center">
         <Card>
           <CardBody>
             <Flex direction="column" alignItems="center" px={8}>
-              <Heading mb={6} color="#3182CE">
+              <Heading
+                mb={6}
+                color="#3182CE"
+                size={{ lg: "lg", md: "lg", sm: "md", base: "sm" }}
+              >
                 Login Account
               </Heading>
-              <Flex
-                as="form"
-                direction="column"
-                w="100%"
-                maxW="350px"
-                minWidth="250px"
-                onSubmit={handleSubmit}
-              >
+              <Flex as="form" direction="column" onSubmit={handleSubmit}>
                 <Flex direction="column" alignItems="end" mb={2}>
                   <Input
                     type="email"
@@ -161,6 +163,8 @@ const Login = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email"
                     autoFocus
+                    size={{ lg: "md", md: "md", sm: "sm", base: "sm" }}
+                    mt={2}
                   />
 
                   <Input
@@ -169,6 +173,7 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Your password"
                     my={2}
+                    size={{ lg: "md", md: "md", sm: "sm", base: "sm" }}
                   />
                   <Link
                     as={NavLink}
@@ -176,6 +181,7 @@ const Login = () => {
                     color="#3182CE"
                     _hover={{ textDecoration: "underline" }}
                     fontSize="sm"
+                    my={2}
                   >
                     Forgot password?
                   </Link>
@@ -186,7 +192,8 @@ const Login = () => {
                   isDisabled={!email || password.length < 6}
                   isLoading={loading}
                   colorScheme="blue"
-                  mb={2}
+                  my={2}
+                  size={{ lg: "md", md: "md", sm: "sm", base: "xs" }}
                 >
                   Login with Email/Password
                 </Button>
@@ -194,11 +201,16 @@ const Login = () => {
                   onClick={googleLogin}
                   leftIcon={<FcGoogle />}
                   colorScheme="gray"
+                  size={{ lg: "md", md: "md", sm: "sm", base: "xs" }}
+                  my={2}
                 >
                   Login with Google
                 </Button>
 
-                <Flex my={2}>
+                <Flex
+                  my={2}
+                  fontSize={{ lg: "lg", md: "md", sm: "sm", base: "sm" }}
+                >
                   <Text color="gray" mr={1}>
                     Dont have an account?
                   </Text>

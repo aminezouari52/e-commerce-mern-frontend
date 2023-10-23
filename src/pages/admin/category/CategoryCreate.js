@@ -43,6 +43,7 @@ const CategoryCreate = () => {
 
   const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
+  const [categorieSlug, setCategorySlug] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -90,10 +91,10 @@ const CategoryCreate = () => {
       });
     }
   };
-  const handleRemove = async (slug) => {
+  const handleRemove = async () => {
     setLoading(true);
     try {
-      const res = await removeCategory(slug, user.token);
+      const res = await removeCategory(categorieSlug, user.token);
       setLoading(false);
       toast({
         title: `"${res.data.name}" deleted`,
@@ -153,10 +154,16 @@ const CategoryCreate = () => {
                   >
                     <Icon as={AiFillEdit} />
                   </Button>
-                  <Button size="sm" colorScheme="red" onClick={() => onOpen()}>
+                  <Button
+                    size="sm"
+                    colorScheme="red"
+                    onClick={() => {
+                      setCategorySlug(c.slug);
+                      onOpen();
+                    }}
+                  >
                     <Icon as={AiFillDelete} />
                   </Button>
-                  {/* DELETE DIALOG */}
                   <AlertDialog
                     isOpen={isOpen}
                     leastDestructiveRef={cancelRef}
@@ -178,7 +185,7 @@ const CategoryCreate = () => {
                           </Button>
                           <Button
                             colorScheme="red"
-                            onClick={() => handleRemove(c.slug)}
+                            onClick={handleRemove}
                             ml={3}
                           >
                             Delete

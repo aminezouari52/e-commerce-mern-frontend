@@ -45,6 +45,7 @@ const SubCreate = () => {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
   const [subs, setSubs] = useState([]);
+  const [subCategorySlug, setSubCategorySlug] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -88,10 +89,10 @@ const SubCreate = () => {
       });
     }
   };
-  const handleRemove = async (slug) => {
+  const handleRemove = async () => {
     setLoading(true);
     try {
-      const res = await removeSub(slug, user.token);
+      const res = await removeSub(subCategorySlug, user.token);
       setLoading(false);
       toast({
         title: `"${res.data.name}" deleted`,
@@ -174,7 +175,14 @@ const SubCreate = () => {
                   >
                     <Icon as={AiFillEdit} />
                   </Button>
-                  <Button size="sm" colorScheme="red" onClick={() => onOpen()}>
+                  <Button
+                    size="sm"
+                    colorScheme="red"
+                    onClick={() => {
+                      setSubCategorySlug(s.slug);
+                      onOpen();
+                    }}
+                  >
                     <Icon as={AiFillDelete} />
                   </Button>
                   <AlertDialog
@@ -198,7 +206,7 @@ const SubCreate = () => {
                           </Button>
                           <Button
                             colorScheme="red"
-                            onClick={() => handleRemove(s.slug)}
+                            onClick={() => handleRemove()}
                             ml={3}
                           >
                             Delete
