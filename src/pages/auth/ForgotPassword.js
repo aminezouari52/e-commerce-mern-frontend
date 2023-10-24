@@ -22,30 +22,25 @@ const ForgotPassword = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      // FIREBASE REQUEST
       const config = {
         url: process.env.REACT_APP_FORGOT_PASSWORD_REDIRECT,
         handleCodeInApp: true,
       };
-
       await sendPasswordResetEmail(auth, email, config);
-
-      // SETTING THE STATE
       setEmail("");
       setLoading(false);
-      // TOAST MESSAGE
       toast({
-        title: "heck your email for password reset link",
+        title: "Check your email for password reset link",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
-      // NAVIGATE TO HOME
       navigate("/");
-    } catch (error) {
+    } catch (err) {
+      console.log(err);
       setLoading(false);
       toast({
-        title: error.message,
+        title: "Failed to send password reset email",
         status: "error",
         duration: 3000,
         isClosable: true,

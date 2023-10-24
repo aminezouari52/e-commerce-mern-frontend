@@ -71,6 +71,7 @@ const Login = () => {
       }
     }
   };
+
   // SUBMIT FUNCTION
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,11 +95,17 @@ const Login = () => {
         roleBasedRedirect(res);
       } catch (err) {
         console.log(err);
+        toast({
+          title: "Failed to create or update user",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
       toast({
-        title: error.message,
+        title: "Failed to login user",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -113,7 +120,6 @@ const Login = () => {
       const result = await signInWithPopup(auth, googleAuthProvider);
       const { user } = result;
       const idTokenResult = await user.getIdTokenResult();
-
       // create user in database
       const res = await createOrUpdateUser(idTokenResult.token);
       dispatch(
@@ -129,7 +135,7 @@ const Login = () => {
     } catch (err) {
       console.log(err);
       toast({
-        title: err.message,
+        title: "Failed to create or update user",
         status: "error",
         duration: 3000,
         isClosable: true,

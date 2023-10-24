@@ -40,7 +40,6 @@ const Register = () => {
     if (!email || !password) {
       toast({
         title: "Email and password is required",
-        // description: "We've created your account for you.",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -85,16 +84,14 @@ const Register = () => {
       navigate("/");
       toast({
         title: "Account created successfully!",
-        // description: "We've created your account for you.",
         status: "success",
         duration: 3000,
         isClosable: true,
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
       toast({
-        title: error.message,
-        // description: "We've created your account for you.",
+        title: "Failed to create or update user",
         status: "error",
         duration: 3000,
         isClosable: true,

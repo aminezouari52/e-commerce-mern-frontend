@@ -38,9 +38,10 @@ const Password = () => {
         isClosable: true,
       });
     } catch (err) {
+      console.log(err);
       setLoading(false);
       toast({
-        title: err.message,
+        title: "Failed to update password",
         status: "error",
         duration: 3000,
         isClosable: true,

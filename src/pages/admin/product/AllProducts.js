@@ -56,7 +56,7 @@ const AllProducts = () => {
       console.log(err);
       setLoading(false);
       toast({
-        title: err.message,
+        title: "Failed to delete product",
         status: "error",
         duration: 3000,
         isClosable: true,

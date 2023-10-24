@@ -67,9 +67,8 @@ const ProductUpdate = () => {
     } catch (err) {
       console.log(err);
       setLoading(false);
-
       toast({
-        title: err.response.data.err,
+        title: "Failed to update product",
         status: "error",
         duration: 3000,
         isClosable: true,

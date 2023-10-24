@@ -44,9 +44,10 @@ const CategoryUpdate = () => {
       });
       navigate("/admin/category");
     } catch (err) {
+      console.log(err);
       setLoading(false);
       toast({
-        title: err.message,
+        title: "Failed to update category",
         status: "error",
         duration: 3000,
         isClosable: true,

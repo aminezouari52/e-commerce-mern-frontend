@@ -63,9 +63,9 @@ const Header = () => {
       dispatch(logout(null));
       navigate("/login");
     } catch (err) {
+      console.log(err);
       toast({
         title: "Logout failed!",
-        description: err.message,
         status: "error",
         duration: 3000,
         isClosable: true,

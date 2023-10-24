@@ -52,7 +52,7 @@ const ProductCreate = () => {
     } catch (err) {
       console.log(err);
       toast({
-        title: err.response.data.err,
+        title: "Failed to create product",
         status: "error",
         duration: 3000,
         isClosable: true,

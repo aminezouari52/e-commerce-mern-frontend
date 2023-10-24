@@ -82,9 +82,10 @@ const CategoryCreate = () => {
       });
       loadCategories();
     } catch (err) {
+      console.log(err);
       setLoading(false);
       toast({
-        title: err.message,
+        title: "Failed to create category",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -107,7 +108,7 @@ const CategoryCreate = () => {
       console.log(err);
       setLoading(false);
       toast({
-        title: err.message,
+        title: "Failed to remove category",
         status: "error",
         duration: 3000,
         isClosable: true,

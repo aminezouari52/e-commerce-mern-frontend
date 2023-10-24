@@ -80,9 +80,10 @@ const SubCreate = () => {
       });
       loadSubs();
     } catch (err) {
+      console.log(err);
       setLoading(false);
       toast({
-        title: err.message,
+        title: "Failed to create sub category",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -105,7 +106,7 @@ const SubCreate = () => {
       console.log(err);
       setLoading(false);
       toast({
-        title: err.message,
+        title: "Failed to delete sub category",
         status: "error",
         duration: 3000,
         isClosable: true,
