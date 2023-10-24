@@ -9,7 +9,7 @@ import { addToWishlist } from "../../functions/user";
 
 // COMPONENTS
 import ProductListItems from "./ProductListItems";
-import RatingModal from "../modal/RatingModal";
+import RatingModal from "../RatingModal";
 
 // STYLE
 import {

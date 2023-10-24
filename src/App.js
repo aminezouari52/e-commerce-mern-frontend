@@ -1,19 +1,17 @@
-// REACT
+// HOOKS
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 // FIREBASE
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
-// REDUX
-import { useDispatch } from "react-redux";
-import { setLoggedInUser } from "./reducers/userReducer";
-
 // FUNCTIONS
+import { setLoggedInUser } from "./reducers/userReducer";
 import { currentUser } from "./functions/auth";
 
 // COMPONENTS
+import { Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/nav/Header";
 import AdminRoute from "./components/routes/AdminRoute";
 import UserRoute from "./components/routes/UserRoute";
@@ -38,6 +36,7 @@ import ProductCreate from "./pages/admin/product/ProductCreate";
 import AllProducts from "./pages/admin/product/AllProducts";
 import ProductUpdate from "./pages/admin/product/ProductUpdate";
 import Wishlist from "./pages/user/Wishlist";
+import NotFound from "./components/NotFound";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -66,9 +65,6 @@ const App = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
-  // OPTIONAL
-  // TODO: handle not-found routes (example: /auth/login)
-
   return (
     <>
       <Header />
@@ -84,6 +80,7 @@ const App = () => {
           <Route path="history" element={<History />} />
           <Route path="wishlist" element={<Wishlist />} />
           <Route path="password" element={<Password />} />
+          <Route path="*" element={<Navigate to="/user/history" />} />
         </Route>
         <Route path="/admin/*" element={<AdminRoute />}>
           <Route path="dashboard" element={<AdminDashboard />} />
@@ -94,10 +91,14 @@ const App = () => {
           <Route path="product" element={<ProductCreate />} />
           <Route path="products" element={<AllProducts />} />
           <Route path="product/:slug" element={<ProductUpdate />} />
+          <Route path="*" element={<Navigate to="/admin/dashboard" />} />
         </Route>
         <Route exact path="/product/:slug" element={<Product />} />
         <Route exact path="/category/:slug" element={<CategoryHome />} />
         <Route exact path="/sub/:slug" element={<SubHome />} />
+        <Route path="*" element={<NotFound />} />
+
+        <Route path="/admin/*" element={<NotFound />} />
       </Routes>
     </>
   );

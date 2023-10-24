@@ -2,8 +2,8 @@
 import Jumbotron from "../components/cards/Jumbotron";
 import BestSellers from "../components/home/BestSellers";
 import NewArrivals from "../components/home/NewArrivals";
-import CategoryList from "../components/category/CategoryList";
-import SubList from "../components/sub/SubList";
+import CategoryList from "../components/CategoryList";
+import SubList from "../components/SubList";
 
 // STYLE
 import { Box } from "@chakra-ui/react";

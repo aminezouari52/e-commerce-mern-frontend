@@ -5,10 +5,8 @@ import {
   useToast,
   Input,
   Button,
-  Text,
   Icon,
   Flex,
-  Box,
 } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import laptop from "../../images/laptop.jpg";
@@ -41,8 +39,8 @@ const ProductCardInCheckout = ({ p }) => {
         cart = JSON.parse(localStorage.getItem("cart"));
       }
 
-      cart.map((product, i) => {
-        if (product._id == p._id) {
+      cart.forEach((product, i) => {
+        if (product._id === p._id) {
           cart[i].count = count;
         }
       });
@@ -61,7 +59,7 @@ const ProductCardInCheckout = ({ p }) => {
         cart = JSON.parse(localStorage.getItem("cart"));
       }
       // [1,2,3,4,5]
-      cart.map((product, i) => {
+      cart.forEach((product, i) => {
         if (product._id === p._id) {
           cart.splice(i, 1);
         }

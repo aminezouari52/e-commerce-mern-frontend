@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getSubs } from "../../functions/sub";
+import { getSubs } from "../functions/sub";
 import { Box, Button, Heading, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getCategories } from "../../functions/category";
+import { getCategories } from "../functions/category";
 import { Box, Button, Heading, Flex } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 

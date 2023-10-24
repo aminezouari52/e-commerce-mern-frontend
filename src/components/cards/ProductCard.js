@@ -11,7 +11,6 @@ import {
   CardFooter,
   ButtonGroup,
   Button,
-  Box,
   useToast,
 } from "@chakra-ui/react";
 import { Icon } from "@chakra-ui/react";

@@ -8,7 +8,6 @@ import {
   Card,
   Image,
   Stack,
-  Heading,
   Text,
   CardBody,
   Divider,
