@@ -20,7 +20,6 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
-  ButtonGroup,
 } from "@chakra-ui/react";
 import laptop from "../../images/laptop.jpg";
 
@@ -67,29 +66,27 @@ const AdminProductCard = ({
         <Divider />
 
         <CardFooter border="0px">
-          <ButtonGroup display="flex" w="100%" isAttached>
+          <Flex justifyContent="space-evenly" w="100%">
             <Button
-              size="xs"
-              variant="ghost"
+              size="sm"
+              variant="solid"
               colorScheme="yellow"
               onClick={() => {
                 navigate(`/admin/product/${slug}`);
               }}
-              w="100%"
             >
-              <Icon as={AiFillEdit} h="20px" w="20px" />
+              <Icon as={AiFillEdit} />
             </Button>
 
             <Button
-              size="xs"
-              variant="ghost"
+              size="sm"
+              variant="solid"
               colorScheme="red"
               onClick={onOpen}
-              w="100%"
             >
-              <Icon as={AiFillDelete} h="20px" w="20px" />
+              <Icon as={AiFillDelete} />
             </Button>
-          </ButtonGroup>
+          </Flex>
         </CardFooter>
       </Card>
       <AlertDialog

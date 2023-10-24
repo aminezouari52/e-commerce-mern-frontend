@@ -70,8 +70,8 @@ const Cart = () => {
                   No products in cart.{" "}
                   <Button
                     onClick={() => navigate("/shop")}
-                    colorScheme="blue"
-                    variant="teal"
+                    colorScheme="teal"
+                    variant="link"
                   >
                     Continue Shopping.
                   </Button>

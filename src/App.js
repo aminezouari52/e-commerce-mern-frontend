@@ -1,6 +1,8 @@
 // HOOKS
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 // FIREBASE
 import { auth } from "./firebase";
@@ -40,6 +42,8 @@ import NotFound from "./components/NotFound";
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const toast = useToast();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -58,6 +62,14 @@ const App = () => {
           );
         } catch (err) {
           console.log(err);
+          toast({
+            title: "Session expired, please login again.",
+            status: "warning",
+            colorScheme: "yellow",
+            duration: 3000,
+            isClosable: true,
+          });
+          navigate("/login");
         }
       }
     });

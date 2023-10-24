@@ -48,13 +48,13 @@ const History = () => {
               <CardBody>
                 <Stack direction="row">
                   <Badge colorScheme="purple">
-                    Amount: {order.amount.toFixed(2)}dt
+                    Amount: {order?.amount.toFixed(2)}dt
                   </Badge>
                   <Badge colorScheme="green">
                     Created at:{" "}
-                    {moment(order.createdAt).format("MMMM Do, YYYY, HH:MM")}
+                    {moment(order?.createdAt).format("MMMM Do, YYYY, HH:MM")}
                   </Badge>
-                  <Badge colorScheme="red">Status: {order.orderStatus}</Badge>
+                  <Badge colorScheme="red">Status: {order?.orderStatus}</Badge>
                 </Stack>
                 <TableContainer
                   key={i}
@@ -80,15 +80,15 @@ const History = () => {
                       {order?.products?.map((p, i) => (
                         <Tr key={i}>
                           <Td wordBreak="break-all">
-                            <strong>{p.product.title}</strong>
+                            <strong>{p?.product?.title}</strong>
                           </Td>
-                          <Td>${p.product.price}</Td>
-                          <Td>{p.product.brand}</Td>
-                          <Td>{p.color}</Td>
-                          <Td>{p.count}</Td>
+                          <Td>${p?.product?.price}</Td>
+                          <Td>{p?.product?.brand}</Td>
+                          <Td>{p?.color}</Td>
+                          <Td>{p?.count}</Td>
                           <Td>
                             <Flex alignItems="center">
-                              {p.product.shipping === "Yes" ? (
+                              {p?.product?.shipping === "Yes" ? (
                                 <CheckCircleIcon color="green" />
                               ) : (
                                 <Icon as={AiFillCloseCircle} color="red" />
