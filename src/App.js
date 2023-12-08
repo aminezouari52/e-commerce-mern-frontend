@@ -62,20 +62,28 @@ const App = () => {
           );
         } catch (err) {
           console.log(err);
-          toast({
-            title: "Session expired, please login again.",
-            status: "warning",
-            colorScheme: "red",
-            duration: 3000,
-            isClosable: true,
-          });
-          navigate("/login");
         }
       }
     });
     // cleanup
     return () => unsubscribe();
   }, [dispatch]);
+
+  // TODO: make sure this works
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        toast({
+          title: "Session expired.",
+          status: "warning",
+          colorScheme: "red",
+          duration: 3000,
+          isClosable: true,
+        });
+        navigate("/login");
+      }
+    });
+  }, []);
 
   return (
     <>
