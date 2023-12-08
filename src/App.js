@@ -65,7 +65,7 @@ const App = () => {
           toast({
             title: "Session expired, please login again.",
             status: "warning",
-            colorScheme: "yellow",
+            colorScheme: "red",
             duration: 3000,
             isClosable: true,
           });
